@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<h4 class="card-title">Role List</h4>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<a href="/setupaddrole" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Role</a>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="input-group no-border" style="padding-top: 10px;">
+					<input type="text" value="" class="form-control"
+						placeholder="Search...">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<i class="now-ui-icons ui-1_zoom-bold"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 ">
+				<input class="btn btn-round btn-primary" type="reset">
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+						<th>ID</th>
+						<th>Role Name</th>
+						<th colspan="2">Action</th>
+
+					</thead>
+					<tbody>
+						<tr>
+							<td>POS001</td>
+							<td>Admin</td>
+							<td><a href="./EMS-MSR-002.html"
+								class="btn btn-round btn-primary">Update</a>
+
+								<button type="button" class="btn btn-round btn-primary">Delete</button>
+							</td>
+						</tr>
+						<tr>
+							<td>POS002</td>
+							<td>Manager</td>
+							<td><a href="./EMS-MSR-002.html"
+								class="btn btn-round btn-primary">Update</a>
+
+								<button type="button" class="btn btn-round btn-primary">Delete</button>
+							</td>
+						</tr>
+						<tr>
+							<td>POS003</td>
+							<td>Staff</td>
+							<td><a href="./EMS-MSR-002.html"
+								class="btn btn-round btn-primary">Update</a>
+
+								<button type="button" class="btn btn-round btn-primary">Delete</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<nav aria-label="pagination">
+			<ul class="pagination pagination-md justify-content-center">
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">Previous</span>
+                      <span class="sr-only">Previous</span>
+                    </a> --> <a class="page-link" href="#" tabindex="-1">Previous</a>
+				</li>
+				<li class="page-item active"><a
+					style="border-color: orangered; background-color: orangered;"
+					class="page-link" href="#">1</a></li>
+
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">Next</span>
+                      <span class="sr-only">Next</span>
+                    </a> --> <a class="page-link" href="#" tabindex="+1">Next</a>
+
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+</body>
+</html>

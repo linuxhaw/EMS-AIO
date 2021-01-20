@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	th:href="@{/resources/img/apple-icon.png}">
+<link rel="icon" type="image/png"
+	th:href="@{/resources/img/allinone_logo.png}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>All 1n One Human Resource</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+	crossorigin="anonymous">
+<!-- CSS Files -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/sidebarbtn.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/now-ui-dashboard.css?v=1.5.0}"
+	rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/demo/demo.css}" rel="stylesheet" />
+<style>
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+</style>
+</head>
+
+<body>
+	<div class="wrapper" th:fragment="sidebar">
+		<div class="sidebar" data-color="orange">
+			<!--
+          Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+      -->
+			<div class="logo">
+				<a href="EMS-DSH-001.html" class="simple-text logo-mini "> <img
+					src="../assets/img/allinone_white.png ">
+				</a> <a href="EMS-DSH-001.html" class="simple-text logo-normal ">
+					All 1n One | EMS </a>
+			</div>
+			<div class="sidebar-wrapper" id="sidebar-wrapper">
+				<ul class="nav">
+					<li><a href="EMS-DSH-001.html"> <i
+							class="now-ui-icons design_app"></i>
+							<p>Dashboard</p>
+					</a></li>
+					<li><a href="#" data-toggle="collapse" data-target="#userMenu"
+						class="dropdown-toggle"> SetUp Menu <i
+							class="now-ui-icons education_atom"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="userMenu" >
+							<li><a href="EMS-MSR-003.html"><i
+									class="now-ui-icons business_badge"></i> Role</a></li>
+							<li><a href="EMS-MSD-003.html"><i
+									class="now-ui-icons travel_istanbul"></i> Department </a></li>
+							<li><a href="EMS-MSP-003.html"><i
+									class="now-ui-icons ui-1_settings-gear-63"></i> Position</a></li>
+							<li><a href="EMS-MSB-003.html"><i
+									class="now-ui-icons business_bank"></i> Bank</a></li>
+							<li><a href="EMS-MSQ-003.html"><i
+									class="now-ui-icons education_hat"></i> Qualification</a></li>
+							<li><a href="EMS-MSC-003.html"><i
+									class="now-ui-icons education_paper"></i> Certification</a></li>
+						</ul></li>
+					<li class="active"><a href="#homeSubmenu"
+						data-toggle="collapse" aria-expanded="false"
+						class="dropdown-toggle">Home</a>
+						<ul class="collapse list-unstyled" id="homeSubmenu">
+							<li><a href="#">Home 1</a></li>
+							<li><a href="#">Home 2</a></li>
+							<li><a href="#">Home 3</a></li>
+						</ul></li>
+
+					<li><a href="#" data-toggle="collapse"
+						data-target="#staffinfo"> Staff Information<i
+							class="now-ui-icons location_map-big"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="staffinfo">
+							<li><a href="EMS-STI-003.html"><i
+									class="now-ui-icons business_bank"></i>Staff Lists</a></li>
+							<li><a href="EMS-STI-001.html"><i
+									class="now-ui-icons users_circle-08"></i> Staff Registration </a></li>
+						</ul></li>
+
+
+
+					<li><a href="#" data-toggle="collapse" data-target="#staffmov">
+							Staff Movement<i class="now-ui-icons business_badge"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="staffmov">
+							<li><a href="EMS-STM-003.html"><i
+									class="now-ui-icons business_bank"></i>Movement History</a></li>
+							<li><a href="EMS-STM-002.html"><i
+									class="now-ui-icons users_circle-08"></i>Position Change </a></li>
+						</ul></li>
+
+					<li><a href="#" data-toggle="collapse" data-target="#payroll">
+							Payroll <i class="now-ui-icons business_money-coins"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="payroll">
+							<li><a href="EMS-PYR-001.html"><i
+									class="now-ui-icons business_bank"></i>Payroll Registration </a></li>
+							<li><a href="EMS-PYR-003.html"><i
+									class="now-ui-icons files_paper"></i>Payroll History</a></li>
+							<li><a href="EMS-PYL-003.html"><i
+									class="now-ui-icons files_paper"></i>Payroll Lists</a></li>
+						</ul></li>
+					<li><a href="#" data-toggle="collapse" data-target="#reports">
+							Reports<i class="now-ui-icons design_bullet-list-67"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="reports">
+							<li><a href="EMS-ARS-003.html"><i
+									class="now-ui-icons users_single-02"></i>Staff </a></li>
+							<li><a href="EMS-ARD-003.html"><i
+									class="now-ui-icons travel_istanbul"></i> Department </a></li>
+							<li><a href="EMS-ARP-003.html"><i
+									class="now-ui-icons ui-1_settings-gear-63"></i> Position</a></li>
+							<li><a href="EMS-ARB-003.html"><i
+									class="now-ui-icons business_badge"></i> Blacklists</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="../assets/js/core/jquery.min.js"></script>
+		<script src="../assets/js/core/popper.min.js"></script>
+		<script src="../assets/js/core/bootstrap.min.js"></script>
+		<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+		<!--  Google Maps Plugin    -->
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+		<!-- Chart JS -->
+		<script src="../assets/js/plugins/chartjs.min.js"></script>
+		<!--  Notifications Plugin    -->
+		<script src="../assets/js/plugins/bootstrap-notify.js"></script>
+		<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+		<script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0"
+			type="text/javascript"></script>
+		<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+		<script src="../assets/demo/demo.js">
+			/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+			var dropdown = document.getElementsByClassName("dropdown-btn");
+			var i;
+
+			for (i = 0; i < dropdown.length; i++) {
+				dropdown[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					var dropdownContent = this.nextElementSibling;
+					if (dropdownContent.style.display === "block") {
+						dropdownContent.style.display = "none";
+					} else {
+						dropdownContent.style.display = "block";
+					}
+				});
+			}
+		</script>
+</body>
+
+</html>

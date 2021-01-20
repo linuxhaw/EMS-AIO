@@ -17,7 +17,7 @@ public class LoginController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginPage(Model model) {
 		model.addAttribute("user", new UserBean());
-		return "EMS-LGN-001";
+		return "index";
 	}
 	
 	

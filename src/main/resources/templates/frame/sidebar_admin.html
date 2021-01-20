@@ -31,17 +31,17 @@
 <style>
 /* Style the sidenav links and the dropdown button */
 .sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #818181;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	outline: none;
 }
 </style>
 </head>
@@ -54,7 +54,7 @@
       -->
 			<div class="logo">
 				<a href="EMS-DSH-001.html" class="simple-text logo-mini "> <img
-					src="../assets/img/allinone_white.png ">
+					th:src="@{/resources/img/allinone_white.png} ">
 				</a> <a href="EMS-DSH-001.html" class="simple-text logo-normal ">
 					All 1n One | EMS </a>
 			</div>
@@ -68,7 +68,7 @@
 						class="dropdown-toggle"> SetUp Menu <i
 							class="now-ui-icons education_atom"></i>
 					</a>
-						<ul style="list-style: none;" class="collapse in" id="userMenu" >
+						<ul style="list-style: none;" class="collapse in" id="userMenu">
 							<li><a href="EMS-MSR-003.html"><i
 									class="now-ui-icons business_badge"></i> Role</a></li>
 							<li><a href="EMS-MSD-003.html"><i
@@ -82,17 +82,9 @@
 							<li><a href="EMS-MSC-003.html"><i
 									class="now-ui-icons education_paper"></i> Certification</a></li>
 						</ul></li>
-					<li class="active"><a href="#homeSubmenu"
-						data-toggle="collapse" aria-expanded="false"
-						class="dropdown-toggle">Home</a>
-						<ul class="collapse list-unstyled" id="homeSubmenu">
-							<li><a href="#">Home 1</a></li>
-							<li><a href="#">Home 2</a></li>
-							<li><a href="#">Home 3</a></li>
-						</ul></li>
-
+					
 					<li><a href="#" data-toggle="collapse"
-						data-target="#staffinfo"> Staff Information<i
+						data-target="#staffinfo" class="dropdown-toggle"> Staff Information<i
 							class="now-ui-icons location_map-big"></i>
 					</a>
 						<ul style="list-style: none;" class="collapse in" id="staffinfo">
@@ -104,7 +96,7 @@
 
 
 
-					<li><a href="#" data-toggle="collapse" data-target="#staffmov">
+					<li><a href="#" data-toggle="collapse" data-target="#staffmov" class="dropdown-toggle">
 							Staff Movement<i class="now-ui-icons business_badge"></i>
 					</a>
 						<ul style="list-style: none;" class="collapse in" id="staffmov">
@@ -114,7 +106,7 @@
 									class="now-ui-icons users_circle-08"></i>Position Change </a></li>
 						</ul></li>
 
-					<li><a href="#" data-toggle="collapse" data-target="#payroll">
+					<li><a href="#" data-toggle="collapse" data-target="#payroll" class="dropdown-toggle">
 							Payroll <i class="now-ui-icons business_money-coins"></i>
 					</a>
 						<ul style="list-style: none;" class="collapse in" id="payroll">
@@ -125,7 +117,7 @@
 							<li><a href="EMS-PYL-003.html"><i
 									class="now-ui-icons files_paper"></i>Payroll Lists</a></li>
 						</ul></li>
-					<li><a href="#" data-toggle="collapse" data-target="#reports">
+					<li><a href="#" data-toggle="collapse" data-target="#reports" class="dropdown-toggle">
 							Reports<i class="now-ui-icons design_bullet-list-67"></i>
 					</a>
 						<ul style="list-style: none;" class="collapse in" id="reports">
@@ -142,9 +134,9 @@
 			</div>
 		</div>
 
-		<script src="../assets/js/core/jquery.min.js"></script>
-		<script src="../assets/js/core/popper.min.js"></script>
-		<script src="../assets/js/core/bootstrap.min.js"></script>
+		<script th:src="@{/resources/js/core/jquery.min.js}"></script>
+		<script th:src="@{/resources/js/core/popper.min.js}"></script>
+		<script th:src="@{/resources/js/core/bootstrap.min.js}"></script>
 		<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 		<!--  Google Maps Plugin    -->
 		<script

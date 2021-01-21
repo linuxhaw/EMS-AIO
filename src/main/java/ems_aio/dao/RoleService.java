@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ems_aio.dto.Role;
+
+import ems_aio.dto.MROL001;
 
 //defining the business logic
 @Service
@@ -14,30 +15,21 @@ public class RoleService {
 	RoleRepository RoleRepository;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<Role> getAll() {
-		List<Role> list = (List<Role>) RoleRepository.findAll();
+	public List<MROL001> getAll() {
+		List<MROL001> list = (List<MROL001>) RoleRepository.findAll();
 		return list;
 	}
 	
-	public List<Role> getAllById(String id) {
-		List<Role> list = (List<Role>) RoleRepository.findAllByIdS(id);
-		return list;
-	}
-	
-	public List<Role> getAllByName(String name) {
-		List<Role> list = (List<Role>) RoleRepository.findAllByNameS(name);
-		return list;
-	}
-	
-	public List<Role> getAllByClass(String classe) {
-		List<Role> list = (List<Role>) RoleRepository.findAllByClassS(classe);
+	//zay
+	public MROL001 findLastID() {
+		MROL001 list = RoleRepository.findLastID();
 		return list;
 	}
 	
 
 //getting a specific record by using the method findById() of	CrudRepository
 
-	public Optional<Role> getStudentByCode(String code) {
+	public Optional<MROL001> getStudentByCode(String code) {
 
 		return RoleRepository.findById(code);
 
@@ -45,7 +37,7 @@ public class RoleService {
 	
 //saving a specific record by using the method save() of	CrudRepository
 
-	public void save(Role roles) {
+	public void save(MROL001 roles) {
 		RoleRepository.save(roles);
 	}
 
@@ -56,7 +48,7 @@ public class RoleService {
 	}
 
 //updating a record
-	public void update(Role books, String bookCode) {
+	public void update(MROL001 books, String Code) {
 		RoleRepository.save(books);
 	}
 }

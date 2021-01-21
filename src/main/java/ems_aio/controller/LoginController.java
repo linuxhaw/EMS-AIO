@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ems_aio.model.UserBean;
 
-
-
-
 @Controller
 public class LoginController {
 	

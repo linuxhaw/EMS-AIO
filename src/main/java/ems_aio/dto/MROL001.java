@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Role {
+public class MROL001 {
 	@Id
 	@Column(name="rol_id")
 	private String rolid;
@@ -18,9 +18,8 @@ public class Role {
 	@Column(name="rol_update")
 	private String updatedate;
 	@Column(name="rol_status")
-	private String status;
+	private boolean status;
 	
-
 	public String getRolid() {
 		return rolid;
 	}
@@ -45,17 +44,19 @@ public class Role {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(boolean b) {
+		this.status = b;
 	}
-	public Role() {
+	
+	
+	public MROL001() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Role(String rolid, String rolname, String createdate, String updatedate, String status) {
+	public MROL001(String rolid, String rolname, String createdate, String updatedate, boolean status) {
 		super();
 		this.rolid = rolid;
 		this.rolname = rolname;
@@ -65,10 +66,4 @@ public class Role {
 	}
 	
 	
-	/*
-	 * public Role(String studentId, String studentName, String registerDate, String
-	 * status, String className) { super(); this.studentId = studentId;
-	 * this.studentName = studentName; this.registerDate = registerDate; this.status
-	 * = status; this.className = className; } public Role() { super(); }
-	 */
 }

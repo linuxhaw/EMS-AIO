@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<h5 class="card-title">Payroll Registration</h5>
+		</div>
+		<div class="card-body">
+			<form>
+				<div class="row">
+					<!-- <div class="col-md-5 ml-5">
+                          <div class="form-group">
+                            <label for="staffId">Staff ID</label>
+                            <input id="staffId" type="text" class="form-control" placeholder="Company" value="E0001">
+                          </div>
+                        </div> -->
+					<div class="col-md-5 ml-5">
+						<label for="staffId">ID</label>
+
+						<div class="input-group">
+							<input id="staffId" type="text" class="form-control"
+								placeholder="Company" value="E0001">
+							<div class="input-group-append">
+								<button class="btn-primary"
+									style="width: 50px; border-color: rgb(236, 82, 10); border-bottom-right-radius: 20px; border-top-right-radius: 20px;"
+									type="submit">Go</button>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="Name">Staff Name</label> <input id="Name" type="text"
+								class="form-control" disabled placeholder="Username"
+								value="Jhonny">
+						</div>
+					</div>
+
+				</div>
+				<!-- <div class="row">
+                        <div  class="col-md-5 ml-5">
+                          <div class="form-group">
+                            <label for="currentPosition">Position</label>
+                            <input type="text" id="currentPosition" class="form-control" placeholder="Company" value="Manager">
+                          </div>
+                        </div>
+                        <div class="col-md-5 ml-5">
+                          <div class="form-group">
+                            <label for="currentDepartment">Salary
+                            </label>
+                            <input id="currentDepartment" type="text" class="form-control" placeholder="Last Name" value="HR">
+                          </div>
+                        </div>
+                      </div> -->
+				<!-- <div class="row">
+                      <div class="col-md-5 ml-5">
+                        <div class="form-group">
+                          <label for="designation">Designation</label>
+    <select id="designation" class="form-control">
+      <option selected disabled>Choose One of Designation</option>
+    
+      <option value="Promotion">Promote</option>
+      <option value="Demotion">Demote</option>
+      <option  value="Resignation">Resign</option>
+      <option  value="BlackList">BlackList</option>
+    
+    </select>         </div>        
+                        </div>
+                      </div> -->
+
+				<!-- <div class="row">
+                        <div class="col-md-11 ml-5">
+                          <div class="form-group mr-4">
+                            <label for="remark">Remark</label>
+                            <input id="remark" type="text" class="form-control" placeholder="Home Address" value="I want to promote this emp !">
+                          </div>
+                        </div>
+                      </div> -->
+
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="transferPosition"> Position</label> <select
+								id="transferPosition" class="form-control" disabled>
+								<option selected disabled>Position</option>
+
+								<option value="Manager">Manager</option>
+								<option value="Team Leader">Team Leader</option>
+
+								<option value="Senior">Senior</option>
+								<option value="Junior">Junior</option>
+
+							</select>
+						</div>
+					</div>
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="transferDepartment">Departments</label> <select
+								id="transferDepartment" class="form-control" disabled>
+								<option selected disabled>Departments</option>
+
+								<option value="IT">IT</option>
+								<option value="Software">Marketing</option>
+								<option value="HardWare">Sale</option>
+
+							</select>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="currentDepartment">Salary </label> <input
+								id="currentDepartment" type="text" class="form-control"
+								placeholder="Last Name" value="$200">
+						</div>
+					</div>
+					<!-- <div class="col-md-5 ml-5">
+                          <div class="form-group">
+                            <label for="transferDepartment">Finance</label>
+                            <select id="transferDepartment" class="form-control">
+                              <option selected disabled>Finance</option>
+                            
+                              <option value="IT">Bryce</option>
+                              <option value="Software">Kyren</option>
+                              <option  value="HardWare">Biden</option>
+                                 
+                            </select>                      </div>
+                        </div> -->
+				</div>
+
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label>Date</label> <input type="Date" class="form-control"
+								placeholder="9/15/2020">
+						</div>
+					</div>
+					<!-- <div class="col-md-5 ml-5">
+                          <div class="form-group">
+                            <label for="currentDepartment">Date
+                            </label>
+                            <input id="currentDepartment" type="text" class="form-control" placeholder="Last Name" value="2/1/2021">
+                          </div>
+                        </div> -->
+				</div>
+
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<div class="form-group">
+							<label></label> <input class="btn btn-secondary"
+								placeholder="Here can be your description" type="button"
+								value="Back">
+						</div>
+					</div>
+
+					<div class=" col-md-6 text-center">
+						<div class="form-group">
+							<label></label> <input class="btn btn-primary "
+								placeholder="Here can be your description" type="button"
+								value="Register">
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</body>
+</html>

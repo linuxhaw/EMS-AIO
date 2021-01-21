@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-md-6">
+					<h4 class="card-title">Staff Report</h4>
+				</div>
+				<form>
+					<div class="row">
+						<div class="col-md-8 pt-2 ml-4">
+							<div class="input-group no-border">
+								<input type="text" value="" class="form-control"
+									placeholder="search...">
+
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="now-ui-icons ui-1_zoom-bold"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 ml-4 ">
+							<input class="btn btn-round btn-primary" type="reset">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+
+						<th>Staff ID</th>
+
+						<th>Staff Name</th>
+
+						<th>Phone</th>
+
+						<th>Email</th>
+
+						<th>Role</th>
+
+						<th>Department</th>
+
+						<th>Position</th>
+
+						<th>Status</th>
+
+					</thead>
+					<tbody>
+						<tr>
+							<td>S0001</td>
+							<td>Hlwan Moe Aung</td>
+							<td>09425282245</td>
+							<td>Hlwan@gmail.com</td>
+							<td>Admin</td>
+							<td>HR</td>
+							<td>Team Leader</td>
+							<td><a href="EMS-MRS-004.html"><input type="submit"
+									value="Detail" class="btn btn-round btn-primary"></a>
+						</tr>
+						<tr>
+							<td>S0002</td>
+							<td>Willion Jame</td>
+							<td>09955282235</td>
+							<td>willion@gmail.com</td>
+							<td>HR Manager</td>
+							<td>HR</td>
+							<td>Manager</td>
+							<td><a href="EMS-MRS-004.html"><input type="submit"
+									value="Detail" class="btn btn-round btn-primary"></a>
+						</tr>
+
+						<tr>
+							<td>S0003</td>
+							<td>Crist Maloe</td>
+							<td>09795282247</td>
+							<td>crist@gmail.com</td>
+							<td>Staff</td>
+							<td>IT</td>
+							<td>Senior</td>
+							<td><a href="EMS-MRS-004.html"><input type="submit"
+									value="Detail" class="btn btn-round btn-primary"></a>
+						</tr>
+						<tr>
+							<td>S0004</td>
+							<td>Herry</td>
+							<td>09425256412</td>
+							<td>herry@gmail.com</td>
+							<td>Staff</td>
+							<td>Hardware</td>
+							<td>Team Leader</td>
+							<td><a href="EMS-MRS-004.html"><input type="submit"
+									value="Detail" class="btn btn-round btn-primary"></a>
+						</tr>
+						<tr>
+							<td>S0005</td>
+							<td>Manson</td>
+							<td>09795401548</td>
+							<td>manson@gmail.com</td>
+							<td>Staff</td>
+							<td>Software</td>
+							<td>Junior</td>
+							<td><a href="EMS-MRS-004.html"><input type="submit"
+									value="Detail" class="btn btn-round btn-primary"></a>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<nav aria-label="pagination">
+			<ul class="pagination pagination-md justify-content-center">
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">Previous</span>
+                          <span class="sr-only">Previous</span>
+                        </a> --> <a class="page-link" href="#"
+					tabindex="-1">Previous</a>
+				</li>
+				<li class="page-item active"><a
+					style="border-color: orangered; background-color: orangered;"
+					class="page-link" href="#">1</a></li>
+
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">Next</span>
+                          <span class="sr-only">Next</span>
+                        </a> --> <a class="page-link" href="#"
+					tabindex="+1">Next</a>
+
+				</li>
+			</ul>
+		</nav>
+	</div>
+	</div>
+
+
+
+
+
+
+</body>
+</html>

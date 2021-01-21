@@ -10,17 +10,17 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
+			<h4 class="card-title">Qualification List</h4>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+					<a href="/setupQualification" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Qualification</a>
 				</div>
 			</div>
+
+
 
 			<div class="col-md-4">
 				<div class="input-group no-border" style="padding-top: 10px;">
@@ -43,36 +43,36 @@
 				<table class="table">
 					<thead class=" text-primary">
 						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
-
+						<th>Title</th>
+						<th>School Name</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
+							<td>QUL001</td>
+							<td>AAAA</td>
+							<td>UIT</td>
+							<td><a href="/setupEditQualification"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
+							<td>QUL002</td>
+							<td>BBBB</td>
+							<td>YIT</td>
+							<td><a href="/setupEditQualification"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
+							<td>QUL003</td>
+							<td>CCCC</td>
+							<td>UIT</td>
+							<td><a href="/setupEditQualification"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
@@ -83,7 +83,6 @@
 				</table>
 			</div>
 		</div>
-
 		<nav aria-label="pagination">
 			<ul class="pagination pagination-md justify-content-center">
 				<li class="page-item">
@@ -105,8 +104,6 @@
 				</li>
 			</ul>
 		</nav>
-
-
 	</div>
 	
 

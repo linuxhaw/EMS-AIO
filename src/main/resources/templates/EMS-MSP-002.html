@@ -4,50 +4,46 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
+
 </head>
 <body>
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h5 class="title">Add Role</h5>
+			<h5 class="title">Edit Position</h5>
 		</div>
 		<div class="card-body">
-
-			<!-- <form> -->
-			<form action="addrole" method="post" th:object="${bean}">
+			<form>
 				<div class="row">
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
-							<label>Role ID (disabled)</label> 
-							<input type="text" class="form-control"  placeholder="Company" th:field="${bean.id}" readonly>
-							
-
+							<label>Position ID (disabled)</label> <input type="text"
+								class="form-control" disabled="" placeholder="Company"
+								value="DEP001">
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-
-							<label>Role Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
-
+							<label>Position Name</label> <input type="text"
+								class="form-control" placeholder="Company" value="Security">
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-
-							<input type="submit" value="Register" class="btn btn-round btn-primary" />
-							<a href="./EMS-MSR-003.html" class="btn btn-round btn-primary">Cancle</a>
-
+							<input type="button" value="Register"
+								class="btn btn-round btn-primary"> <a
+								href="/setupPositionList" class="btn btn-round btn-primary">Cancle</a>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+	
 
 </body>
 </html>

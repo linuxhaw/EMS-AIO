@@ -10,17 +10,17 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
+			<h4 class="card-title">Department List</h4>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+					<a href="/setupDepartment" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Department</a>
 				</div>
 			</div>
+
+
 
 			<div class="col-md-4">
 				<div class="input-group no-border" style="padding-top: 10px;">
@@ -38,41 +38,46 @@
 			</div>
 		</div>
 
+
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
 						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
-
+						<th>Department Name</th>
+						<th>Department Head</th>
+						<th>Address</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
+							<td>DEP001</td>
+							<td>HR Department</td>
+							<td>U Mg Mg</td>
+							<td>Building 3, Floor 5</td>
+							<td><a href="/setupEditDepartment"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
+							<td>DEP002</td>
+							<td>Development Dempartment</td>
+							<td>Daw Aye Aye</td>
+							<td>Building 3, Floor 4</td>
+							<td><a href="/setupEditDepartment"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
+							<td>DEP003</td>
+							<td>Marketing Department</td>
+							<td>U Kyaw Kyaw</td>
+							<td>Building 2, Floor1</td>
+							<td><a href="/setupEditDepartment"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
@@ -105,7 +110,6 @@
 				</li>
 			</ul>
 		</nav>
-
 
 	</div>
 	

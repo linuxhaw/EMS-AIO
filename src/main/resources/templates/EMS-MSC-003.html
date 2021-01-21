@@ -10,15 +10,14 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
+			<h4 class="card-title">Certificate List</h4>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+					<a target="_blank" href="/setupCertificate"
+						style="margin-left: 40px;" class="btn btn-round btn-primary">Add
+						Certificate</a>
 				</div>
 			</div>
 
@@ -43,36 +42,36 @@
 				<table class="table">
 					<thead class=" text-primary">
 						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
-
+						<th>Name</th>
+						<th>School Name</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
+							<td>CEF001</td>
+							<td>Java</td>
+							<td>KMD</td>
+							<td><a target="_blank" href="/setupEditCertificate"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
+							<td>CEF002</td>
+							<td>HTML</td>
+							<td>KMD</td>
+							<td><a target="_blank" href="/setupEditCertificate"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
+							<td>CEF003</td>
+							<td>PHP</td>
+							<td>ACE</td>
+							<td><a target="_blank" href="/setupEditCertificate"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
@@ -83,7 +82,6 @@
 				</table>
 			</div>
 		</div>
-
 		<nav aria-label="pagination">
 			<ul class="pagination pagination-md justify-content-center">
 				<li class="page-item">
@@ -105,10 +103,9 @@
 				</li>
 			</ul>
 		</nav>
-
-
 	</div>
 	
+
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1 -
@@ -59,3 +60,66 @@
 
 </h:body>
 </html>
+=======
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1 -
+/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<h:outputStylesheet name="/css/main.css" />
+<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" /> 
+<title>OfficeHR Header Page</title>
+
+</h:head>
+<h:body>
+	<h:form id="header">
+
+
+		<div>
+			<a href="/PrimeFaces_StudentManagement/faces/index.xhtml" style="text-decoration: none; color: inherit">
+				<h1>Office HR Management</h1>
+			</a>
+		</div>
+
+		<div id="date_time">
+		<h3><p:clock /></h3>
+		</div>
+
+		<div  id="user_profile">
+			<table style="padding-top:-55px;" >
+				<tr>
+
+					<td><p:outputLabel>Name : #{sesUser.name}</p:outputLabel></td>
+					<td rowspan="2" style="padding-left:15px;">
+						<p:commandButton action="#{userBean.logout(request)}"  icon="pi pi-sign-out" style="height:70px; font-size:1.3rem;">
+							<p:confirm header="Confirmation" message="Are you sure want to Logout?" icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+						
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						   </p:confirmDialog>
+					</td>
+								
+
+				</tr>
+
+				<tr>
+					<td><p:outputLabel>Id : #{sesUser.id}</p:outputLabel></td>
+				</tr>
+				
+			
+			</table>
+		</div>
+
+	</h:form>
+
+
+
+</h:body>
+</html>
+>>>>>>> d40e4e4159ac85ec08bf34896a4fd2c8b4bda60e

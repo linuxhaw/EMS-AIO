@@ -10,17 +10,18 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
+			<h4 class="card-title">Bank List</h4>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+					<a target="_blank" href="/setupBank"
+						style="margin-left: 40px;" class="btn btn-round btn-primary">Add
+						Bank</a>
 				</div>
 			</div>
+
+
 
 			<div class="col-md-4">
 				<div class="input-group no-border" style="padding-top: 10px;">
@@ -37,42 +38,45 @@
 				<input class="btn btn-round btn-primary" type="reset">
 			</div>
 		</div>
-
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
 						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
-
+						<th>Bank Name</th>
+						<th>Phone</th>
+						<th>Location</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
+							<td>BNK001</td>
+							<td>KBZ</td>
+							<td>09456175567</td>
+							<td>Mingalar townnyut township</td>
+							<td><a target="_blank" href="/setupEditBank"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
+							<td>BNK002</td>
+							<td>AYA</td>
+							<td>09452372896</td>
+							<td>Sule Township</td>
+							<td><a target="_blank" href="/setupEditBank"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
 							</td>
 						</tr>
 						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
+							<td>BNK003</td>
+							<td>AGD</td>
+							<td>0945617492</td>
+							<td>Scnchaung Township</td>
+							<td><a target="_blank" href="/setupEditBank"
 								class="btn btn-round btn-primary">Update</a>
 
 								<button type="button" class="btn btn-round btn-primary">Delete</button>
@@ -105,10 +109,9 @@
 				</li>
 			</ul>
 		</nav>
-
-
 	</div>
-	
+
+
 
 </body>
 </html>

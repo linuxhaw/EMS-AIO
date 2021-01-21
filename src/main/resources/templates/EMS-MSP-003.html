@@ -4,23 +4,32 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
-
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
 </head>
 <body>
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
+			<h4 class="card-title">Position List</h4>
 		</div>
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+					<a href="/setupPosition" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Position</a>
 				</div>
 			</div>
+
+
+
 
 			<div class="col-md-4">
 				<div class="input-group no-border" style="padding-top: 10px;">
@@ -37,46 +46,38 @@
 				<input class="btn btn-round btn-primary" type="reset">
 			</div>
 		</div>
-
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
 						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
-
+						<th>Position Name</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 						<tr>
 							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>Programmer</td>
+							<td><a href="/setupEditPosition"
+								class="btn btn-round btn-primary">Update</a> <input
+								type="submit" value="Delete" class="btn btn-round btn-primary"
+								onclick="deleteStudent()"></td>
 						</tr>
 						<tr>
 							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>Project Manager</td>
+							<td><a href="./EMS-MSP-002.html"
+								class="btn btn-round btn-primary">Update</a> <input
+								type="submit" value="Delete" class="btn btn-round btn-primary"
+								onclick="deleteStudent()"></td>
 						</tr>
 						<tr>
 							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>Manager</td>
+							<td><a href="./EMS-MSP-002.html"
+								class="btn btn-round btn-primary">Update</a> <input
+								type="submit" value="Delete" class="btn btn-round btn-primary"
+								onclick="deleteStudent()"></td>
 						</tr>
 
 					</tbody>
@@ -106,9 +107,7 @@
 			</ul>
 		</nav>
 
-
 	</div>
-	
 
 </body>
 </html>

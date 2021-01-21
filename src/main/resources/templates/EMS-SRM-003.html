@@ -10,80 +10,95 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
-			<h4 class="card-title">Role List</h4>
-		</div>
-
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<a href="/setupaddrole" style="margin-left: 40px;"
-
-						class="btn btn-round btn-primary">Add Role</a>
+			<div class="row">
+				<div class="col-md-6">
+					<h4 class="card-title">Movement History</h4>
 				</div>
-			</div>
+				<form>
+					<div class="row">
 
-			<div class="col-md-4">
-				<div class="input-group no-border" style="padding-top: 10px;">
-					<input type="text" value="" class="form-control"
-						placeholder="Search...">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<i class="now-ui-icons ui-1_zoom-bold"></i>
+						<div class="col-md-8 pt-2 ml-4">
+							<div class="input-group no-border">
+								<input type="text" value="" class="form-control"
+									placeholder="search...">
+
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="now-ui-icons ui-1_zoom-bold"></i>
+									</div>
+								</div>
+
+							</div>
+
+
+
+						</div>
+						<div class="col-md-2 ml-4 ">
+							<input class="btn btn-round btn-primary" type="reset">
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+				</form>
 			</div>
 		</div>
 
 		<div class="card-body">
+
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
-						<th>ID</th>
-						<th>Role Name</th>
-						<th colspan="2">Action</th>
+
+						<th>Position</th>
+						<th>Department</th>
+						<th>Transaction</th>
+						<th>Remark</th>
+						<th>Date</th>
 
 					</thead>
 					<tbody>
 						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
 
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>Junior</td>
+							<td>HR</td>
+							<td>Promote</td>
+							<td>start level</td>
+							<td>1/1/2019</td>
 						</tr>
 						<tr>
-							<td>POS002</td>
+
+							<td>Senior</td>
+							<td>HR</td>
+							<td>Promote</td>
+							<td>He have enough exprience</td>
+							<td>1/6/2019</td>
+						</tr>
+						<tr>
+
+							<td>Team Leader</td>
+							<td>HR</td>
+							<td>Promote</td>
+							<td>He can lead a team now!</td>
+							<td>1/1/2020</td>
+						</tr>
+						<tr>
+
 							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>HR</td>
+							<td>Promote</td>
+							<td>He can manage well</td>
+							<td>1/6/2020</td>
 						</tr>
 						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
 
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
+							<td>Manager</td>
+							<td>HR</td>
+							<td>Resign</td>
+							<td>Health Problem</td>
+							<td>1/1/2021</td>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>
 		</div>
-
 		<nav aria-label="pagination">
 			<ul class="pagination pagination-md justify-content-center">
 				<li class="page-item">
@@ -105,10 +120,7 @@
 				</li>
 			</ul>
 		</nav>
-
-
 	</div>
 	
-
 </body>
 </html>

@@ -10,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ems_aio.model.UserBean;
 
-
-
-
 @Controller
 public class LoginController {
 	

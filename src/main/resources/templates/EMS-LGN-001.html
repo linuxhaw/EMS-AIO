@@ -1,28 +1,55 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Free Stylish Login Page Website Template |
-	Smarteyeapps.com</title>
-
-<link rel="shortcut icon" href="/images/fav.jpg">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/fontawsom-all.min.css">
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<title>Welcome to Our Site</title>
 </head>
-
 <body>
-	
+
+	<div layout:fragment="content">
+		<section class="my-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card-header">
+							<h5 class="title">Add Role</h5>
+						</div>
+						<div class="card-body">
+							<form>
+								<div class="row">
+									<div class="col-md-5 pr-1">
+										<div class="form-group">
+											<label>Role ID (disabled)</label> <input type="text"
+												class="form-control" disabled="" placeholder="Company"
+												value="ROL004">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 pr-1">
+										<div class="form-group">
+											<label>Role Name</label> <input type="text"
+												class="form-control" placeholder="Company" value="Admin">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="button" value="Register"
+												class="btn btn-round btn-primary"> <a
+												href="./EMS-MSR-003.html" class="btn btn-round btn-primary">Cancle</a>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
 
 </body>
-
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/script.js"></script>
-
-
 </html>

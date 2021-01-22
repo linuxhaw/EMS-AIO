@@ -1,8 +1,11 @@
-package ems_aio.model;
+package ems_aio.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-
-public class UserBean {
+@Entity
+public class User {
+	@Id
 	@NotEmpty(message="Id must not be empty!")
 	private String id;
 	@NotEmpty(message="Name must not be empty!")
@@ -18,11 +21,11 @@ public class UserBean {
 		this.role = role;
 	}
 
-	public UserBean() {
+	public User() {
 		super();
 	}
 		
-	public UserBean(@NotEmpty String id,@NotEmpty String name,@NotEmpty String password,@NotEmpty String confirm) {
+	public User(@NotEmpty String id,@NotEmpty String name,@NotEmpty String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,9 +53,3 @@ public class UserBean {
 	}
 	
 }
-
-
-
-
-
-

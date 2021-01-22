@@ -1,0 +1,79 @@
+ 
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	th:href="@{/resources/img/apple-icon.png}">
+<link rel="icon" type="image/png"
+	th:href="@{/resources/img/allinone_logo.png}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>All 1n One Human Resource</title>
+<meta
+	content='width=device-width, 	initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+	crossorigin="anonymous">
+<!-- CSS Files -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/now-ui-dashboard.css?v=1.5.0}"
+	rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/demo/demo.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:replace="/frame/header.html :: myheader"></div>
+ <div class="main-panel" id="main-panel">
+      <div class="content">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Add Position</h5>
+              </div>
+              <div class="card-body">
+                <form th:action="@{/admin/addedPosition}" th:object="${position}" th:method="post" >
+                  <div class="row">
+                    <div class="col-md-5 pr-1">
+                      <div class="form-group">
+                        <label>Position ID </label>
+                        <div class="form-control" th:field="*{pId}" th:text="${id}"  />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Position Name</label>
+                        <input type="text" th:field="*{pName}" th:value="*{pName}" class="form-control" placeholder="name" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="button" value="Register" class="btn btn-round btn-primary" >
+                        <a th:href="@{/admin/position}" class="btn btn-round btn-primary">Cancel</a>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+           </div>
+ </div> <div th:replace="/frame/sidebar_admin.html :: sidebar"></div> 
+	
+	
+	
+	<div th:insert="/frame/footer.html :: foot"></div></div>
+</body>
+</html>

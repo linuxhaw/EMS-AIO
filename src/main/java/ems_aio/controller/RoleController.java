@@ -109,7 +109,7 @@ public class RoleController {
 		try {
 			RoleService.update(dto, bean.getId());
 			redirAttrs.addFlashAttribute("msg", "Update successful");
-			return "redirect:/setupaddrole";
+			return "EMS-MSR-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");
 			return "EMS-MSR-002";

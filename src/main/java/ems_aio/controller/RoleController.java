@@ -2,6 +2,7 @@ package ems_aio.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import ems_aio.dao.RoleService;
 import ems_aio.dto.MROL001;
@@ -27,7 +30,10 @@ public class RoleController {
 
 	@RequestMapping(value = "/displayrole", method = RequestMethod.GET)
 	public ModelAndView displayrole() {
-		return new ModelAndView("EMS-MSR-003", "RoleBean", new RoleBean());
+		List<MROL001> list;
+		list = RoleService.getAll();
+		System.out.println(list.size());
+		return new ModelAndView("EMS-MSR-003", "rolelist", list);
 	}
 
 	@RequestMapping(value = "/setupaddrole", method = RequestMethod.GET)
@@ -64,28 +70,45 @@ public class RoleController {
 		dto.setStatus(b);
 		RoleService.save(dto);
 		return "index";
-
-		/*
-		 * if (!bean.getId().equals("") && !bean.getName().equals("") &&
-		 * !bean.getStatus().equals("") && !bean.getClassName().equals("") &&
-		 * !bean.getDay().equals("Day") && !bean.getMonth().equals("Month") &&
-		 * !bean.getYear().equals("Year")) { Student dto = new Student();
-		 * dto.setStudentId(bean.getId()); dto.setStudentName(bean.getName());
-		 * dto.setStatus(bean.getStatus()); dto.setClassName(bean.getClassName());
-		 * dto.setRegisterDate(bean.getYear() + "-" + bean.getMonth() + "-" +
-		 * bean.getDay());
-		 * 
-		 * Student dtoc = new Student(); dtoc.setStudentId(bean.getId());
-		 * Optional<Student> chk = StudentService.getStudentByCode(bean.getId()); if
-		 * (chk.isPresent()) { model.addAttribute("err",
-		 * "StudentId has been already exist!"); // return "redirect:/setupaddstudent";
-		 * return "BUD002"; } else { try { StudentService.save(dto);
-		 * model.addAttribute("msg", "Insert successful"); return
-		 * "redirect:/displaystudent"; } catch (Exception e) { model.addAttribute("err",
-		 * "Insert fail"); return "BUD002"; } } } else { model.addAttribute("err",
-		 * "Fields must not be null"); return "BUD002"; }
-		 */
+	}
+	
+	@RequestMapping(value = "/setuproleupdate", method = RequestMethod.GET)
+	public ModelAndView setuproleupdate(@RequestParam("id")String id, ModelMap model) {
+		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
+		MROL001 dto1=dtoget.get();
+		RoleBean rol = new RoleBean();
+		rol.setId(dto1.getRolid());
+		rol.setName(dto1.getRolname());
+		rol.setCreate(dto1.getCreatedate());
+		return new ModelAndView("EMS-MSR-002", "bean", rol);
 
 	}
-
+	
+	@RequestMapping(value = "/updaterole", method = RequestMethod.POST)
+	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model) {
+		boolean b = true;
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		MROL001 dto = new MROL001();
+		dto.setRolid(bean.getId()); 
+		dto.setRolname(bean.getName());
+		dto.setCreatedate(bean.getCreate()); 
+		dto.setUpdatedate(dtf.format(now));
+		dto.setStatus(b);
+		RoleService.update(dto, bean.getId());
+		return "index";
+	}
+	
+	@RequestMapping(value = "/roledelete", method = RequestMethod.GET)
+	public String deleterole(@RequestParam("id")String id, ModelMap model) {
+		boolean b = false;
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
+		MROL001 dto=dtoget.get(); 
+		dto.setUpdatedate(dtf.format(now));
+		dto.setStatus(b);
+		RoleService.update(dto, id);
+		return "index";
+	}
 }

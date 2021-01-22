@@ -15,4 +15,11 @@ public interface RoleRepository extends CrudRepository<MROL001, String> {
 	//zay
 	@Query(value = "SELECT * FROM mrol001 ORDER BY ROL_CREATE DESC LIMIT 1;", nativeQuery = true)
 	MROL001 findLastID();
+	
+	
+	  @Query(value = "SELECT * FROM mrol001 WHERE rol_status=1;", nativeQuery =	  true)
+	  List<MROL001> getvalid();
+		/* MROL001 getvalid(); */
+	
+	
 }

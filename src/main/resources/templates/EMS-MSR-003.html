@@ -48,37 +48,16 @@
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
+						<tr th:each="role: ${rolelist}">
+							<td th:text="${role.rolid}" />
+							<td th:text="${role.rolname}" />
+							<td>
+								<!-- <a href="./EMS-MSR-002.html" class="btn btn-round btn-primary">Update</a> -->
+								<a th:href="@{/setuproleupdate(id=${role.rolid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="roleUpdate" /></a>
+								<a th:href="@{/roledelete(id=${role.rolid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+								<!-- <button type="button" class="btn btn-round btn-primary">Delete</button> -->
 							</td>
 						</tr>
-						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-
 					</tbody>
 				</table>
 			</div>

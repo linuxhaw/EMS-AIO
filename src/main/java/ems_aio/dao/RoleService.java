@@ -15,10 +15,16 @@ public class RoleService {
 	RoleRepository RoleRepository;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MROL001> getAll() {
+	/*public List<MROL001> getAll() {
 		List<MROL001> list = (List<MROL001>) RoleRepository.findAll();
 		return list;
-	}
+	}*/
+	
+	
+	 public List<MROL001> getAll() {
+		 List<MROL001> list = (List<MROL001>) RoleRepository.getvalid(); 
+	 return list; }
+	 
 	
 	//zay
 	public MROL001 findLastID() {
@@ -29,7 +35,7 @@ public class RoleService {
 
 //getting a specific record by using the method findById() of	CrudRepository
 
-	public Optional<MROL001> getStudentByCode(String code) {
+	public Optional<MROL001> getRoleByCode(String code) {
 
 		return RoleRepository.findById(code);
 

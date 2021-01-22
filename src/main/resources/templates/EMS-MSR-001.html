@@ -12,36 +12,28 @@
 			<h5 class="title">Add Role</h5>
 		</div>
 		<div class="card-body">
-
-			<!-- <form> -->
 			<form action="addrole" method="post" th:object="${bean}">
 				<div class="row">
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Role ID (disabled)</label> 
 							<input type="text" class="form-control"  placeholder="Company" th:field="${bean.id}" readonly>
-							
-
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-
 							<label>Role Name</label>
 							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
-
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-
 							<input type="submit" value="Register" class="btn btn-round btn-primary" />
 							<a href="./EMS-MSR-003.html" class="btn btn-round btn-primary">Cancle</a>
-
 						</div>
 					</div>
 				</div>

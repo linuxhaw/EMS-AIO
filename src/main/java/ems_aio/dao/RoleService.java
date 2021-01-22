@@ -20,6 +20,9 @@ public class RoleService {
 		return list;
 	}*/
 	
+	public List<MROL001> getsearchrole(String id) {
+		 List<MROL001> list = (List<MROL001>) RoleRepository.findrole(id); 
+	 return list; }
 	
 	 public List<MROL001> getAll() {
 		 List<MROL001> list = (List<MROL001>) RoleRepository.getvalid(); 

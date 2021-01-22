@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.RoleService;
 import ems_aio.dto.MROL001;
@@ -56,20 +56,27 @@ public class RoleController {
 	}
 
 	@RequestMapping(value = "/addrole", method = RequestMethod.POST)
-	public String addbook(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model) {
+	public String addrole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+		if (bs.hasErrors()) {
+			return "EMS-MSR-001";
+		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		MROL001 dto = new MROL001();
 		dto.setRolid(bean.getId());
-		System.out.println(bean.getId());
 		dto.setRolname(bean.getName());
-		System.out.println(bean.getName());
 		dto.setCreatedate(dtf.format(now));
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
-		RoleService.save(dto);
-		return "index";
+		try {
+			RoleService.save(dto);
+			redirAttrs.addFlashAttribute("msg", "Register successful");
+			return "redirect:/setupaddrole";
+		} catch (Exception e) {
+			model.addAttribute("err", "Register fail");
+			return "EMS-MSR-001";
+		}
 	}
 	
 	@RequestMapping(value = "/setuproleupdate", method = RequestMethod.GET)
@@ -85,7 +92,10 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value = "/updaterole", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model) {
+	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+		if (bs.hasErrors()) {
+			return "EMS-MSR-002";
+		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
@@ -95,8 +105,14 @@ public class RoleController {
 		dto.setCreatedate(bean.getCreate()); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
-		RoleService.update(dto, bean.getId());
-		return "index";
+		try {
+			RoleService.update(dto, bean.getId());
+			redirAttrs.addFlashAttribute("msg", "Update successful");
+			return "redirect:/setupaddrole";
+		} catch (Exception e) {
+			model.addAttribute("err", "Update fail");
+			return "EMS-MSR-002";
+		}
 	}
 	
 	@RequestMapping(value = "/roledelete", method = RequestMethod.GET)
@@ -109,6 +125,22 @@ public class RoleController {
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
 		RoleService.update(dto, id);
-		return "index";
+		return "redirect:/displayrole";
+	}
+	
+	@RequestMapping(value = "/searchrole", method = RequestMethod.GET)
+	public String displayView(@RequestParam("search")RoleBean id, ModelMap model) {
+		List<MROL001> list;
+		String i = id.getId();
+		if (id.equals("")) {
+			list = RoleService.getAll();
+		}else {
+			 list = RoleService.getsearchrole(i);
+		}
+		if (list.size() == 0)
+			model.addAttribute("msg", "User not found!");
+		else
+			model.addAttribute("stulist", list);
+		return "BUD001";
 	}
 }

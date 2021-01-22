@@ -29,6 +29,7 @@
 						<div class="form-group">
 							<label>Role Name</label>
 							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+							<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 						</div>
 					</div>
 				</div>

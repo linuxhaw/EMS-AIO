@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class RoleBean {
 	private String id;
+	@NotEmpty(message="Input Require")
 	private String name;
 	private String create;
 	private String update;

@@ -21,4 +21,16 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping(value = "/EMS-DSH-001.html", method = RequestMethod.GET)
+	public String Dashboard(Model model) {
+		model.addAttribute("user", new UserBean());
+		return "EMS-DSH-001";
+	}
+	
+	@RequestMapping(value = "/EMS-MSP-003.html", method = RequestMethod.GET)
+	public String ShowPositions(Model model) {
+		model.addAttribute("user", new UserBean());
+		return "EMS-MSP-003";
+	}
+	
 }

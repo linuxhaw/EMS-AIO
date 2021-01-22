@@ -29,10 +29,11 @@ public class RoleController {
 	private RoleService RoleService;
 
 	@RequestMapping(value = "/displayrole", method = RequestMethod.GET)
-	public ModelAndView displayrole() {
+	public ModelAndView displayrole(Model model) {
 		List<MROL001> list;
 		list = RoleService.getAll();
-		System.out.println(list.size());
+		RoleBean bean=new RoleBean();
+		model.addAttribute("bean", bean);
 		return new ModelAndView("EMS-MSR-003", "rolelist", list);
 	}
 
@@ -127,20 +128,23 @@ public class RoleController {
 		RoleService.update(dto, id);
 		return "redirect:/displayrole";
 	}
-	
+
 	@RequestMapping(value = "/searchrole", method = RequestMethod.GET)
-	public String displayView(@RequestParam("search")RoleBean id, ModelMap model) {
+	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
+		
 		List<MROL001> list;
-		String i = id.getId();
-		if (id.equals("")) {
+		String i = bean.getId();
+		if (i.equals("")) {
 			list = RoleService.getAll();
 		}else {
 			 list = RoleService.getsearchrole(i);
 		}
+		System.out.println(list.size());
 		if (list.size() == 0)
 			model.addAttribute("msg", "User not found!");
 		else
-			model.addAttribute("stulist", list);
-		return "BUD001";
+			model.addAttribute("rolelist", list);
+		//return "BUD001";
+		return "EMS-MSR-003";
 	}
 }

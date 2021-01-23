@@ -26,10 +26,10 @@
 				</div>
 				<input type="text"  placeholder="id" th:field="${bean.create}" style="display:none;" readonly>
 				<div class="row">
-					<div class="col-md-6 pr-1">
+					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Position Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
 						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 					</div>

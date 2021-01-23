@@ -12,55 +12,53 @@
 		<div class="card-header">
 			<h5 class="title">Edit Bank</h5>
 		</div>
+		<label id="errormsg" th:text="${err}" style="color: red;">  </label> 
+		<label style="color: blue;" th:text="${msg}"></label>
 		<div class="card-body">
-			<form>
+			<form action="updatebank" method="post" th:object="${bean}">
 				<div class="row">
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
-							<label>Bank ID (disabled)</label> <input type="text"
-								class="form-control" disabled="" placeholder="Company"
-								value="ROL001">
+							<label>Bank ID (disabled)</label>
+							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>
+						</div>
+					</div>
+				</div>
+				<input type="text"  placeholder="id" th:field="${bean.create}" style="display:none;" readonly>
+				<div class="row">
+					<div class="col-md-5 pr-1">
+						<div class="form-group">
+							<label>Bank Name</label>
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 pr-1">
+					<div class="col-md-5 pr-1">
 						<div class="form-group">
-							<label>Bank Name</label> <input type="text" class="form-control"
-								placeholder="Name" value="KBZ Bank">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 pr-1">
-						<div class="form-group">
-							<label>Phone</label> <input type="text" class="form-control"
-								placeholder="Bank Address" value="0943093445">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label>Bank Location</label> <input type="text"
-								class="form-control" placeholder="Bank Address"
-								value="No 79, Phonegyi Road, Lanmadaw Township">
+							<label>Phone</label>
+							<input type="text" class="form-control" placeholder="PhoneNo" th:field="*{phone}" required>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<input type="button" value="Update"
-								class="btn btn-round btn-primary"> <a target="_blank"
-								href="/setupBankList" class="btn btn-round btn-primary">Cancle</a>
+							<label>Bank Location</label>
+							<input type="text" class="form-control" placeholder="Address" th:field="*{loc}" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="submit" value="Update" class="btn btn-round btn-primary" />
+							<a target="_blank" href="/setupBankList" class="btn btn-round btn-primary">Cancle</a>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-
-
 </body>
 </html>

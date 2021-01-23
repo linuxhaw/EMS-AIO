@@ -18,97 +18,102 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ems_aio.dao.PositionService;
-import ems_aio.dto.MPOS001;
-import ems_aio.dto.MROL001;
-import ems_aio.model.PositionBean;
+import ems_aio.dao.BankService;
+import ems_aio.dto.MBNK001;
+import ems_aio.model.BankBean;
 
 @Controller
-public class PositionController {
+public class BankController {
 	@Autowired
-	private PositionService serv;
+	private BankService serv;
 
-	@RequestMapping(value = "/displayposition", method = RequestMethod.GET)
+	@RequestMapping(value = "/displaybank", method = RequestMethod.GET)
 	public ModelAndView displayPosition(Model model) {
-		List<MPOS001> list;
+		List<MBNK001> list;
 		list = serv.getAll();
-		System.out.println(list.size());
-		PositionBean bean=new PositionBean();
+		BankBean bean=new BankBean();
 		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSP-003", "positionlist", list);
+		return new ModelAndView("EMS-MSB-003", "banklist", list);
 	}
 
-	@RequestMapping(value = "/setupaddposition", method = RequestMethod.GET)
-	public ModelAndView setupadduser(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
-		MPOS001 chk = serv.findLastID();
+	@RequestMapping(value = "/setupaddbank", method = RequestMethod.GET)
+	public ModelAndView setupadduser(@ModelAttribute("bean") BankBean bean, ModelMap model) {
+		MBNK001 chk = serv.findLastID();
 		int Intlast=0;
 		String sf2;
-		PositionBean bea=new PositionBean();
+		BankBean bea=new BankBean();
 		if (chk == null) {
 			Intlast = 1;
-			sf2 = String.format("POS%03d", Intlast);
+			sf2 = String.format("BNK%03d", Intlast);
 		} else {
-			String StrID = chk.getPosid();
+			String StrID = chk.getBnkid();
 			Intlast = Integer.parseInt(StrID.substring(3, 6))+1;
-			sf2 = String.format("POS%03d", Intlast);
+			sf2 = String.format("BNK%03d", Intlast);
 		}
 		bea.setId(sf2);
 		model.addAttribute("bean",bea);
-		return new ModelAndView("EMS-MSP-001", "bean", bea);
+		return new ModelAndView("EMS-MSB-001", "bean", bea);
 	}
 
-	@RequestMapping(value = "/addposition", method = RequestMethod.POST)
-	public String addposition(@ModelAttribute("bean") @Validated PositionBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	@RequestMapping(value = "/addbank", method = RequestMethod.POST)
+	public String addposition(@ModelAttribute("bean") @Validated BankBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "EMS-MSP-001";
+			return "EMS-MSB-001";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		MPOS001 dto = new MPOS001();
-		dto.setPosid(bean.getId());
-		dto.setPosname(bean.getName());
+		MBNK001 dto = new MBNK001();
+		dto.setBnkid(bean.getId());
+		dto.setBnkname(bean.getName());
+		dto.setBnkphone(bean.getPhone());
+		dto.setBnkloc(bean.getLoc());
 		dto.setCreatedate(dtf.format(now));
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
-		Optional<MPOS001> chk = serv.getPositionByCode(bean.getId());
+		Optional<MBNK001> chk = serv.getByCode(bean.getId());
 		if (chk.isPresent()) {
 			redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
-			return "redirect:/setupaddposition";
+			return "redirect:/setupaddbank";
 		}
 		try {
 			serv.save(dto);
 			redirAttrs.addFlashAttribute("msg", "Register successful");
-			return "redirect:/setupaddposition";
+			return "redirect:/setupaddbank";
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			model.addAttribute("err", "Register fail");
-			return "EMS-MSP-001";
+			return "EMS-MSB-001";
 		}
 	}
 	
-	@RequestMapping(value = "/setuppositionupdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/setupbankupdate", method = RequestMethod.GET)
 	public ModelAndView setuppositionupdate(@RequestParam("id")String id, ModelMap model) {
-		Optional<MPOS001> dtoget = serv.getPositionByCode(id);
-		MPOS001 dto1=dtoget.get();
-		PositionBean bean = new PositionBean();
-		bean.setId(dto1.getPosid());
-		bean.setName(dto1.getPosname());
+		Optional<MBNK001> dtoget = serv.getByCode(id);
+		MBNK001 dto1=dtoget.get();
+		BankBean bean = new BankBean();
+		bean.setId(dto1.getBnkid());
+		bean.setName(dto1.getBnkname());
+		bean.setPhone(dto1.getBnkphone());
+		bean.setLoc(dto1.getBnkloc());
 		bean.setCreate(dto1.getCreatedate());
-		return new ModelAndView("EMS-MSP-002", "bean", bean);
+		return new ModelAndView("EMS-MSB-002", "bean", bean);
 
 	}
 	
-	@RequestMapping(value = "/updateposition", method = RequestMethod.POST)
-	public String updateposition(@ModelAttribute("bean") @Validated PositionBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	@RequestMapping(value = "/updatebank", method = RequestMethod.POST)
+	public String updateposition(@ModelAttribute("bean") @Validated BankBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "EMS-MSP-002";
+			return "EMS-MSB-002";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		MPOS001 dto = new MPOS001();
-		dto.setPosid(bean.getId()); 
-		dto.setPosname(bean.getName());
+		MBNK001 dto = new MBNK001();
+		dto.setBnkid(bean.getId()); 
+		dto.setBnkname(bean.getName());
+		dto.setBnkphone(bean.getPhone());
+		dto.setBnkloc(bean.getLoc());
 		dto.setCreatedate(bean.getCreate()); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
@@ -116,42 +121,41 @@ public class PositionController {
 		try {
 			serv.update(dto, bean.getId());
 			model.addAttribute("err", "Update successful");
-			return "EMS-MSP-002";
+			return "EMS-MSB-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");
-			return "EMS-MSP-002";
+			return "EMS-MSB-002";
 		}
 	}
 	
-	@RequestMapping(value = "/positiondelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/bankdelete", method = RequestMethod.GET)
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		Optional<MPOS001> dtoget = serv.getPositionByCode(id);
-		MPOS001 dto=dtoget.get(); 
+		Optional<MBNK001> dtoget = serv.getByCode(id);
+		MBNK001 dto=dtoget.get(); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
 		serv.update(dto, id);
-		return "redirect:/displayposition";
+		return "redirect:/displaybank";
 	}
 
-	@RequestMapping(value = "/searchposition", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
+	@RequestMapping(value = "/searchbank", method = RequestMethod.GET)
+	public String displayView(@ModelAttribute("bean") BankBean bean, ModelMap model) {
 		
-		List<MPOS001> list;
+		List<MBNK001> list;
 		String i = bean.getId();
 		if (i.equals("")) {
 			list = serv.getAll();
 		}else {
-			 list = serv.getsearchPosition(i);
+			 list = serv.getsearch(i);
 		}
-		System.out.println(list.size());
 		if (list.size() == 0)
-			model.addAttribute("msg", "User not found!");
+			model.addAttribute("msg", "Bank not found!");
 		else
-			model.addAttribute("positionlist", list);
+			model.addAttribute("banklist", list);
 		//return "BUD001";
-		return "EMS-MSP-003";
+		return "EMS-MSB-003";
 	}
 }

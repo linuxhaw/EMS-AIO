@@ -70,6 +70,11 @@ public class RoleController {
 		dto.setCreatedate(dtf.format(now));
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
+		Optional<MROL001> chk = RoleService.getRoleByCode(bean.getId());
+		if (chk.isPresent()) {
+			redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
+			return "redirect:/setupaddrole";
+		}
 		try {
 			RoleService.save(dto);
 			redirAttrs.addFlashAttribute("msg", "Register successful");
@@ -93,7 +98,7 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value = "/updaterole", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model) {
 		if (bs.hasErrors()) {
 			return "EMS-MSR-002";
 		}
@@ -108,7 +113,7 @@ public class RoleController {
 		dto.setStatus(b);
 		try {
 			RoleService.update(dto, bean.getId());
-			redirAttrs.addFlashAttribute("msg", "Update successful");
+			model.addAttribute("msg", "Update successful");
 			return "EMS-MSR-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");

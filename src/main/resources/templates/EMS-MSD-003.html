@@ -4,7 +4,15 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
-
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -15,23 +23,24 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupDepartment" style="margin-left: 40px;"
-						class="btn btn-round btn-primary">Add Department</a>
+					<a href="/setupadddepartment" style="margin-left: 40px;" class="btn btn-round btn-primary">Add Department</a>
 				</div>
 			</div>
 
 
 
 			<div class="col-md-4">
-				<div class="input-group no-border" style="padding-top: 10px;">
-					<input type="text" value="" class="form-control"
-						placeholder="Search...">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<i class="now-ui-icons ui-1_zoom-bold"></i>
+				<form action="searchdepartment" method="get" th:object="${bean}">
+					<div class="input-group no-border" style="padding-top: 10px;">
+						<input type="text" class="form-control" placeholder="Search..."
+							th:field="*{id}">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<i><input type="submit" class="now-ui-icons ui-1_zoom-bold" /></i>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<div class="col-md-2 ">
 				<input class="btn btn-round btn-primary" type="reset">
@@ -50,41 +59,19 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>DEP001</td>
-							<td>HR Department</td>
-							<td>U Mg Mg</td>
-							<td>Building 3, Floor 5</td>
-							<td><a href="/setupEditDepartment"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
+						
+						<tr th:each="data: ${departmentlist}">
+							<td th:text="${data.id}" />
+							<td th:text="${data.name}" />
+							<td th:text="${data.head}" />
+							<td th:text="${data.loc}" />
+							<td>
+								<a th:href="@{/setupdepartmentupdate(id=${data.id})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
+								<a th:href="@{/departmentdelete(id=${data.id})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
 							</td>
 						</tr>
-						<tr>
-							<td>DEP002</td>
-							<td>Development Dempartment</td>
-							<td>Daw Aye Aye</td>
-							<td>Building 3, Floor 4</td>
-							<td><a href="/setupEditDepartment"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-						<tr>
-							<td>DEP003</td>
-							<td>Marketing Department</td>
-							<td>U Kyaw Kyaw</td>
-							<td>Building 2, Floor1</td>
-							<td><a href="/setupEditDepartment"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-
 					</tbody>
+					
 				</table>
 			</div>
 		</div>

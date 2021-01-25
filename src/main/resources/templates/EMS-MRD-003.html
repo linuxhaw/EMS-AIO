@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Departmet ID</label> <input
+						type="label" class="form-control" value="DEP001">
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Department Name</label> <input
+						type="label" class="form-control" value="HR Department">
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Deparetment Head</label> <input
+						type="label" class="form-control" value="U Mg Mg">
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Department Location</label> <input
+						type="label" class="form-control" value="Building 5, Floor 3">
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Total Employees</label> <input
+						type="label" class="form-control" value="3">
+				</div>
+			</div>
+		</div>
+		<h4 style="margin-left: 50px;">Employee Information</h4>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+						<th>Employee ID</th>
+						<th>Employee Name</th>
+						<th>Employee Position</th>
+						<th>Employee Phone No</th>
+						<th>Gender</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>EMP001</td>
+							<td>Mg Kyaw Kyaw</td>
+							<td>Leader</td>
+							<td>094561749</td>
+							<td>Male</td>
+						</tr>
+						<tr>
+							<td>EMP002</td>
+							<td>Ma Hla Hla</td>
+							<td>Programmer</td>
+							<td>094516744</td>
+							<td>Female</td>
+						</tr>
+						<tr>
+							<td>EMP003</td>
+							<td>Ma Mya Mya</td>
+							<td>HR</td>
+							<td>09387494164</td>
+							<td>Female</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<!-- <div class="row" align="Center">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                           
+                              <td class="text-center" >
+                                <input type="submit" value="OK" class="btn btn-round btn-primary" ></td>
+                                &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;
+                                <td> <a href="EMS-REP-DEP-MNG.html"><input type="button" value="Cancel" class="btn btn-round btn-primary" ></a></td>
+                            
+                          </div>
+                        </div>     
+                        </div> -->
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</body>
+</html>

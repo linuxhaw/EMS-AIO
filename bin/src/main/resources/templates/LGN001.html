@@ -1,0 +1,124 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1 -
+/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+<h:outputStylesheet name="/css/base.css" />
+<h:outputStylesheet name="/css/container.css" />
+<h:outputStylesheet name="/css/main.css" />
+
+</h:head>
+<h:body>
+	<ui:composition template="/templates/welcomeTemplate.xhtml">
+		<ui:define name="content">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<h:form style="padding-top:8%;">
+				<table id="login_table">
+					<tr>
+						<th colspan="2"><h2>Log In Form</h2></th>
+					</tr>
+					
+					<tr>
+					<td>User ID *</td>
+					<td>
+						<span class="ui-float-label">
+							<p:inputText id="float-input" value="#{userBean.id}" required="true" requiredMessage="ID must not be empty!"/>
+							<p:message for="float-input" style="color:red;"></p:message>
+							<p:outputLabel for="@previous" value="Username" />
+						</span>
+					</td>
+					</tr>
+					
+					<tr>
+						<td> User Password *</td>
+
+						<td><span class="ui-float-label"> <p:password id="nonFeedback" value="#{userBean.password}" required="true" requiredMessage="Password must not be empty!"/> 
+									<p:outputLabel for="@previous" value="Password" />
+						</span></td>
+					</tr>
+
+					<tr>
+						<td colspan="2" style="padding-top:50px;"><p:growl id="growl" life="2000" /> 
+						<p:commandButton style="width:200px;"	value="Login" id="ajax" update="growl" action="#{userBean.login(userBean,request)}" styleClass="ui-priority-primary" />
+						</td>
+					</tr>
+
+				</table>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+=======
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1 -
+/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+<h:outputStylesheet name="/css/base.css" />
+<h:outputStylesheet name="/css/container.css" />
+<h:outputStylesheet name="/css/main.css" />
+
+</h:head>
+<h:body>
+	<ui:composition template="/templates/welcomeTemplate.xhtml">
+		<ui:define name="content">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<h:form style="padding-top:8%;">
+				<table id="login_table">
+					<tr>
+						<th colspan="2"><h2>Log In Form</h2></th>
+					</tr>
+					
+					<tr>
+					<td>User ID *</td>
+					<td>
+						<span class="ui-float-label">
+							<p:inputText id="float-input" value="#{userBean.id}" required="true" requiredMessage="ID must not be empty!"/>
+							<p:message for="float-input" style="color:red;"></p:message>
+							<p:outputLabel for="@previous" value="Username" />
+						</span>
+					</td>
+					</tr>
+					
+					<tr>
+						<td> User Password *</td>
+
+						<td><span class="ui-float-label"> <p:password id="nonFeedback" value="#{userBean.password}" required="true" requiredMessage="Password must not be empty!"/> 
+									<p:outputLabel for="@previous" value="Password" />
+						</span></td>
+					</tr>
+
+					<tr>
+						<td colspan="2" style="padding-top:50px;"><p:growl id="growl" life="2000" /> 
+						<p:commandButton style="width:200px;"	value="Login" id="ajax" update="growl" action="#{userBean.login(userBean,request)}" styleClass="ui-priority-primary" />
+						</td>
+					</tr>
+
+				</table>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+>>>>>>> d40e4e4159ac85ec08bf34896a4fd2c8b4bda60e
+</html>

@@ -554,7 +554,7 @@ fieldset[disabled] .navbar .navbar-nav>a.btn.active {
   left: 50%;
   transform: translate(-12px, -12px);
   line-height: 1.5626rem;
-  width: 24px;
+  width: 24px;      
 }
 
 .btn:not(.btn-icon) .now-ui-icons,

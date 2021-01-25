@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<h5 class="title">Edit Staff Information</h5>
+		</div>
+		<div class="card-body">
+			<form>
+				<div class="row">
+
+					<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label for="exampleInputUsername">ID</label> <input type="text"
+								class="form-control" value="S0001" readonly>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label for="exampleInputUsername">Username</label> <input
+								type="text" class="form-control" value="mgmg">
+						</div>
+					</div>
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label for="exampleInputUsername">Password</label> <input
+								type="password" class="form-control" value="12345">
+						</div>
+					</div>
+				</div>
+				<!--   <div class="row">
+                        <div class="col-md-4 pr-1">
+                          <div class="form-group">
+                            <label for="exampleInputFirstName">First Name</label>
+                            <input type="text" class="form-control" placeholder="John" >
+                          </div>
+                        </div>
+                        <div class="col-md-4 pl-1">
+                          <div class="form-group">
+                            <label for="exampleInputLastName">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Smith" >
+                          </div>
+                        </div>
+                      </div> -->
+				<div class="row">
+					<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label for="exampleInputNRC">NRC</label> <input type="text"
+								class="form-control" value="10/ABC(N)12345">
+						</div>
+					</div>
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email address</label> <input
+								type="email" class="form-control" value="john@gmail.com">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>PHONE</label> <input type="text" class="form-control"
+								value="09795401254">
+						</div>
+					</div>
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>SALARY</label> <input type="text" class="form-control"
+								value="300000">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>BANK ACC</label> <input type="text" class="form-control"
+								value="1234 6547 4568 1254">
+						</div>
+					</div>
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>BANK NAME</label> <br> <select name="bank"
+								class="form-control">
+								<option value="select" disabled selected>Select Bank</option>
+								<option value="AYA" selected>AYA</option>
+								<option value="KBZ">KBZ</option>
+								<option value="CB">CB</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10 mr-5">
+						<div class="form-group">
+							<label>ADDRESS</label> <input type="text" class="form-control"
+								value="Yangon">
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>BIRTHDAY</label> <input type="Date" class="form-control"
+								value="1/1/2020">
+						</div>
+					</div>
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>REGISTER DATE</label> <input type="Date"
+								class="form-control" value="9/15/2020">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>GENDER</label> <br> <input type="radio" name="gender"
+								value="Male" id="male"> <label>Male</label> &nbsp;
+							&nbsp; <input type="radio" name="gender" value="Female"
+								id="female"></input> <label>Female</label>
+						</div>
+					</div>
+
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>MARRIAGE STATUS</label> <br> <input type="radio"
+								name="marriage" value="Single" id="single"> <label>Single</label>
+							&nbsp; &nbsp; <input type="radio" name="marriage"
+								value="Marriage" id="marrage"></input> <label>Marriage</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>RELGION</label> <br> <input type="radio"
+								name="relgion" value="Buddhists" id="buddhists"> <label>Buddhists</label>
+							&nbsp; &nbsp; <input type="radio" name="relgion"
+								value="Christians" id="christians"></input> <label>Christians</label>&nbsp;
+							&nbsp; <input type="radio" name="relgion" value="Muslims"
+								id="muslims"></input> <label>Muslims</label><br> <input
+								type="radio" name="relgion" value="Hindus" id="hindus"></input>
+							<label>Hindus</label>
+						</div>
+					</div>
+
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>NATIONALITY</label> <br> <input type="radio"
+								name="nationality" value="Citizen" id="citizen"> <label>Citizen</label>
+							&nbsp; &nbsp; <input type="radio" name="nationality"
+								value="Foreigner" id="foreigner"></input> <label>Foreigner</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>QUALIFICATION</label>
+							<table>
+								<tr>
+									<td>
+										<div style="width: 150px;">
+											<select name="from[]" id="multi_d" class="form-control"
+												size="8" multiple="multiple" style="height: 100px;">
+
+												<option value="2">BA</option>
+
+												<option value="4">GTI</option>
+
+											</select>
+										</div>
+									</td>
+									<td>
+
+										<button type="button" id="multi_d_rightSelected"
+											class="btn btn-default btn-block">Add</button>
+										<button type="button" id="multi_d_leftSelected"
+											class="btn btn-default btn-block">Remove</button> <!-- <button type="button"  id="multi_d_leftSelected" class="btn btn-default btn-block" >Remove</button> -->
+
+									</td>
+									<td>
+										<div style="width: 150px;">
+											<select name="to[]" id="multi_d_to" class="form-control"
+												size="8" multiple="multiple" style="height: 100px;">
+												<option value="1">BCSC</option>
+												<option value="3">DIPLOMA</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>CERTIFICATION</label>
+							<table>
+								<tr>
+									<td>
+										<div style="width: 150px;">
+											<select name="from[]" id="multi_d" class="form-control"
+												size="8" multiple="multiple" style="height: 100px;">
+												<option value="1">N3</option>
+
+
+												<option value="4">AP</option>
+
+											</select>
+										</div>
+									</td>
+									<td>
+
+										<button type="button" id="multi_d_rightSelected"
+											class="btn btn-default btn-block">Add</button>
+										<button type="button" id="multi_d_leftSelected"
+											class="btn btn-default btn-block">Remove</button> <!-- <button type="button"  id="multi_d_leftSelected" class="btn btn-default btn-block" >Remove</button> -->
+
+									</td>
+									<td>
+										<div style="width: 150px;">
+											<select name="to[]" id="multi_d_to" class="form-control"
+												size="8" multiple="multiple" style="height: 100px;">
+												<option value="2">N2</option>
+												<option value="3">FE</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+				<!-- <div class="col-md-4 pl-1">
+                          <div class="form-group">
+                            <label>CERTIFICATION</label>
+                            <input type="text" class="form-control" placeholder="N3" >
+                          </div>
+                        </div> -->
+
+
+
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>ROLE</label> <br> <select name="role"
+								class="form-control">
+								<option value="select" disabled selected>Select Role</option>
+								<option value="Admin" selected>Admin</option>
+								<option value="HR Manager">HR Manager</option>
+								<option value="Staff">Staff</option>
+							</select>
+						</div>
+					</div>
+
+				</div>
+				<!-- <div class="col-md-4">
+                       <div class="form-group">
+                        <label>JOB STATUS</label>
+                        <br>
+                        <select name="jobstatus" class="form-control">
+                          <option value="select" disabled selected>Select Status</option>
+                          <option value="Promotion">Promotion</option>
+                          <option value="Demotion">Demotion</option>
+                          <option value="Resign">Resign</option>
+                          <option value="BlackList">BlackList</option>
+                          
+                        </select>
+                      </div>
+                    </div> -->
+
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>DEPARTMENT</label> <br> <select name="department"
+								class="form-control" disabled>
+								<option value="select" disabled selected>Select
+									Department</option>
+								<option value="IT">IT</option>
+								<option value="Software">Software</option>
+								<option value="Hardware">Hardware</option>
+								<option value="HR">HR</option>
+								<option value="Marketing">Marketing</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-4 ml-5">
+						<div class="form-group">
+							<label>POSITION</label> <br> <select name="position"
+								class="form-control" disabled>
+								<option value="select" disabled selected>Select
+									Position</option>
+								<option value="Manager">Manager</option>
+								<option value="Team Leader">Team Leader</option>
+								<option value="Senior">Senior</option>
+								<option value="Junior">Junior</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-1 "></div>
+					<div class="col-md-6 mr-5">
+
+						<div class="form-group">
+
+							<td class="text-center"><input type="submit" value="Update"
+								class="btn btn-round btn-primary"> &emsp; <input
+								type="submit" value="Delete" class="btn btn-round btn-primary"
+								onclick="deleteStudent()"> &emsp; <a
+								href="/setupStaffList"><input type="button" value="Cancel"
+									class="btn btn-round btn-primary"></a></td>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

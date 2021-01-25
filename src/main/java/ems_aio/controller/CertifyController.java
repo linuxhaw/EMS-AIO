@@ -18,131 +18,130 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ems_aio.dao.QualifyService;
-import ems_aio.dto.MPOS001;
-import ems_aio.dto.MQUL001;
-import ems_aio.model.PositionBean;
-import ems_aio.model.QualifyBean;
+import ems_aio.dao.CertifyService;
+import ems_aio.dto.MCTF001;
+import ems_aio.model.CertifyBean;
 
 @Controller
-public class QualifyController {
+public class CertifyController {
 	@Autowired
-	private QualifyService serv;
+	private CertifyService serv;
 
-	@RequestMapping(value = "/displayqualify", method = RequestMethod.GET)
+	@RequestMapping(value = "/displaycertify", method = RequestMethod.GET)
 	public ModelAndView displayQualification(Model model) {
-		List<MQUL001> list;
+		List<MCTF001> list;
 		list = serv.getAll();
-		QualifyBean bean=new QualifyBean();
+		CertifyBean bean=new CertifyBean();
 		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSQ-003", "qualifylist", list);
+		return new ModelAndView("EMS-MSC-003", "certifylist", list);
 	}
 	
-	@RequestMapping(value = "/setupaddqualify", method = RequestMethod.GET)
-	public ModelAndView setupadduser(@ModelAttribute("bean") QualifyBean bean, ModelMap model) {
-		MQUL001 chk = serv.findLastID();
+	@RequestMapping(value = "/setupaddcertify", method = RequestMethod.GET)
+	public ModelAndView setupadduser(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
+		MCTF001 chk = serv.findLastID();
 		int Intlast=0;
 		String sf2;
-		QualifyBean bea=new QualifyBean();
+		CertifyBean bea=new CertifyBean();
 		if (chk == null) {
 			Intlast = 1;
-			sf2 = String.format("QUL%03d", Intlast);
+			sf2 = String.format("CTF%03d", Intlast);
 		} else {
-			String StrID = chk.getQulid();
+			String StrID = chk.getId();
 			Intlast = Integer.parseInt(StrID.substring(3, 6))+1;
-			sf2 = String.format("QUL%03d", Intlast);
+			sf2 = String.format("CTF%03d", Intlast);
 		}
 		bea.setId(sf2);
 		model.addAttribute("bean",bea);
-		return new ModelAndView("EMS-MSQ-001", "bean", bea);
+		return new ModelAndView("EMS-MSC-001", "bean", bea);
 	}
 
-	@RequestMapping(value = "/addqualify", method = RequestMethod.POST)
-	public String addposition(@ModelAttribute("bean") @Validated QualifyBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	@RequestMapping(value = "/addcertify", method = RequestMethod.POST)
+	public String addposition(@ModelAttribute("bean") @Validated CertifyBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "EMS-MSQ-001";
+			return "EMS-MSC-001";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		MQUL001 dto = new MQUL001();
-		dto.setQulid(bean.getId());
-		dto.setQulname(bean.getName());
-		dto.setQulschool(bean.getSchool());
+		MCTF001 dto = new MCTF001();
+		dto.setId(bean.getId());
+		dto.setName(bean.getName());
+		dto.setSchool(bean.getSchool());
 		dto.setCreatedate(dtf.format(now));
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
-		Optional<MQUL001> chk = serv.getByCode(bean.getId());
+		Optional<MCTF001> chk = serv.getByCode(bean.getId());
+		System.out.println("Hell");
 		if (chk.isPresent()) {
 			redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
-			return "redirect:/setupaddqualify";
+			return "redirect:/setupaddcertify";
 		}
 		try {
 			serv.save(dto);
 			redirAttrs.addFlashAttribute("msg", "Register successful");
-			return "redirect:/setupaddqualify";
+			return "redirect:/setupaddcertify";
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			model.addAttribute("err", "Register fail");
-			return "EMS-MSQ-001";
+			return "EMS-MSC-001";
 		}
 	}
 	
-	@RequestMapping(value = "/setupqualifyupdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/setupcertifyupdate", method = RequestMethod.GET)
 	public ModelAndView setuppositionupdate(@RequestParam("id")String id, ModelMap model) {
-		Optional<MQUL001> dtoget = serv.getByCode(id);
-		MQUL001 dto1=dtoget.get();
-		QualifyBean bean = new QualifyBean();
-		bean.setId(dto1.getQulid());
-		bean.setName(dto1.getQulname());
-		bean.setSchool(dto1.getQulschool());
+		Optional<MCTF001> dtoget = serv.getByCode(id);
+		MCTF001 dto1=dtoget.get();
+		CertifyBean bean = new CertifyBean();
+		bean.setId(dto1.getId());
+		bean.setName(dto1.getName());
+		bean.setSchool(dto1.getSchool());
 		bean.setCreate(dto1.getCreatedate());
-		return new ModelAndView("EMS-MSQ-002", "bean", bean);
+		return new ModelAndView("EMS-MSC-002", "bean", bean);
 
 	}
 	
-	@RequestMapping(value = "/updatequalify", method = RequestMethod.POST)
-	public String updateposition(@ModelAttribute("bean") @Validated QualifyBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	@RequestMapping(value = "/updatecertify", method = RequestMethod.POST)
+	public String updateposition(@ModelAttribute("bean") @Validated CertifyBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "EMS-MSQ-002";
+			return "EMS-MSC-002";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		MQUL001 dto = new MQUL001();
-		dto.setQulid(bean.getId()); 
-		dto.setQulname(bean.getName());
-		dto.setQulschool(bean.getSchool());
+		MCTF001 dto = new MCTF001();
+		dto.setId(bean.getId()); 
+		dto.setName(bean.getName());
+		dto.setSchool(bean.getSchool());
 		dto.setCreatedate(bean.getCreate()); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
 		try {
 			serv.update(dto, bean.getId());
 			model.addAttribute("msg", "Update successful");
-			return "EMS-MSQ-002";
+			return "EMS-MSC-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");
-			return "EMS-MSQ-002";
+			return "EMS-MSC-002";
 		}
 	}
 	
-	@RequestMapping(value = "/qualifydelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/certifydelete", method = RequestMethod.GET)
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		Optional<MQUL001> dtoget = serv.getByCode(id);
-		MQUL001 dto=dtoget.get(); 
+		Optional<MCTF001> dtoget = serv.getByCode(id);
+		MCTF001 dto=dtoget.get(); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
 		serv.update(dto, id);
-		return "redirect:/displayqualify";
+		return "redirect:/displaycertify";
 	}
 
-	@RequestMapping(value = "/searchqualify", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") QualifyBean bean, ModelMap model) {
+	@RequestMapping(value = "/searchcertify", method = RequestMethod.GET)
+	public String displayView(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
 		
-		List<MQUL001> list;
+		List<MCTF001> list;
 		String i = bean.getId();
 		if (i.equals("")) {
 			list = serv.getAll();
@@ -150,10 +149,10 @@ public class QualifyController {
 			 list = serv.getsearch(i);
 		}
 		if (list.size() == 0)
-			model.addAttribute("msg", "Qualification not found!");
+			model.addAttribute("msg", "Certification not found!");
 		else
-			model.addAttribute("qualifylist", list);
+			model.addAttribute("certifylist", list);
 		//return "BUD001";
-		return "EMS-MSQ-003";
+		return "EMS-MSC-003";
 	}
 }

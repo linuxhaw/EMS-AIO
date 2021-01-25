@@ -145,12 +145,13 @@ public class DepartmentController {
 		
 		List<MDEP001> list;
 		String i = bean.getId();
-		if (i.equals("")) {
+		{if (i.equals("")) {
 			list = serv.getAll();
 		}else {
 			 list = serv.getsearch(i);
-		}
-		if (list.size() == 0)
+		}}
+	
+		 if (list.size() == 0)
 			model.addAttribute("msg", "Certification not found!");
 		else
 			model.addAttribute("departmentlist", list);

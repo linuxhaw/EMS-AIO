@@ -18,6 +18,6 @@ public interface CertifyRepository extends CrudRepository<MCTF001, String> {
 	@Query(value = "SELECT * FROM MCTF001 WHERE CTF_status=1;", nativeQuery = true)
 	List<MCTF001> getvalid();
 
-	@Query(value = "SELECT * FROM MCTF001 n WHERE (n.CTF_ID =?1 OR n.CTF_NAME = ?1) AND CTF_status=1", nativeQuery = true)
+	@Query(value = "SELECT * FROM MCTF001 n WHERE (n.CTF_ID =?1 OR n.CTF_NAME = ?1 OR n.CTF_SCHOOL = ?1) AND CTF_status=1", nativeQuery = true)
 	List<MCTF001> find(String cname);
 }

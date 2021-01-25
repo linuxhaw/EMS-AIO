@@ -16,7 +16,7 @@
 			<h5 class="title">Staff Registation</h5>
 		</div>
 
-		<form>
+		<form th:action="@{addStaff}" th:object="${bean}">
 			<div class="row">
 
 				<div class="col-md-1 "></div>
@@ -26,10 +26,20 @@
 							class="form-control" placeholder="S0001" readonly>
 					</div>
 				</div>
-				<div class="col-md-4 ml-5">
+
+			</div>
+			<div class="row">
+				<div class="col-md-1 "></div>
+				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label for="exampleInputUsername">Username</label> <input
 							type="text" class="form-control" placeholder="Username">
+					</div>
+				</div>
+				<div class="col-md-4 ml-5">
+					<div class="form-group">
+						<label for="exampleInputUsername">Password</label> <input
+							type="password" class="form-control" placeholder="Password">
 					</div>
 				</div>
 			</div>
@@ -131,9 +141,9 @@
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>GENDER</label> <br> <input type="radio" name="gender"
-							value="Male" id="male"> <label>Male</label> &nbsp;
-						&nbsp; <input type="radio" name="gender" value="Female"
-							id="female"></input> <label>Female</label>
+							value="Male" id="male"> <label>Male</label> &nbsp; &nbsp;
+						<input type="radio" name="gender" value="Female" id="female"></input>
+						<label>Female</label>
 					</div>
 				</div>
 
@@ -143,6 +153,29 @@
 							name="Marriage" value="Single" id="single"> <label>Single</label>
 						&nbsp; &nbsp; <input type="radio" name="Marriage" value="Marriage"
 							id="marrage"></input> <label>Marriage</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-4 mr-5">
+					<div class="form-group">
+						<label>RELGION</label> <br> <input type="radio"
+							name="relgion" value="Buddhists" id="buddhists"> <label>Buddhists</label>
+						&nbsp; &nbsp; <input type="radio" name="relgion"
+							value="Christians" id="christians"></input> <label>Christians</label>&nbsp;
+						&nbsp; <input type="radio" name="relgion" value="Muslims"
+							id="muslims"></input> <label>Muslims</label><br> <input
+							type="radio" name="relgion" value="Hindus" id="hindus"></input> <label>Hindus</label>
+					</div>
+				</div>
+
+				<div class="col-md-4 ml-5">
+					<div class="form-group">
+						<label>NATIONALITY</label> <br> <input type="radio"
+							name="nationality" value="Citizen" id="citizen"> <label>Citizen</label>
+						&nbsp; &nbsp; <input type="radio" name="nationality"
+							value="Foreigner" id="foreigner"></input> <label>Foreigner</label>
 					</div>
 				</div>
 			</div>
@@ -246,11 +279,11 @@
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>ROLE</label> <br> <select name="role"
-							class="form-control">
-							<option value="select" disabled selected>Select Role</option>
-							<option value="Admin">Admin</option>
-							<option value="HR Manager">HR Manager</option>
-							<option value="Staff">Staff</option>
+							class="form-control" th:field="*{rolname}">
+							<option value=""></option>
+							<option th:each="list:${session.rolelist}"
+								th:value="${list.name}" th:text="${list.name}"
+								th:selected="${list.name==bean.rolname}">Select Role</option>
 						</select>
 					</div>
 				</div>
@@ -309,9 +342,9 @@
 
 					<div class="form-group">
 
-						<td class="text-center"><input type="submit"
-							value="Register" class="btn btn-round btn-primary"></td>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						<td class="text-center"><input type="submit" value="Register"
+							class="btn btn-round btn-primary"></td> &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						<td><a href=""><input type="button" value="Cancel"
 								class="btn btn-round btn-primary"></a></td>
 

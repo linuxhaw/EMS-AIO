@@ -4,7 +4,15 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
-
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -15,24 +23,22 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a target="_blank" href="/setupBank"
-						style="margin-left: 40px;" class="btn btn-round btn-primary">Add
-						Bank</a>
+				<a href="/setupaddbank" style="margin-left: 40px;" class="btn btn-round btn-primary">Add Bank</a>
 				</div>
 			</div>
 
-
-
 			<div class="col-md-4">
-				<div class="input-group no-border" style="padding-top: 10px;">
-					<input type="text" value="" class="form-control"
-						placeholder="Search...">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<i class="now-ui-icons ui-1_zoom-bold"></i>
+				<form action="searchbank" method="get" th:object="${bean}">
+					<div class="input-group no-border" style="padding-top: 10px;">
+						<input type="text" class="form-control" placeholder="Search..."
+							th:field="*{id}">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<i><input type="submit" class="now-ui-icons ui-1_zoom-bold" /></i>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<div class="col-md-2 ">
 				<input class="btn btn-round btn-primary" type="reset">
@@ -49,40 +55,16 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>BNK001</td>
-							<td>KBZ</td>
-							<td>09456175567</td>
-							<td>Mingalar townnyut township</td>
-							<td><a target="_blank" href="/setupEditBank"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
+						<tr th:each="data: ${banklist}">
+							<td th:text="${data.bnkid}" />
+							<td th:text="${data.bnkname}" />
+							<td th:text="${data.bnkphone}" />
+							<td th:text="${data.bnkloc}" />
+							<td>
+								<a th:href="@{/setupbankupdate(id=${data.bnkid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
+								<a th:href="@{/bankdelete(id=${data.bnkid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
 							</td>
 						</tr>
-						<tr>
-							<td>BNK002</td>
-							<td>AYA</td>
-							<td>09452372896</td>
-							<td>Sule Township</td>
-							<td><a target="_blank" href="/setupEditBank"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-						<tr>
-							<td>BNK003</td>
-							<td>AGD</td>
-							<td>0945617492</td>
-							<td>Scnchaung Township</td>
-							<td><a target="_blank" href="/setupEditBank"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-
 					</tbody>
 				</table>
 			</div>

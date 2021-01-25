@@ -21,13 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ems_aio.dao.RoleService;
 import ems_aio.dto.MROL001;
 import ems_aio.model.RoleBean;
-import ems_aio.model.UserBean;
 
 @Controller
-public class RoleController {
+public class StaffController {
 	@Autowired
 	private RoleService RoleService;
-
+	/*
 	@RequestMapping(value = "/displayrole", method = RequestMethod.GET)
 	public ModelAndView displayrole(Model model) {
 		List<MROL001> list;
@@ -152,4 +151,5 @@ public class RoleController {
 		//return "BUD001";
 		return "EMS-MSR-003";
 	}
+	*/
 }

@@ -12,40 +12,40 @@
 		<div class="card-header">
 			<h5 class="title">Edit Qualification</h5>
 		</div>
+		<label id="errormsg" th:text="${err}" style="color: red;">  </label> 
+		<label style="color: blue;" th:text="${msg}"></label>
 		<div class="card-body">
-			<form>
+			<form action="updatequalify" method="post" th:object="${bean}">
 				<div class="row">
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
-							<label>Qualification ID (disabled)</label> <input type="text"
-								class="form-control" disabled="" placeholder="Company"
-								value="CEF001">
+							<label>Qualification ID (disabled)</label>
+							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-							<label>Qualification Name</label> <input type="text"
-								class="form-control" placeholder="Company"
-								value="Java Language Class">
+							<label>Qualification Name</label>
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
 					</div>
 				</div>
+				<input type="text"  placeholder="id" th:field="${bean.create}" style="display:none;" readonly>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-							<label>School Name</label> <input type="text"
-								class="form-control" placeholder="Company" value="KMD It School">
+							<label>School Name</label>
+							<input type="text" class="form-control" placeholder="School" th:field="*{school}" required>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<input type="button" value="Update"
-								class="btn btn-round btn-primary"><a
-								href="/setupQualificationList" class="btn btn-round btn-primary">Cancle</a>
+							<input type="submit" value="Update" class="btn btn-round btn-primary" />
+							<a href="/displayqualify" class="btn btn-round btn-primary">Cancle</a>
 						</div>
 					</div>
 				</div>

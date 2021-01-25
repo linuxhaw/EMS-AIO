@@ -23,15 +23,16 @@
 			</div>
 
 			<div class="col-md-4">
-				<div class="input-group no-border" style="padding-top: 10px;">
-					<input type="text" value="" class="form-control"
-						placeholder="Search...">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<i class="now-ui-icons ui-1_zoom-bold"></i>
-						</div>
+				<form action="searchrole" method="get" th:object="${bean}">
+					<div class="input-group no-border" style="padding-top: 10px;" >
+							<input type="text" class="form-control" placeholder="Search..." th:field="*{id}">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<i ><input type="submit" class="now-ui-icons ui-1_zoom-bold"/></i>
+								</div>
+							</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<div class="col-md-2 ">
 				<input class="btn btn-round btn-primary" type="reset">
@@ -48,37 +49,16 @@
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>POS001</td>
-							<td>Admin</td>
-							<td><a href="./EMS-MSR-002.html"
-
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
+						<tr th:each="role: ${rolelist}">
+							<td th:text="${role.rolid}" />
+							<td th:text="${role.rolname}" />
+							<td>
+								<!-- <a href="./EMS-MSR-002.html" class="btn btn-round btn-primary">Update</a> -->
+								<a th:href="@{/setuproleupdate(id=${role.rolid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="roleUpdate" /></a>
+								<a th:href="@{/roledelete(id=${role.rolid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+								<!-- <button type="button" class="btn btn-round btn-primary">Delete</button> -->
 							</td>
 						</tr>
-						<tr>
-							<td>POS002</td>
-							<td>Manager</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-						<tr>
-							<td>POS003</td>
-							<td>Staff</td>
-
-							<td><a href="/setupEditRole"
-								class="btn btn-round btn-primary">Update</a>
-
-								<button type="button" class="btn btn-round btn-primary">Delete</button>
-							</td>
-						</tr>
-
 					</tbody>
 				</table>
 			</div>

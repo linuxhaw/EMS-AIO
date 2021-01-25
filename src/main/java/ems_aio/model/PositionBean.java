@@ -2,7 +2,7 @@ package ems_aio.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class RoleBean {
+public class PositionBean {
 	private String id;
 	@NotEmpty(message="Input Require")
 	private String name;

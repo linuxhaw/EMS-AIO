@@ -2,10 +2,11 @@ package ems_aio.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class RoleBean {
+public class CertifyBean {
 	private String id;
 	@NotEmpty(message="Input Require")
 	private String name;
+	private String school;
 	private String create;
 	private String update;
 	private String status;
@@ -20,6 +21,12 @@ public class RoleBean {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getSchool() {
+		return school;
+	}
+	public void setSchool(String school) {
+		this.school = school;
 	}
 	public String getCreate() {
 		return create;

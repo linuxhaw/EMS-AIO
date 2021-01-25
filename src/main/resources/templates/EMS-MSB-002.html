@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<h5 class="title">Edit Bank</h5>
+		</div>
+		<div class="card-body">
+			<form>
+				<div class="row">
+					<div class="col-md-5 pr-1">
+						<div class="form-group">
+							<label>Bank ID (disabled)</label> <input type="text"
+								class="form-control" disabled="" placeholder="Company"
+								value="ROL001">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 pr-1">
+						<div class="form-group">
+							<label>Bank Name</label> <input type="text" class="form-control"
+								placeholder="Name" value="KBZ Bank">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 pr-1">
+						<div class="form-group">
+							<label>Phone</label> <input type="text" class="form-control"
+								placeholder="Bank Address" value="0943093445">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Bank Location</label> <input type="text"
+								class="form-control" placeholder="Bank Address"
+								value="No 79, Phonegyi Road, Lanmadaw Township">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="button" value="Update"
+								class="btn btn-round btn-primary"> <a target="_blank"
+								href="/setupBankList" class="btn btn-round btn-primary">Cancle</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+</body>
+</html>

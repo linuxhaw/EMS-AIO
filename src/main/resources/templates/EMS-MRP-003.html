@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="exampleInputNRC">Position Name</label> <br> <select
+						name="department" class="form-control">
+						<option value="select" disabled selected>Select Position</option>
+						<option value="IT">HR</option>
+						<option value="Software">Leader</option>
+						<option value="Hardware">Programmer</option>
+						<option value="HR">Sale Employee</option>
+						<option value="Marketing">Manager</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Position ID</label> <input
+						type="label" class="form-control" value="POS001" readonly>
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Total Employees</label> <input
+						type="label" class="form-control" value="5" readonly>
+				</div>
+			</div>
+		</div>
+		<h4 style="margin-left: 50px;">Employee Information</h4>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+						<th>ID</th>
+						<th>Name</th>
+						<th>Department Name</th>
+						<th>Phone No</th>
+						<th>Gender</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>EMP001</td>
+							<td>Mg Kyaw Kyaw</td>
+							<td>HR Department</td>
+							<td>094512578</td>
+							<td>Male</td>
+						</tr>
+						<tr>
+							<td>EMP002</td>
+							<td>Myo Myo</td>
+							<td>Software Department</td>
+							<td>094516744</td>
+							<td>Female</td>
+						</tr>
+						<tr>
+							<td>EMP003</td>
+							<td>Ko Kyaw</td>
+							<td>Hardware Department</td>
+							<td>094557896</td>
+							<td>Male</td>
+						</tr>
+						<tr>
+							<td>EMP004</td>
+							<td>Myint Swe</td>
+							<td>Marketing Department</td>
+							<td>0945579456</td>
+							<td>Male</td>
+						</tr>
+						<tr>
+							<td>EMP005</td>
+							<td>Khin Myo</td>
+							<td>Software Department</td>
+							<td>094547652</td>
+							<td>Female</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+</body>
+</html>

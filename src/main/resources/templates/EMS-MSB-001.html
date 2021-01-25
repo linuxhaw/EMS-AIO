@@ -9,6 +9,7 @@
 <body>
 
 	<div layout:fragment="content">
+<<<<<<< HEAD
 		 <div class="card-header">
                 <h5 class="title">Add Bank</h5>
               </div>
@@ -59,5 +60,59 @@
             </div>
          
 	
+=======
+		<div class="card-header">
+			<h5 class="title">Add Bank</h5>
+		</div>
+		<label id="errormsg" th:text="${err}" style="color: red;"> </label>
+		 <label style="color: blue;" th:text="${msg}"></label>
+		<div class="card-body">
+			<form action="addbank" method="post" th:object="${bean}">
+				<div class="row">
+					<div class="col-md-5 pr-1">
+						<div class="form-group">
+							<label>Bank ID (disabled)</label>
+							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 pr-1">
+						<div class="form-group">
+							<label>Bank Name</label>
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 pr-1">
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" class="form-control" placeholder="Bank Address" th:field="*{phone}" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Bank Location</label> 
+							<input type="text" class="form-control" placeholder="Bank Address" th:field="*{loc}" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="submit" value="Register" class="btn btn-round btn-primary" />
+							<a target="_blank"	href="/setupBankList" class="btn btn-round btn-primary">Cancle</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+>>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
 </body>
 </html>

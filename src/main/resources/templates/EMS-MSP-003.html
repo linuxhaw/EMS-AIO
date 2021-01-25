@@ -23,7 +23,8 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupPosition" style="margin-left: 40px;"
+					<a href="/setupaddposition" style="margin-left: 40px;"
+
 						class="btn btn-round btn-primary">Add Position</a>
 				</div>
 			</div>
@@ -32,15 +33,16 @@
 
 
 			<div class="col-md-4">
-				<div class="input-group no-border" style="padding-top: 10px;">
-					<input type="text" value="" class="form-control"
-						placeholder="Search...">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<i class="now-ui-icons ui-1_zoom-bold"></i>
-						</div>
+				<form action="searchrole" method="get" th:object="${bean}">
+					<div class="input-group no-border" style="padding-top: 10px;" >
+							<input type="text" class="form-control" placeholder="Search..." th:field="*{id}">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<i ><input type="submit" class="now-ui-icons ui-1_zoom-bold"/></i>
+								</div>
+							</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<div class="col-md-2 ">
 				<input class="btn btn-round btn-primary" type="reset">
@@ -55,31 +57,14 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>POS001</td>
-							<td>Programmer</td>
-							<td><a href="/setupEditPosition"
-								class="btn btn-round btn-primary">Update</a> <input
-								type="submit" value="Delete" class="btn btn-round btn-primary"
-								onclick="deleteStudent()"></td>
+						<tr th:each="data: ${positionlist}">
+							<td th:text="${data.posid}" />
+							<td th:text="${data.posname}" />
+							<td>
+								<a th:href="@{/setuppositionupdate(id=${data.posid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
+								<a th:href="@{/positiondelete(id=${data.posid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+							</td>
 						</tr>
-						<tr>
-							<td>POS002</td>
-							<td>Project Manager</td>
-							<td><a href="./EMS-MSP-002.html"
-								class="btn btn-round btn-primary">Update</a> <input
-								type="submit" value="Delete" class="btn btn-round btn-primary"
-								onclick="deleteStudent()"></td>
-						</tr>
-						<tr>
-							<td>POS003</td>
-							<td>Manager</td>
-							<td><a href="./EMS-MSP-002.html"
-								class="btn btn-round btn-primary">Update</a> <input
-								type="submit" value="Delete" class="btn btn-round btn-primary"
-								onclick="deleteStudent()"></td>
-						</tr>
-
 					</tbody>
 				</table>
 			</div>

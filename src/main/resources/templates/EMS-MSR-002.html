@@ -12,6 +12,8 @@
 		<div class="card-header">
 			<h5 class="title">Update Role</h5>
 		</div>
+		<label id="errormsg" th:text="${err}" style="color: red;">  </label> 
+		<label style="color: blue;" th:text="${msg}"></label>
 		<div class="card-body">
 			<form action="updaterole" method="post" th:object="${bean}">
 				
@@ -25,23 +27,19 @@
 				</div>
 				<input type="text"  placeholder="id" th:field="${bean.create}" style="display:none;" readonly>
 				<div class="row">
-					<div class="col-md-6 pr-1">
+					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Role Name</label>
+<<<<<<< HEAD
 							<input type="text" class="form-control"  th:field="*{name}">
 							<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
+=======
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+>>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<input type="button" value="Update"
-								class="btn btn-round btn-primary"> <a
-								href="/setupRoleList" class="btn btn-round btn-primary">Cancle</a>
-						</div>
-					</div>
-				</div> -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">

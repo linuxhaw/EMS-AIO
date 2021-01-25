@@ -6,10 +6,12 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
 public class MEMP001 {
 	@Id
 	@Column(name="emp_id")
@@ -36,14 +38,17 @@ public class MEMP001 {
 	private double payroll;
 	@Column(name="emp_bnkacc")
 	private String bnkacc;
+	
+	/*@ManyToOne
+	@JoinColumn(name="bnk_id")*/
 	@Column(name="emp_bnk")
 	private String bank;
 	@Column(name="emp_pos")
 	private String pos;
 	@Column(name="emp_dep")
-	private String dep;
+	private String emp_dep;
 	@Column(name="emp_rol")
-	private String rol;
+	private String emp_rol;
 	@Column(name="dep_create")
 	private Timestamp createdate;
 	@Column(name="rol_update")
@@ -51,4 +56,5 @@ public class MEMP001 {
 	@Column(name="rol_status")
 	private boolean status;
 
+	
 }

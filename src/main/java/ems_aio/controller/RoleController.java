@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.RoleService;
 import ems_aio.dto.MROL001;
+import ems_aio.model.QualifyBean;
 import ems_aio.model.RoleBean;
 import ems_aio.model.UserBean;
 
@@ -134,6 +135,12 @@ public class RoleController {
 		return "redirect:/displayrole";
 	}
 
+	@RequestMapping(value = "/rolesearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSR-003", "bean", new RoleBean());
+	}
 	@RequestMapping(value = "/searchrole", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
 		
@@ -146,7 +153,7 @@ public class RoleController {
 		}
 		System.out.println(list.size());
 		if (list.size() == 0)
-			model.addAttribute("msg", "User not found!");
+			model.addAttribute("msg", "Role not found!");
 		else
 			model.addAttribute("rolelist", list);
 		//return "BUD001";

@@ -21,6 +21,10 @@
 			<h4 class="card-title">Position List</h4>
 		</div>
 		<div class="row">
+			<div class="col-md-6"></div>
+			<label style="color: blue;" th:text="${msg}"></label>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
 					<a href="/setupaddposition" style="margin-left: 40px;"
@@ -33,7 +37,8 @@
 
 
 			<div class="col-md-4">
-				<form action="searchrole" method="get" th:object="${bean}">
+				<form action="searchposition" method="get" th:object="${bean}">
+				
 					<div class="input-group no-border" style="padding-top: 10px;" >
 							<input type="text" class="form-control" placeholder="Search..." th:field="*{id}">
 							
@@ -41,7 +46,8 @@
 				</form>
 			</div>
 			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+			<a th:href="@{positionsearch}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
 		<div class="card-body">

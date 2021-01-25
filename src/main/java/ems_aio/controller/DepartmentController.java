@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
 import ems_aio.dto.MDEP001;
+
 import ems_aio.model.DepartmentBean;
 
 @Controller
@@ -139,6 +140,12 @@ public class DepartmentController {
 		serv.update(dto, id);
 		return "redirect:/displaydepartment";
 	}
+	@RequestMapping(value = "/departmentysearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSD-003", "bean", new DepartmentBean());
+	}
 
 	@RequestMapping(value = "/searchdepartment", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
@@ -152,7 +159,7 @@ public class DepartmentController {
 		}}
 	
 		 if (list.size() == 0)
-			model.addAttribute("msg", "Certification not found!");
+			model.addAttribute("msg", "Department not found!");
 		else
 			model.addAttribute("departmentlist", list);
 		//return "BUD001";

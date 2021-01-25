@@ -21,23 +21,30 @@
 			<h4 class="card-title">Certificate List</h4>
 		</div>
 		<div class="row">
+			<div class="col-md-6"></div>
+			<label style="color: blue;" th:text="${msg}"></label>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddcertify" style="margin-left: 40px;" class="btn btn-round btn-primary">Add Certification</a>
+					<a href="/setupaddcertify" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Certification</a>
 				</div>
 			</div>
 
 			<div class="col-md-4">
 				<form action="searchcertify" method="get" th:object="${bean}">
+
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 							th:field="*{id}">
-						
+
 					</div>
 				</form>
 			</div>
 			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+			<a th:href="@{certifysearch}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
 
@@ -51,14 +58,17 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						
+
 						<tr th:each="data: ${certifylist}">
 							<td th:text="${data.id}" />
 							<td th:text="${data.name}" />
 							<td th:text="${data.school}" />
-							<td>
-								<a th:href="@{/setupcertifyupdate(id=${data.id})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
-								<a th:href="@{/certifydelete(id=${data.id})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+							<td><a th:href="@{/setupcertifyupdate(id=${data.id})}"><input
+									type="button" value="Update" class="btn btn-round btn-primary"
+									id="Update" /></a> <a th:href="@{/certifydelete(id=${data.id})}"><input
+									type="button"
+									onclick="return confirm('Are you sure to delete?');"
+									value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
 							</td>
 						</tr>
 					</tbody>
@@ -87,7 +97,7 @@
 			</ul>
 		</nav>
 	</div>
-	
+
 
 
 </body>

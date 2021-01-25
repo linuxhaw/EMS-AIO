@@ -12,7 +12,10 @@
 		<div class="card-header">
 			<h4 class="card-title">Role List</h4>
 		</div>
-
+		<div class="row">
+			<div class="col-md-6"></div>
+			<label style="color: blue;" th:text="${msg}"></label>
+		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
@@ -24,6 +27,7 @@
 
 			<div class="col-md-4">
 				<form action="searchrole" method="get" th:object="${bean}">
+				
 					<div class="input-group no-border" style="padding-top: 10px;" >
 					
 							<input type="text" class="form-control" placeholder="Search..." th:field="*{id}">
@@ -33,7 +37,8 @@
 				</form>
 			</div>
 			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+			<a th:href="@{rolesearch}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
 

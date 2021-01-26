@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ems_aio.dto.MEMP001;
+import ems_aio.dto.StaffDto;
 
 //defining the business logic
 @Service
@@ -15,25 +15,25 @@ public class StaffService {
 	StaffRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MEMP001> getsearch(String id) {
-		 List<MEMP001> list = (List<MEMP001>) repo.find(id); 
+	public List<StaffDto> getsearch(String id) {
+		 List<StaffDto> list = (List<StaffDto>) repo.find(id); 
 	 return list; }
 	
-	 public List<MEMP001> getAll() {
-		 List<MEMP001> list = (List<MEMP001>) repo.getvalid(); 
+	 public List<StaffDto> getAll() {
+		 List<StaffDto> list = (List<StaffDto>) repo.getvalid(); 
 	 return list; }
 	 
 	
 	//zay
-	public MEMP001 findLastID() {
-		MEMP001 list = repo.findLastID();
+	public StaffDto findLastID() {
+		StaffDto list = repo.findLastID();
 		return list;
 	}
 	
 
 //getting a specific record by using the method findById() of	CrudRepository
 
-	public Optional<MEMP001> getByCode(String code) {
+	public Optional<StaffDto> getByCode(String code) {
 
 		return repo.findById(code);
 
@@ -41,7 +41,7 @@ public class StaffService {
 	
 //saving a specific record by using the method save() of	CrudRepository
 
-	public void save(MEMP001 data) {
+	public void save(StaffDto data) {
 		repo.save(data);
 	}
 
@@ -52,7 +52,7 @@ public class StaffService {
 	}
 
 //updating a record
-	public void update(MEMP001 data, String Code) {
+	public void update(StaffDto data, String Code) {
 		repo.save(data);
 	}
 }

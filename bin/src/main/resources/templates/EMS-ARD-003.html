@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="exampleInputNRC">Department Name</label> <br> <select
+						name="department" class="form-control">
+						<option value="select" disabled selected>Select
+							Department</option>
+						<option value="IT">IT</option>
+						<option value="Software">Software</option>
+						<option value="Hardware">Hardware</option>
+						<option value="HR">HR</option>
+						<option value="Marketing">Marketing</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Departmet ID</label> <input
+						type="label" class="form-control" value="DEP001" readonly>
+
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Deparetment Head</label> <input
+						type="label" class="form-control" value="U Mg Mg" readonly>
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Department Location</label> <input
+						type="label" class="form-control" value="Building 5, Floor 3"
+						readonly>
+				</div>
+			</div>
+			<div class="col-md-4 pl-1">
+				<div class="form-group">
+					<label for="exampleInputNRC">Total Employees</label> <input
+						type="label" class="form-control" value="3" readonly>
+				</div>
+			</div>
+		</div>
+		<h4 style="margin-left: 50px;">Department's Employees</h4>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+						<th>Employee ID</th>
+						<th>Employee Name</th>
+						<th>Employee Position</th>
+						<th>Employee Phone No</th>
+						<th>Gender</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>EMP001</td>
+							<td>Mg Kyaw Kyaw</td>
+							<td>Leader</td>
+							<td>094561749</td>
+							<td>Male</td>
+						</tr>
+						<tr>
+							<td>EMP002</td>
+							<td>Ma Hla Hla</td>
+							<td>Programmer</td>
+							<td>094516744</td>
+							<td>Female</td>
+						</tr>
+						<tr>
+							<td>EMP003</td>
+							<td>Ma Mya Mya</td>
+							<td>HR</td>
+							<td>09387494164</td>
+							<td>Female</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

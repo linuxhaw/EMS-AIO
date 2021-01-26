@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<h4 class="card-title">BlackLists</h4>
+		</div>
+		<form>
+			<div class="row">
+				<div class="col-md-5"></div>
+				<div class="col-md-4 pt-2 ml-4">
+					<div class="input-group no-border">
+						<input type="text" value="" class="form-control"
+							placeholder="search...">
+
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<i class="now-ui-icons ui-1_zoom-bold"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 ml-4 ">
+					<input class="btn btn-round btn-primary" type="reset">
+				</div>
+			</div>
+		</form>
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+
+						<th>ID</th>
+
+						<th>Name</th>
+
+						<th>Department</th>
+
+						<th>Position</th>
+
+						<th>Date</th>
+
+
+
+						<th class="text-center">Remarks</th>
+
+					</thead>
+					<tbody>
+						<tr>
+							<td>S0001</td>
+							<td>Hlwan Moe Aung</td>
+							<td>Project Leader</td>
+							<td>HR</td>
+							<td>1/4/2021</td>
+
+							<td class="text-right">He stole company Information and sell
+								another organization
+							<td>
+						</tr>
+						<tr>
+							<td>S0005</td>
+							<td>Manson</td>
+							<td>Junior</td>
+							<td>Software</td>
+							<td>11/10/2020</td>
+
+							<td class="text-center">He broke the rules of company and
+								against rules and law
+							<td>
+						</tr>
+						</tr>
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<nav aria-label="pagination">
+			<ul class="pagination pagination-md justify-content-center">
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">Previous</span>
+                          <span class="sr-only">Previous</span>
+                        </a> --> <a class="page-link" href="#"
+					tabindex="-1">Previous</a>
+				</li>
+				<li class="page-item active"><a
+					style="border-color: orangered; background-color: orangered;"
+					class="page-link" href="#">1</a></li>
+
+				<li class="page-item">
+					<!-- <a class="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">Next</span>
+                          <span class="sr-only">Next</span>
+                        </a> --> <a class="page-link" href="#"
+					tabindex="+1">Next</a>
+
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+
+</body>
+</html>

@@ -22,33 +22,7 @@ public class LoginController {
 		model.addAttribute("user", new UserBean());
 		return "EMS-LGN-001";
 	}
-	
-	/*
-	 * @RequestMapping(value = "/login",method = RequestMethod.POST) public String
-	 * login(@ModelAttribute("login")UserBean bean,HttpSession session,ModelMap
-	 * model) {
-	 * 
-	 * 
-	 * 
-	 * UserDTO dto=new UserDTO(); dto.setUserId(bean.getUserId()); List<UserDTO>
-	 * list = service.select(dto); if (list.size() == 0) { model.addAttribute("err",
-	 * "User not found!"); return "WFMS-LGN-002"; }else if
-	 * (bean.getPassword().equals(list.get(0).getPassword())) {
-	 * session.setAttribute("sesUser", list.get(0));
-	 * if(list.get(0).getRole().getRoleName().equals("Staff")) { return
-	 * "WFMS-STH-002"; }else
-	 * if(list.get(0).getRole().getRoleName().equals("Admin")){ return
-	 * "WFMS-ADH-002";
-	 * 
-	 * }else if((list.get(0).getRole().getRoleName().equals("Project Manager"))||
-	 * (list.get(0).getRole().getRoleName().equals("Head of Department"))) { return
-	 * "WFMS-PMH-002"; }else { return "WFMS-HRH-002"; }
-	 * 
-	 * } else { model.addAttribute("err", "Your password is incorrect!"); return
-	 * "WFMS-LGN-002"; } }
-	 */
-	
-	
+		
 	@RequestMapping(value = "/admindashboard", method = RequestMethod.GET)
 	public String dashboard(Model model) {
 		model.addAttribute("user", new UserBean());

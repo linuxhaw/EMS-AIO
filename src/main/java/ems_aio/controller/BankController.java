@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+
 import ems_aio.dao.BankService;
 import ems_aio.dto.MBNK001;
 import ems_aio.model.BankBean;
@@ -139,6 +141,13 @@ public class BankController {
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displaybank";
+	}
+	
+	@RequestMapping(value = "/bankSearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSB-003", "bean", new BankBean());
 	}
 
 	@RequestMapping(value = "/searchbank", method = RequestMethod.GET)

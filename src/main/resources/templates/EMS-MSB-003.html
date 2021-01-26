@@ -21,28 +21,35 @@
 			<h4 class="card-title">Bank List</h4>
 		</div>
 		<div class="row">
+		<div class="col-md-6">
+		</div>
+		<label style="color: blue;" th:text="${msg}"></label>				
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-				<a href="/setupaddbank" style="margin-left: 40px;" class="btn btn-round btn-primary">Add Bank</a>
+					<a href="/setupaddbank" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Bank</a>
 				</div>
 			</div>
 
 			<div class="col-md-4">
+			
 				<form action="searchbank" method="get" th:object="${bean}">
+				
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 							th:field="*{id}">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<i><input type="submit" class="now-ui-icons ui-1_zoom-bold" /></i>
-							</div>
-						</div>
+						
 					</div>
+					
 				</form>
-			</div>
-			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
-			</div>
+				</div>
+				<div class="col-md-2 ">
+				 <a th:href="@{/bankSearch}">
+						<input class="btn btn-round btn-primary" type="reset"></a>
+					</div>
+			
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -60,9 +67,12 @@
 							<td th:text="${data.bnkname}" />
 							<td th:text="${data.bnkphone}" />
 							<td th:text="${data.bnkloc}" />
-							<td>
-								<a th:href="@{/setupbankupdate(id=${data.bnkid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
-								<a th:href="@{/bankdelete(id=${data.bnkid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+							<td><a th:href="@{/setupbankupdate(id=${data.bnkid})}"><input
+									type="button" value="Update" class="btn btn-round btn-primary"
+									id="Update" /></a> <a th:href="@{/bankdelete(id=${data.bnkid})}"><input
+									type="button"
+									onclick="return confirm('Are you sure to delete?');"
+									value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
 							</td>
 						</tr>
 					</tbody>

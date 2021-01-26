@@ -1,4 +1,6 @@
 package ems_aio.controller;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -6,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
+import ems_aio.model.StaffBean;
 import ems_aio.model.UserBean;
 
 @Controller
@@ -16,9 +17,10 @@ public class LoginController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginPage(Model model) {
-		model.addAttribute("user", new UserBean());
-		return "EMS-STI-001";
+		model.addAttribute("bean", new UserBean());
+		return "EMS-LGN-001";
 	}
+
 	
 	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
 	public ModelAndView setupRepoetBlackList() {
@@ -73,7 +75,7 @@ public class LoginController {
 		return new ModelAndView("EMS-MSB-003","user",new UserBean());
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping(value = "/EMS-DSH-001.html", method = RequestMethod.GET)
 	public String Dashboard(Model model) {
 		model.addAttribute("user", new UserBean());
@@ -86,7 +88,7 @@ public class LoginController {
 		return "EMS-MSP-003";
 	}
 	
-=======
+
 	@RequestMapping(value="/setupCertificate" ,method=RequestMethod.GET)
 	public ModelAndView setupCertificate() {
 		return new ModelAndView("EMS-MSC-001","user",new UserBean());
@@ -123,18 +125,20 @@ public class LoginController {
 	public ModelAndView setupQualificationList() {
 		return new ModelAndView("EMS-MSQ-003","user",new UserBean());
 	}
-	@RequestMapping(value="/setupRole" ,method=RequestMethod.GET)
-	public ModelAndView setupRole() {
-		return new ModelAndView("EMS-MSR-001","user",new UserBean());
-	}
-	@RequestMapping(value="/setupEditRole" ,method=RequestMethod.GET)
-	public ModelAndView setupEditRole() {
-		return new ModelAndView("EMS-MSR-002","user",new UserBean());
-	}
-	@RequestMapping(value="/setupRoleList" ,method=RequestMethod.GET)
-	public ModelAndView setupRoleList() {
-		return new ModelAndView("EMS-MSR-003","user",new UserBean());
-	}
+
+	
+	  @RequestMapping(value="/setupRole" ,method=RequestMethod.GET) public
+	  ModelAndView setupRole() { return new ModelAndView("EMS-MSR-001","user",new
+	  UserBean()); }
+	  
+	  @RequestMapping(value="/setupEditRole" ,method=RequestMethod.GET) public
+	  ModelAndView setupEditRole() { return new
+	  ModelAndView("EMS-MSR-002","user",new UserBean()); }
+	  
+	  @RequestMapping(value="/setupRoleList" ,method=RequestMethod.GET) public
+	  ModelAndView setupRoleList() { return new
+	  ModelAndView("EMS-MSR-003","user",new UserBean()); }
+	 
 	@RequestMapping(value="/setupPayRollList" ,method=RequestMethod.GET)
 	public ModelAndView setupPayRollList() {
 		return new ModelAndView("EMS-PYL-003","user",new UserBean());
@@ -155,7 +159,7 @@ public class LoginController {
 	public ModelAndView setupPositionChange() {
 		return new ModelAndView("EMS-STM-002","user",new UserBean());
 	}
-	@RequestMapping(value="/setupaddStaff" ,method=RequestMethod.GET)
+	@RequestMapping(value="/x`Staff" ,method=RequestMethod.GET)
 	public ModelAndView setupaddStaff() {
 		return new ModelAndView("EMS-STI-001","user",new UserBean());
 	}
@@ -167,5 +171,5 @@ public class LoginController {
 	public ModelAndView setupStaffList() {
 		return new ModelAndView("EMS-STI-003","user",new UserBean());
 	}
->>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
+
 }

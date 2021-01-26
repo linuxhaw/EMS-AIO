@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.CertifyService;
 import ems_aio.dto.MCTF001;
+
 import ems_aio.model.CertifyBean;
 
 @Controller
@@ -137,7 +138,12 @@ public class CertifyController {
 		serv.update(dto, id);
 		return "redirect:/displaycertify";
 	}
-
+	@RequestMapping(value = "/certifysearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSC-003", "bean", new CertifyBean());
+	}
 	@RequestMapping(value = "/searchcertify", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
 		

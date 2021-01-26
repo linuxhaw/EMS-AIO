@@ -1,7 +1,9 @@
 package ems_aio.dto;
 
+
 import java.sql.Date;
 import java.sql.Timestamp;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class MEMP001 {
+
 	@Id
 	@Column(name="emp_id")
 	private String id;
@@ -50,5 +53,6 @@ public class MEMP001 {
 	private Timestamp updatedate;
 	@Column(name="rol_status")
 	private boolean status;
+
 
 }

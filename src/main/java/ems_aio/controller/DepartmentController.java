@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
 import ems_aio.dto.MDEP001;
+
 import ems_aio.model.DepartmentBean;
 
 @Controller
@@ -112,8 +113,8 @@ public class DepartmentController {
 		MDEP001 dto = new MDEP001();
 		dto.setId(bean.getId()); 
 		dto.setName(bean.getName());
-		bean.setLoc(bean.getLoc());
-		bean.setHead(bean.getHead());
+		dto.setLoc(bean.getLoc());
+		dto.setHead(bean.getHead());
 		dto.setCreatedate(bean.getCreate()); 
 		dto.setUpdatedate(dtf.format(now));
 		dto.setStatus(b);
@@ -139,19 +140,26 @@ public class DepartmentController {
 		serv.update(dto, id);
 		return "redirect:/displaydepartment";
 	}
+	@RequestMapping(value = "/departmentysearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSD-003", "bean", new DepartmentBean());
+	}
 
 	@RequestMapping(value = "/searchdepartment", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
 		
 		List<MDEP001> list;
 		String i = bean.getId();
-		if (i.equals("")) {
+		{if (i.equals("")) {
 			list = serv.getAll();
 		}else {
 			 list = serv.getsearch(i);
-		}
-		if (list.size() == 0)
-			model.addAttribute("msg", "Certification not found!");
+		}}
+	
+		 if (list.size() == 0)
+			model.addAttribute("msg", "Department not found!");
 		else
 			model.addAttribute("departmentlist", list);
 		//return "BUD001";

@@ -139,6 +139,12 @@ public class QualifyController {
 		return "redirect:/displayqualify";
 	}
 
+	@RequestMapping(value = "/qualifysearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSQ-003", "bean", new QualifyBean());
+	}
 	@RequestMapping(value = "/searchqualify", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") QualifyBean bean, ModelMap model) {
 		

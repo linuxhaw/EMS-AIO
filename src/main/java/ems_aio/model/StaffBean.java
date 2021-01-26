@@ -1,6 +1,7 @@
 package ems_aio.model;
 
 public class StaffBean {
+
 	private String id;
 	private String name;
 	private String nrc;
@@ -190,5 +191,6 @@ public class StaffBean {
 	public void setUpdate(String update) {
 		this.update = update;
 	}
+
 
 }

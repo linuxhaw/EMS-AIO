@@ -1,65 +1,66 @@
-<<<<<<< HEAD
 package ems_aio.model;
 
-public class PositionBean {
-private String pId;
-private String pName;
-public String getpId() {
-	return pId;
-}
-public void setpId(String pId) {
-	this.pId = pId;
-}
-public String getpName() {
-	return pName;
-}
-public void setpName(String pName) {
-	this.pName = pName;
-}
+import javax.persistence.Column;
 
-}
-=======
-package ems_aio.model;
+import javax.persistence.Id;
 
-import javax.validation.constraints.NotEmpty;
+
+
 
 public class PositionBean {
-	private String id;
-	@NotEmpty(message="Input Require")
-	private String name;
-	private String create;
-	private String update;
-	private String status;
-	public String getId() {
-		return id;
+	@Id
+	@Column(name="pos_id")
+	private String posid;
+	@Column(name="pos_name")
+	private String posname;
+	@Column(name="pos_create")
+	private String createdate;
+	@Column(name="pos_update")
+	private String updatedate;
+	@Column(name="pos_status")
+	private boolean status;
+	public String getPosid() {
+		return posid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setPosid(String posid) {
+		this.posid = posid;
 	}
-	public String getName() {
-		return name;
+	public String getPosname() {
+		return posname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setPosname(String posname) {
+		this.posname = posname;
 	}
-	public String getCreate() {
-		return create;
+	public String getCreatedate() {
+		return createdate;
 	}
-	public void setCreate(String create) {
-		this.create = create;
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
 	}
-	public String getUpdate() {
-		return update;
+	public String getUpdatedate() {
+		return updatedate;
 	}
-	public void setUpdate(String update) {
-		this.update = update;
+	public void setUpdatedate(String updatedate) {
+		this.updatedate = updatedate;
 	}
-	public String getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
+	public PositionBean(String posid, String posname, String createdate, String updatedate, boolean status) {
+		
+		this.posid = posid;
+		this.posname = posname;
+		this.createdate = createdate;
+		this.updatedate = updatedate;
+		this.status = status;
+	}
+	public PositionBean() {
+		
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }
->>>>>>> 657aeebe99d3ab8c3ac0d40650c70a579fa2e4a0

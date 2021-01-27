@@ -1,6 +1,6 @@
 package ems_aio.model;
 
-import java.sql.Date;
+import java.util.*;
 
 public class StaffBean {
 	private String id;

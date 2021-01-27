@@ -92,17 +92,24 @@ public class StaffController {
 		return "EMS-STI-001";
 	}
 	
+	private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+	
 	@RequestMapping(value = "/addstaff", method = RequestMethod.POST)
 	public String addrole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "EMS-MSR-001";
+			return "/addstaff";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now1 = LocalDateTime.now();
 		Date date=new Date();
+		System.out.println(bean.getBirthday());
+		System.out.println(bean.getRegister());
 		Timestamp now=new Timestamp(date.getTime());
-		//System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole()+bean.getCreate());
+		System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole());
 		StaffDto dto = new StaffDto();
 		dto.setId(bean.getId());
 		dto.setName(bean.getName());
@@ -114,8 +121,10 @@ public class StaffController {
 		dto.setBnkacc(bean.getBankAcc());
 		dto.setBank(bean.getBank());
 		dto.setAddress(bean.getAddress());
-		dto.setRegister(bean.getRegister());
-		dto.setBirthday(bean.getBirthday());
+		java.sql.Date sDate = convertUtilToSql(bean.getRegister());
+		dto.setRegister(sDate);
+		sDate= convertUtilToSql(bean.getBirthday());
+		dto.setBirthday(sDate);
 		dto.setGender(bean.getGender());
 		dto.setMarrage(bean.getMarrage());
 		dto.setReligion(bean.getReligion());
@@ -126,24 +135,20 @@ public class StaffController {
 		dto.setStatus(b);
 		dto.setCreatedate(now);
 		dto.setUpdatedate(now);
-		/*
-		 * dto.setPassword(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
-		dto.setStatus(b);
-		Optional<MROL001> chk = RoleService.getRoleByCode(bean.getId());
+		
+		Optional<StaffDto> chk = StaffService.getByCode(bean.getId());
 		if (chk.isPresent()) {
 			redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
-			return "redirect:/setupaddrole";
+			return "redirect:/setupaddstaff";
 		}
 		try {
-			RoleService.save(dto);
+			StaffService.save(dto);
 			redirAttrs.addFlashAttribute("msg", "Register successful");
-			return "redirect:/setupaddrole";
+			return "redirect:/setupaddstaff";
 		} catch (Exception e) {
 			model.addAttribute("err", "Register fail");
-			return "EMS-MSR-001";
-		}*/
-		return "redirect:/setupaddstaff";
+			return "EMS-STI-001";
+		}
 	}
 	/*
 	@RequestMapping(value = "/setuproleupdate", method = RequestMethod.GET)

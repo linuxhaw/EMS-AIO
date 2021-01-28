@@ -148,13 +148,12 @@ body {
       color: #444; }
     .page-nav ul li a {
       color: #444; }
-
-.btn-success {
+#btnLogin {
   background-color:rgb(255, 60, 0);
   border-color: rgb(255,60, 0); }
   .btn-success:hover {
-    background-color:rgb(255, 115, 0)!important;
-    border-color:rgb(255, 115, 0) !important; }
+    background-color:linear-gradient(to right,#ff512f ,#dd2476)!important;
+    border-color:linear-gradient(to right,#ff512f ,#dd2476) !important; }
   .btn-success:active {
     background-color: rgb(255, 115, 0) !important;
     border-color: rgb(255, 115, 0)!important; }
@@ -236,10 +235,16 @@ body {
   @media screen and (max-width: 340px) {
     .login-box {
       width: 88%; } }
+      #error{
+      color:#FA897B;
+      font-size:20px;
+      }
   .login-box .bklmj {
     background: url("../images/bg.png");
     background-size: cover;
     padding: 20px;
+    margin-left:20px;
+    margin-right:0px;
     padding-bottom: 48px; }
   .login-box .linkoi ul {
     float: right; }

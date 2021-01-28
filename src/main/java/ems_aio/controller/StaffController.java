@@ -81,7 +81,7 @@ public class StaffController {
 			sf2 = String.format("STF%04d", Intlast);
 		} else {
 			String StrID = chk.getId();
-			Intlast = Integer.parseInt(StrID.substring(3, 6))+1;
+			Intlast = Integer.parseInt(StrID.substring(3, 7))+1;
 			sf2 = String.format("STF%04d", Intlast);
 		}
 		rol.setId(sf2);

@@ -1,0 +1,35 @@
+
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+xmlns:h="http://xmlns.jcp.org/jsf/html"  
+xmlns:p="http://primefaces.org/ui">  
+<h:head>  
+<title>Menu Bar</title>  
+	
+
+</h:head>  
+<h:body>  
+<h:form style="padding-top:85px ;width:18px;">	
+
+    <p:menu toggleable="true" style="backgroud-color:red;width:1500%;height:700px;">
+        <p:submenu label="Class Management" style="background-color:limegreen; border-radius:5px 5px 5px 5px; margin-top:15px; " >
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;" value="Add Class" action="BUD003.xhtml?faces-redirect=true"  icon="pi pi-save" />
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;"  value="Search Class" action="BUD003-01.xhtml?faces-redirect=true"  icon="pi pi-refresh"/>
+        </p:submenu>
+
+        <p:submenu label="Student Management" style="background-color:limegreen; border-radius:5px 5px 5px 5px;  margin-top:15px; ">
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;" value="Add Student" action="BUD002.xhtml?faces-redirect=true" ajax="false" icon="pi pi-times"/>
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;" value="Search Student" action="/BUD001.xhtml?faces-redirect=true"  ajax="false" icon="pi pi-times"/>
+        </p:submenu>
+        <p:submenu label="User Management" style="background-color:limegreen; border-radius:5px 5px 5px 5px;  margin-top:15px; ">
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;" value="Add User" action="USR002.xhtml?faces-redirect=true" icon="pi pi-home"/>
+            <p:menuitem style="background-color:skyblue; border-radius:5px 5px 5px 5px;" value="Search User" action="USR001.xhtml?faces-redirect=true" icon="pi pi-home"/>
+
+        </p:submenu>
+     </p:menu>
+</h:form>
+</h:body>  
+</html>  
+

@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MPOS001;
 import ems_aio.dto.MROL001;
 
 //defining the business logic
@@ -59,5 +63,13 @@ public class RoleService {
 //updating a record
 	public void update(MROL001 books, String Code) {
 		RoleRepository.save(books);
+	}
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<MROL001>rolePagi(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		 List<MROL001> list = (List<MROL001>) RoleRepository.getvalid(); 
+		return this.RoleRepository.findAll(pageable);
+		
 	}
 }

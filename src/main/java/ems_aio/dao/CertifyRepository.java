@@ -2,6 +2,8 @@ package ems_aio.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,5 @@ public interface CertifyRepository extends CrudRepository<MCTF001, String> {
 
 	@Query(value = "SELECT * FROM mctf001 n WHERE (n.CTF_ID =?1 OR n.CTF_NAME = ?1 OR n.CTF_SCHOOL = ?1) AND CTF_status=1", nativeQuery = true)
 	List<MCTF001> find(String cname);
+	Page<MCTF001> findAll(Pageable pageable);
 }

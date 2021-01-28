@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,23 +25,43 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.CertifyService;
 import ems_aio.dto.MCTF001;
-
+import ems_aio.dto.MDEP001;
 import ems_aio.model.CertifyBean;
+import ems_aio.model.DepartmentBean;
 
 @Controller
 public class CertifyController {
 	@Autowired
 	private CertifyService serv;
 
-	@RequestMapping(value = "/displaycertify", method = RequestMethod.GET)
-	public ModelAndView displayQualification(Model model) {
-		List<MCTF001> list;
-		list = serv.getAll();
+//	@RequestMapping(value = "/displaycertify", method = RequestMethod.GET)
+//	public ModelAndView displayQualification(Model model) {
+//		List<MCTF001> list;
+//		list = serv.getAll();
+//		CertifyBean bean=new CertifyBean();
+//		model.addAttribute("bean", bean);
+//		return new ModelAndView("EMS-MSC-003", "certifylist", list);
+//	}
+//	
+	@GetMapping("/displaycertification/page/{pageNo}")
+	public String certiPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+		int pageSize=3;
+		Page<MCTF001>page=serv.certiPagi(pageNo, pageSize);
+		List<MCTF001> list =page.getContent();
+//		List<MDEP001>list=serv.getAll();
 		CertifyBean bean=new CertifyBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSC-003", "certifylist", list);
+	model.addAttribute("bean", bean);
+		model.addAttribute("certifylist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-MSC-003";
+		
 	}
-	
+	@GetMapping("/displaycertification")
+	public String displaycertification(Model model) {
+		return certiPagi(1, model);
+	}
 	@RequestMapping(value = "/setupaddcertify", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
 		MCTF001 chk = serv.findLastID();
@@ -148,7 +171,7 @@ public class CertifyController {
 		model.addAttribute("msg", message);
 		return new ModelAndView("EMS-MSC-003", "bean", new CertifyBean());
 	}
-	@RequestMapping(value = "/searchcertify", method = RequestMethod.GET)
+	@RequestMapping(value = "/page/searchcertification", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
 		
 		List<MCTF001> list;

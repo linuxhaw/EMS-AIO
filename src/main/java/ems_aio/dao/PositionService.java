@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ems_aio.dto.MPOS001;
@@ -54,5 +57,12 @@ public class PositionService {
 //updating a record
 	public void update(MPOS001 books, String Code) {
 		repo.save(books);
+	}
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<MPOS001>posPagi(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findAll(pageable);
+		
 	}
 }

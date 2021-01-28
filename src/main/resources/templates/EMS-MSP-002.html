@@ -20,7 +20,7 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Position ID (disabled)</label> 
-							<input type="text" class="form-control" th:field="*{id}" readonly>							
+							<input type="text" class="form-control" th:field="${bean.id}" readonly>							
 						</div>
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Position Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+							<input type="text" class="form-control" th:field="*{name}">
 						</div>
 						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 					</div>

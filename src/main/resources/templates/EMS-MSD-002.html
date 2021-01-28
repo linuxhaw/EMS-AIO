@@ -29,24 +29,27 @@ w<!DOCTYPE html>
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>Department Name</label>
-							<input type="text" class="form-control" th:field="*{name}" required>
+							<input type="text" class="form-control" th:field="*{name}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>Department Head</label>
-							<input type="text" class="form-control"  th:field="*{head}" required>
+							<input type="text" class="form-control"  th:field="*{head}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Department Location</label> 
-							<input type="text" class="form-control" th:field="*{loc}" required>
+							<input type="text" class="form-control" th:field="*{loc}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">

@@ -1,9 +1,13 @@
 package ems_aio.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CertificationBean {
 
 	private String id;
+	@NotEmpty(message="Field must not be null!")
 	private String cefname;
+	@NotEmpty(message="Field must not be null!")
 	private String schname;
 	private String create;
 	private String update;

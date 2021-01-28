@@ -4,8 +4,9 @@ import javax.validation.constraints.NotEmpty;
 
 public class CertifyBean {
 	private String id;
-	@NotEmpty(message="Input Require")
+	@NotEmpty(message="Field must not be null!")
 	private String name;
+	@NotEmpty(message="Field must not be null!")
 	private String school;
 	private String create;
 	private String update;

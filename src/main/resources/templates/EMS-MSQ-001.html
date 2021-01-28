@@ -28,16 +28,18 @@
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>Qualification Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+							<input type="text" class="form-control" th:field="*{name}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>School Name</label>
-							<input type="text" class="form-control" placeholder="School" th:field="*{school}" required>
+							<input type="text" class="form-control" th:field="*{school}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
 					</div>
 				</div>
 				<div class="row">

@@ -4,9 +4,11 @@ import javax.validation.constraints.NotEmpty;
 
 public class DepartmentBean {
 	private String id;
-	@NotEmpty(message="Input Require")
+	@NotEmpty(message="Field must not be null!")
 	private String name;
+	@NotEmpty(message="Field must not be null!")
 	private String loc;
+	@NotEmpty(message="Field must not be null!")
 	private String head;
 	private String create;
 	private String update;

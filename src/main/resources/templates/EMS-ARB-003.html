@@ -20,10 +20,42 @@
 		<div class="card-header">
 			<h4 class="card-title">BlackLists</h4>
 		</div>
-		<form>
+		
+		<div class="row">
+			
+			
+
+			<div class="col-md-4">
+				<form action="searchrole" method="get" th:object="${bean}">
+				
+					<div class="input-group no-border" style="padding-top: 10px; margin-right: 20px; padding-left:40px;" >
+					
+							<input type="text" class="form-control" placeholder="Search..." >
+							
+					</div>
+					
+				</form>
+			</div>
+			<div class="col-md-2 ">
+			<a th:href="@{rolesearch}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
+			</div>
+			
+			
+			<div class="col-md-6">
+			
+				<div class="form-group">
+					<a href="about::printview" style="margin-left: 340px;"
+
+						class="btn btn-round btn-primary">Print</a>
+				</div>
+			</div>
+		</div>
+		
+		<!--<form>
 			<div class="row">
-				<div class="col-md-5"></div>
-				<div class="col-md-4 pt-2 ml-4">
+				<div class="col-md-12"></div>
+				<div class="col-md-6 pt-2 ml-4">
 					<div class="input-group no-border">
 						<input type="text" value="" class="form-control"
 							placeholder="search...">
@@ -38,8 +70,13 @@
 				<div class="col-md-2 ml-4 ">
 					<input class="btn btn-round btn-primary" type="reset">
 				</div>
+				<div class="col-md-4 ml-4">
+                    <div class="form-group">
+                      <a href="./EMS-MSR-001.html" style="margin-left: 40px;" class="btn btn-round btn-primary">Print</a>
+                    </div>
+                  </div>
 			</div>
-		</form>
+		</form>-->
 
 		<div class="card-body">
 			<div class="table-responsive">

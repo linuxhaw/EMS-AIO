@@ -1,15 +1,20 @@
 package ems_aio.model;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.validation.constraints.NotEmpty;
 
 public class BankBean {
 	private String id;
-	@NotEmpty(message="Input Require")
+	@NotEmpty(message="Field must not be null!")
 	private String name;
+	@NotEmpty(message="Field must not be null!")
 	private String phone;
+	@NotEmpty(message="Field must not be null!")
 	private String loc;
-	private String create;
-	private String update;
+	private Timestamp create;
+	private Timestamp update;
 	private String status;
 	public String getId() {
 		return id;
@@ -35,16 +40,16 @@ public class BankBean {
 	public void setLoc(String loc) {
 		this.loc = loc;
 	}
-	public String getCreate() {
+	public Timestamp getCreate() {
 		return create;
 	}
-	public void setCreate(String create) {
+	public void setCreate(Timestamp create) {
 		this.create = create;
 	}
-	public String getUpdate() {
+	public Timestamp getUpdate() {
 		return update;
 	}
-	public void setUpdate(String update) {
+	public void setUpdate(Timestamp update) {
 		this.update = update;
 	}
 	public String getStatus() {
@@ -54,6 +59,7 @@ public class BankBean {
 		this.status = status;
 	}
 	
+
 	
 
 }

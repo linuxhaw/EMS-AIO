@@ -1,17 +1,22 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.RoleService;
+import ems_aio.dto.MPOS001;
 import ems_aio.dto.MROL001;
+import ems_aio.model.QualifyBean;
 import ems_aio.model.RoleBean;
 import ems_aio.model.UserBean;
 
@@ -28,15 +35,33 @@ public class RoleController {
 	@Autowired
 	private RoleService RoleService;
 
-	@RequestMapping(value = "/displayrole", method = RequestMethod.GET)
-	public ModelAndView displayrole(Model model) {
-		List<MROL001> list;
-		list = RoleService.getAll();
+//	@RequestMapping(value = "/displayrole", method = RequestMethod.GET)
+//	public ModelAndView displayrole(Model model) {
+//		List<MROL001> list;
+//		list = RoleService.getAll();
+//		RoleBean bean=new RoleBean();
+//		model.addAttribute("bean", bean);
+//		return new ModelAndView("EMS-MSR-003", "rolelist", list);
+//	}
+	@GetMapping("/displayrole/page/{pageNo}")
+	public String rolePagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+		int pageSize=3;
 		RoleBean bean=new RoleBean();
 		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSR-003", "rolelist", list);
+		Page<MROL001>page=RoleService.rolePagi(pageNo, pageSize);
+		List<MROL001> list=page.getContent();
+//	List<MROL001>list=RoleService.getAll();
+		model.addAttribute("rolelist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-MSR-003";
+		
 	}
-
+	@GetMapping("/displayrole")
+	public String displayRole(Model model) {
+		return rolePagi(1, model);
+	}
 	@RequestMapping(value = "/setupaddrole", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
 		MROL001 chk = RoleService.findLastID();
@@ -63,12 +88,13 @@ public class RoleController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MROL001 dto = new MROL001();
 		dto.setRolid(bean.getId());
 		dto.setRolname(bean.getName());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MROL001> chk = RoleService.getRoleByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -104,12 +130,13 @@ public class RoleController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MROL001 dto = new MROL001();
 		dto.setRolid(bean.getId()); 
 		dto.setRolname(bean.getName());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		try {
 			RoleService.update(dto, bean.getId());
@@ -125,16 +152,23 @@ public class RoleController {
 	public String deleterole(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
 		MROL001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		RoleService.update(dto, id);
 		return "redirect:/displayrole";
 	}
 
-	@RequestMapping(value = "/searchrole", method = RequestMethod.GET)
+	@RequestMapping(value = "/rolesearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("", "bean", new RoleBean());
+	}
+	@RequestMapping(value = "/page/searchrole", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
 		
 		List<MROL001> list;
@@ -146,7 +180,7 @@ public class RoleController {
 		}
 		System.out.println(list.size());
 		if (list.size() == 0)
-			model.addAttribute("msg", "User not found!");
+			model.addAttribute("msg", "Role not found!");
 		else
 			model.addAttribute("rolelist", list);
 		//return "BUD001";

@@ -1,6 +1,6 @@
 package ems_aio.controller;
-import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -10,24 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
 import ems_aio.model.UserBean;
-
+	
 @Controller
 public class LoginController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginPage(Model model) {
-		model.addAttribute("user", new UserBean());
+
+		model.addAttribute("bean", new UserBean());
 		return "EMS-LGN-001";
+
 	}
-		
-	@RequestMapping(value = "/admindashboard", method = RequestMethod.GET)
-	public String dashboard(Model model) {
-		model.addAttribute("user", new UserBean());
-		return "EMS-DSH-001";
-	}
+
 	
 	
 	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
@@ -133,18 +129,20 @@ public class LoginController {
 	public ModelAndView setupQualificationList() {
 		return new ModelAndView("EMS-MSQ-003","user",new UserBean());
 	}
-	@RequestMapping(value="/setupRole" ,method=RequestMethod.GET)
-	public ModelAndView setupRole() {
-		return new ModelAndView("EMS-MSR-001","user",new UserBean());
-	}
-	@RequestMapping(value="/setupEditRole" ,method=RequestMethod.GET)
-	public ModelAndView setupEditRole() {
-		return new ModelAndView("EMS-MSR-002","user",new UserBean());
-	}
-	@RequestMapping(value="/setupRoleList" ,method=RequestMethod.GET)
-	public ModelAndView setupRoleList() {
-		return new ModelAndView("EMS-MSR-003","user",new UserBean());
-	}
+
+	
+	  @RequestMapping(value="/setupRole" ,method=RequestMethod.GET) public
+	  ModelAndView setupRole() { return new ModelAndView("EMS-MSR-001","user",new
+	  UserBean()); }
+	  
+	  @RequestMapping(value="/setupEditRole" ,method=RequestMethod.GET) public
+	  ModelAndView setupEditRole() { return new
+	  ModelAndView("EMS-MSR-002","user",new UserBean()); }
+	  
+	  @RequestMapping(value="/setupRoleList" ,method=RequestMethod.GET) public
+	  ModelAndView setupRoleList() { return new
+	  ModelAndView("EMS-MSR-003","user",new UserBean()); }
+	 
 	@RequestMapping(value="/setupPayRollList" ,method=RequestMethod.GET)
 	public ModelAndView setupPayRollList() {
 		return new ModelAndView("EMS-PYL-003","user",new UserBean());
@@ -165,7 +163,7 @@ public class LoginController {
 	public ModelAndView setupPositionChange() {
 		return new ModelAndView("EMS-STM-002","user",new UserBean());
 	}
-	@RequestMapping(value="/setupaddStaff" ,method=RequestMethod.GET)
+	@RequestMapping(value="/x`Staff" ,method=RequestMethod.GET)
 	public ModelAndView setupaddStaff() {
 		return new ModelAndView("EMS-STI-001","user",new UserBean());
 	}

@@ -1,17 +1,22 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
 import ems_aio.dto.MDEP001;
+import ems_aio.dto.MPOS001;
 import ems_aio.model.DepartmentBean;
 
 @Controller
@@ -27,15 +33,37 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService serv;
 
-	@RequestMapping(value = "/displaydepartment", method = RequestMethod.GET)
-	public ModelAndView displayQualification(Model model) {
-		List<MDEP001> list;
-		list = serv.getAll();
+//	@RequestMapping(value = "/displaydepartment", method = RequestMethod.GET)
+//	public ModelAndView displayQualification(Model model) {
+//		List<MDEP001> list;
+//		list = serv.getAll();
+//		DepartmentBean bean=new DepartmentBean();
+//		model.addAttribute("bean", bean);
+//		return new ModelAndView("EMS-MSD-003", "departmentlist", list);
+//	}
+//	
+	@GetMapping("/displaydepartment/page/{pageNo}")
+	public String depPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+		int pageSize=3;
+		Page<MDEP001>page=serv.depPagi(pageNo, pageSize);
+		List<MDEP001> list =page.getContent();
 		DepartmentBean bean=new DepartmentBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSD-003", "departmentlist", list);
+
+List<MDEP001>list1=serv.getAll();
+
+model.addAttribute("departmentlist",list);
+model.addAttribute("bean", bean);
+		
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-MSD-003";
+		
 	}
-	
+	@GetMapping("/displaydepartment")
+	public String displayDepartment(Model model) {
+		return depPagi(1, model);
+	}
 	@RequestMapping(value = "/setupadddepartment", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
 		MDEP001 chk = serv.findLastID();
@@ -62,14 +90,15 @@ public class DepartmentController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MDEP001 dto = new MDEP001();
 		dto.setId(bean.getId());
 		dto.setName(bean.getName());
 		dto.setLoc(bean.getLoc());
 		dto.setHead(bean.getHead());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MDEP001> chk = serv.getByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -108,14 +137,15 @@ public class DepartmentController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MDEP001 dto = new MDEP001();
 		dto.setId(bean.getId()); 
 		dto.setName(bean.getName());
-		bean.setLoc(bean.getLoc());
-		bean.setHead(bean.getHead());
+		dto.setLoc(bean.getLoc());
+		dto.setHead(bean.getHead());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		try {
 			serv.update(dto, bean.getId());
@@ -131,27 +161,35 @@ public class DepartmentController {
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		Optional<MDEP001> dtoget = serv.getByCode(id);
 		MDEP001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displaydepartment";
 	}
+	@RequestMapping(value = "/departmentsearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSD-003", "bean", new DepartmentBean());
+	}
 
-	@RequestMapping(value = "/searchdepartment", method = RequestMethod.GET)
+	@RequestMapping(value = "/page/searchdepartment", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
 		
 		List<MDEP001> list;
 		String i = bean.getId();
-		if (i.equals("")) {
+		{if (i.equals("")) {
 			list = serv.getAll();
 		}else {
 			 list = serv.getsearch(i);
-		}
-		if (list.size() == 0)
-			model.addAttribute("msg", "Certification not found!");
+		}}
+	
+		 if (list.size() == 0)
+			model.addAttribute("msg", "Department not found!");
 		else
 			model.addAttribute("departmentlist", list);
 		//return "BUD001";

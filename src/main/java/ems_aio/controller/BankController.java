@@ -1,39 +1,58 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+
 import ems_aio.dao.BankService;
 import ems_aio.dto.MBNK001;
+import ems_aio.dto.MPOS001;
 import ems_aio.model.BankBean;
+import ems_aio.model.PositionBean;
 
 @Controller
 public class BankController {
 	@Autowired
 	private BankService serv;
 
-	@RequestMapping(value = "/displaybank", method = RequestMethod.GET)
-	public ModelAndView displayPosition(Model model) {
-		List<MBNK001> list;
-		list = serv.getAll();
+	@GetMapping("/displaybankinfo/page/{pageNo}")
+	public String bankPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+		int pageSize=3;
 		BankBean bean=new BankBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSB-003", "banklist", list);
+	model.addAttribute("bean", bean);
+		Page<MBNK001>page=serv.bankPagi(pageNo, pageSize);
+		List<MBNK001> list =page.getContent();
+		model.addAttribute("banklist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-MSB-003";
+		
+	}
+	@GetMapping("/displaybankinfo")
+	public String displayBank(Model model) {
+		return bankPagi(1, model);
 	}
 
 	@RequestMapping(value = "/setupaddbank", method = RequestMethod.GET)
@@ -60,16 +79,18 @@ public class BankController {
 		if (bs.hasErrors()) {
 			return "EMS-MSB-001";
 		}
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		MBNK001 dto = new MBNK001();
 		dto.setBnkid(bean.getId());
 		dto.setBnkname(bean.getName());
 		dto.setBnkphone(bean.getPhone());
 		dto.setBnkloc(bean.getLoc());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MBNK001> chk = serv.getByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -106,16 +127,18 @@ public class BankController {
 		if (bs.hasErrors()) {
 			return "EMS-MSB-002";
 		}
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		MBNK001 dto = new MBNK001();
 		dto.setBnkid(bean.getId()); 
 		dto.setBnkname(bean.getName());
 		dto.setBnkphone(bean.getPhone());
 		dto.setBnkloc(bean.getLoc());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		
 		try {
@@ -130,18 +153,27 @@ public class BankController {
 	
 	@RequestMapping(value = "/bankdelete", method = RequestMethod.GET)
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		Optional<MBNK001> dtoget = serv.getByCode(id);
 		MBNK001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displaybank";
 	}
+	
+	@RequestMapping(value = "/bankSearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSB-003", "bean", new BankBean());
+	}
 
-	@RequestMapping(value = "/searchbank", method = RequestMethod.GET)
+	@RequestMapping(value = "/page/searchbank", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") BankBean bean, ModelMap model) {
 		
 		List<MBNK001> list;

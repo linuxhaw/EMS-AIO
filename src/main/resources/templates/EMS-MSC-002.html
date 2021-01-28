@@ -15,12 +15,12 @@
 		<label id="errormsg" th:text="${err}" style="color: red;">  </label> 
 		<label style="color: blue;" th:text="${msg}"></label>
 		<div class="card-body">
-			<form action="updatequalify" method="post" th:object="${bean}">
+			<form action="updatecertify" method="post" th:object="${bean}">
 				<input type="text"  placeholder="id" th:field="${bean.create}" style="display:none;" readonly>
 				<div class="row">
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
-							<label>Certificate ID (disabled)</label>
+							<label>Certificate ID</label>
 							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>
 						</div>
 					</div>
@@ -29,23 +29,25 @@
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>Certificate Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>School Name</label>
-							<input type="text" class="form-control" placeholder="School" th:field="*{school}" required>
+							<input type="text" class="form-control" placeholder="School" th:field="*{school}">
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Update" class="btn btn-round btn-primary" />
-							<a	href="/displayqualify" class="btn btn-round btn-primary">Cancle</a>
+							<a	href="/displaycertification" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

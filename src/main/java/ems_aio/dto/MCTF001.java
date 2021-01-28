@@ -1,5 +1,7 @@
 package ems_aio.dto;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,9 +18,9 @@ public class MCTF001 {
 	@Column(name="ctf_school")
 	private String school;
 	@Column(name="ctf_create")
-	private String createdate;
+	private Timestamp createdate;
 	@Column(name="ctf_update")
-	private String updatedate;
+	private Timestamp updatedate;
 	@Column(name="ctf_status")
 	private boolean status;
 	public String getId() {
@@ -30,8 +32,8 @@ public class MCTF001 {
 	public String getName() {
 		return name;
 	}
-	public void setName(String ctfname) {
-		this.name = ctfname;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getSchool() {
 		return school;
@@ -39,16 +41,16 @@ public class MCTF001 {
 	public void setSchool(String school) {
 		this.school = school;
 	}
-	public String getCreatedate() {
+	public Timestamp getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
 	public boolean isStatus() {
@@ -57,7 +59,7 @@ public class MCTF001 {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public MCTF001(String id, String name, String school, String createdate, String updatedate, boolean status) {
+	public MCTF001(String id, String name, String school, Timestamp createdate, Timestamp updatedate, boolean status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -70,5 +72,6 @@ public class MCTF001 {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
 }

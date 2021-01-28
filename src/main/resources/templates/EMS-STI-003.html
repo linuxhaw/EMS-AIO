@@ -45,50 +45,10 @@
 			</div>
 		</form>
 
-
-		<!-- <div class="row">
-                     <div class="col-md-1">
-                        <div class="form-group">
-                        </div>
-                      </div>
-
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="button" style="background-color: rgb(246, 116, 55); color: white;" class="form-control" value="Search" placeholder="Search" >
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Staff ID" >
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Staff Name" >
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Department" >
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Position" >
-                        </div>
-                      </div>
-                    </div> -->
 		<div class="row">
 			<div class="col-md-1">
 				<div class="form-group"></div>
 			</div>
-			<!-- <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="submit" value="Search" class="btn btn-round btn-primary" >
-                        </div>
-                    </div> -->
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -111,7 +71,20 @@
 
 					</thead>
 					<tbody>
-						<tr>
+						<tr th:each="data: ${stafflist}">
+							<td th:text="${data.id}" />
+							<td th:text="${data.name}" />
+							<td th:text="${data.email}" />
+							<td th:text="${data.role}" />
+							<td th:text="${data.dep}" />
+							<td th:text="${data.pos}" />
+							<td>
+								
+								<a th:href="@{/setupstaffupdate(id=${data.id})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="roleUpdate" /></a>
+								
+							</td>
+						</tr>
+						<!-- <tr>
 							<td>S0001</td>
 							<td>John Smith</td>
 							<td>john@gmail.com</td>
@@ -120,29 +93,7 @@
 							<td>Team Leader</td>
 							<td><a href="/setupEditStaff"><input type="submit"
 									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-						<tr>
-							<td>S0002</td>
-							<td>Willion Jame</td>
-							<td>willion@gmail.com</td>
-							<td>HR Manager</td>
-							<td>HR</td>
-							<td>Manager</td>
-							<td><a href="/setupEditStaff"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-						</tr>
-						<tr>
-							<td>S0003</td>
-							<td>Crist Maloe</td>
-							<td>crist@gmail.com</td>
-							<td>Staff</td>
-							<td>IT</td>
-							<td>Senior</td>
-							<td><a href="/setupEditStaff"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-						</tr>
+						</tr> -->
 
 					</tbody>
 				</table>

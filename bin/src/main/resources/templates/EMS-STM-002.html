@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Welcome to Our Site</title>
+<script type="text/javascript">
+	//Promotion demotion transfer .js
+	function showTextBox() {
+		var designation = document.getElementById("designation");
+		var cPosition = document.getElementById("transferPosition");
+		cPosition.style.display = (designation.value == "transfer")
+				|| (designation.value == "promotion")
+				|| (designation.value == "demotion") ? "block" : "none";
+		var cDepartment = document.getElementById("transferDepartment");
+		cDepartment.style.display = designation.value == "transfer" ? "block"
+				: "none";
+
+	}
+</script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<!--Header row-->
+			<div class="col-md-8">
+				<h5 class="card-title">Movement</h5>
+
+
+			</div>
+			<!--End Header Row-->
+
+		</div>
+		<!--end card header-->
+		<!--Card body-->
+		<div class="card-body">
+			<form>
+				<!--row :id name-->
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<label for="staffId">ID</label>
+
+						<div class="input-group">
+							<input id="staffId" type="text" class="form-control"
+								placeholder="Company" value="E0001">
+							<div class="input-group-append">
+								<button class="btn-primary"
+									style="width: 50px; border-color: rgb(236, 82, 10); border-bottom-right-radius: 20px; border-top-right-radius: 20px;"
+									type="submit">Go</button>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="Name">Name</label> <input id="Name" type="text"
+								class="form-control" disabled placeholder="Username"
+								value="Jhonny">
+						</div>
+					</div>
+				</div>
+				<!--End of id :name-->
+				<!--row : curposi curdeper-->
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="currentPosition">Current Position</label> <input
+								type="text" id="currentPosition" disabled class="form-control"
+								placeholder="Company" value="Manager">
+						</div>
+					</div>
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="currentDepartment">Current Department </label> <input
+								id="currentDepartment" type="text" disabled class="form-control"
+								placeholder="Last Name" value="HR">
+						</div>
+					</div>
+				</div>
+				<!--end-->
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="designation">Designation</label> <select
+								id="designation" onchange="showTextBox()" class="form-control">
+								<option selected disabled>Choose One of Designation</option>
+
+								<option value="promotion">Promote</option>
+								<option value="demotion">Demote</option>
+								<option value="transfer">Transfer</option>
+
+								<option value="Resignation">Resign</option>
+								<option value="BlackList">BlackList</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-11 ml-5">
+						<div class="form-group mr-4">
+							<label for="remark">Remark</label> <input id="remark" type="text"
+								class="form-control" placeholder="Home Address"
+								value="I want to promote this emp !">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group" id="transferPosition"
+							style="display: none;">
+							<label for="transferPosition">Transferred Position</label> <select
+								id="transferPosition" class="form-control">
+								<option selected disabled>Position</option>
+
+								<option value="Manager">Manager</option>
+								<option value="Team Leader">Team Leader</option>
+
+								<option value="Senior">Senior</option>
+								<option value="Junior">Junior</option>
+
+							</select>
+						</div>
+					</div>
+					<div class="col-md-5 ml-5">
+						<div class="form-group" id="transferDepartment"
+							style="display: none;">
+							<label for="transferDepartment">Transferred Department</label> <select
+								id="transferDepartment" class="form-control">
+								<option selected disabled>Department</option>
+
+								<option value="IT">IT</option>
+								<option value="Software">Software</option>
+								<option value="HardWare">Hardware</option>
+								<option value="HR">Human Resource</option>
+								<option value="Marketing">Marketing</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 text-center">
+					<div class="form-group">
+						<label></label> <input class="btn btn-round btn-primary"
+							placeholder="Here can be your description" type="button"
+							value="Back"> <input class="btn btn-round btn-primary"
+							placeholder="Here can be your description" type="button"
+							value="Confirm">
+
+					</div>
+				</div>
+
+
+
+			</form>
+		</div>
+	</div>
+
+	
+
+
+</body>
+</html>

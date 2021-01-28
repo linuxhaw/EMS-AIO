@@ -9,9 +9,15 @@ public class UserBean {
 	private String name;
 	@NotEmpty(message="Password must not be empty!")
 	private String password;
-	@NotEmpty(message="ConfirmPassword must not be empty!")
-	private String confirm;
-	
+	private String role;
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public UserBean() {
 		super();
 	}
@@ -21,7 +27,6 @@ public class UserBean {
 		this.id = id;
 		this.name = name;
 		this.password = password;
-		this.confirm = confirm;
 	}
 
 	public String getId() {
@@ -43,10 +48,11 @@ public class UserBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getConfirm() {
-		return confirm;
-	}
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
-	}
+	
 }
+
+
+
+
+
+

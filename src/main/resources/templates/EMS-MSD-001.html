@@ -20,54 +20,51 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Department ID (disabled)</label>
-							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>
+							<input type="text" class="form-control"  th:field="${bean.id}" readonly>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-<<<<<<< HEAD
-							<label>Department Name</label> <input type="text"
-								class="form-control"  value="HR Department">
-=======
+
 							<label>Department Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
->>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
+
+							<input type="text" class="form-control" th:field="*{name}">
+
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
-<<<<<<< HEAD
-							<label>Department Head</label> <input type="text"
-								class="form-control"  value="U MG MG">
-=======
+
 							<label>Department Head</label>
-							<input type="text" class="form-control" placeholder="School" th:field="*{head}" required>
->>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
+
+							<input type="text" class="form-control" th:field="*{head}">
+
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-<<<<<<< HEAD
-							<label>Department Location</label> <input type="text"
-								class="form-control" value="Building 5, floor 3, MICT Park">
-=======
+
 							<label>Department Location</label> 
-							<input type="text" class="form-control" placeholder="School" th:field="*{loc}" required>
->>>>>>> 868b957f92d4b2cbedd18aef3e905bc7ac31d86f
+
+							<input type="text" class="form-control" th:field="*{loc}">
+
 						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Register" class="btn btn-round btn-primary" />
-							 <a	href="/displaydepartment" class="btn btn-round btn-primary">Cancle</a>
+							 <a	href="/displaydepartment" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

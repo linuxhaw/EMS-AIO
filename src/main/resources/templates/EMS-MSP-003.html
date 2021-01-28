@@ -1,24 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
-<script type="text/javascript">
-	function deleteStudent() {
-		var isOk = confirm("Are you sure to delete?");
-		if (isOk) {
-			document.getElementById("myform").action = "StudentDeleteServlet";
-			document.getElementById("myform").submit();
-		}
-	}
-</script>
+
 </head>
 <body>
 
 	<div layout:fragment="content">
 		<div class="card-header">
 			<h4 class="card-title">Position List</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-6"></div>
+			<label class="success" th:text="${msg}"></label>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -32,29 +29,43 @@
 
 
 
+
+<!-- 			<div class="col-md-4"> -->
+<!-- 				<form action="searchrole" method="get" th:object="${bean}"> -->
+<!-- 					<div class="input-group no-border" style="padding-top: 10px;" > -->
+<!-- 							<input type="text" class="form-control" placeholder="Search..." th:field="*{posid}"> -->
+<!-- 							<div class="input-group-append"> -->
+<!-- 								<div class="input-group-text"> -->
+<!-- 									<i ><input type="submit" class="now-ui-icons ui-1_zoom-bold"/></i> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+
 			<div class="col-md-4">
-				<form action="searchrole" method="get" th:object="${bean}">
-					<div class="input-group no-border" style="padding-top: 10px;" >
-							<input type="text" class="form-control" placeholder="Search..." th:field="*{id}">
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<i ><input type="submit" class="now-ui-icons ui-1_zoom-bold"/></i>
-								</div>
-							</div>
+				<form action="/page/searchposition" method="get" th:object="${bean}">
+				
+					<div class="input-group no-border" style="padding-top: 10px;">
+						<input type="text" class="form-control" placeholder="Search..."
+							th:field="*{Posid}">
+						
 					</div>
 				</form>
 			</div>
 			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+			<a th:href="@{/displayposition}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
+		
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
-					<thead class=" text-primary">
+					<thead class=" text-primary"><tr>
 						<th>ID</th>
 						<th>Position Name</th>
-						<th>Action</th>
+						<th>Action</th></tr>
 					</thead>
 					<tbody>
 						<tr th:each="data: ${positionlist}">
@@ -69,29 +80,38 @@
 				</table>
 			</div>
 		</div>
+<div th:if="${totalPages>1}">
 
-		<nav aria-label="pagination">
-			<ul class="pagination pagination-md justify-content-center">
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">Previous</span>
-                      <span class="sr-only">Previous</span>
-                    </a> --> <a class="page-link" href="#" tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item active"><a
-					style="border-color: orangered; background-color: orangered;"
-					class="page-link" href="#">1</a></li>
 
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">Next</span>
-                      <span class="sr-only">Next</span>
-                    </a> --> <a class="page-link" href="#" tabindex="+1">Next</a>
+<nav>
+<ul class="pagination pagination-md justify-content-center">
+<!-- <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+<li class="page-item">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{/displayposition/page/1}">First</a>
+<span class="page-link" th:unless="${currentPage>1}">First</span>
+</li>
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayposition/page/'+${currentPage-1}}">Previous</a>
+<span class="page-link" th:unless="${currentPage>1}">Previous</span>
 
-				</li>
-			</ul>
-		</nav>
+</li>
+<li class="page-item">
+<div class="page-link active" style="border-color: orangered;color:white; background-color: orangered;" >[[${currentPage}]]</div>
+</li>
 
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayposition/page/'+${currentPage+1}}">Next</a>
+<span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+</li>
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayposition/page/'+${totalPages}}">Last</a>
+<span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+
+</li>
+</ul>
+</nav>
+</div>
 	</div>
 
 </body>

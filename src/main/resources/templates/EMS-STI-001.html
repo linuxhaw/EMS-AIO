@@ -10,20 +10,21 @@
 	<div layout:fragment="content">
 
 
-
+<!-- //Zaybohein commit -->
 
 		<div class="card-header">
 			<h5 class="title">Staff Registration</h5>
 		</div>
-
-		<form th:action="@{addStaff}" th:object="${bean}">
+		<label id="errormsg" th:text="${err}" style="color: red;"> </label>
+		<label style="color: blue;" th:text="${msg}"></label>
+		<form action="addstaff" method="post" th:object="${bean}">
 			<div class="row">
 
 				<div class="col-md-1 "></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label for="exampleInputUsername">ID</label> <input type="text"
-							class="form-control" placeholder="S0001" readonly>
+						<label for="exampleInputUsername">ID</label>
+						<input type="text" class="form-control" th:field="${bean.id}" readonly>
 					</div>
 				</div>
 
@@ -32,43 +33,14 @@
 				<div class="col-md-1 "></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label for="exampleInputUsername">Username</label> <input
-							type="text" class="form-control" >
+						<label for="exampleInputUsername">Username</label>
+						<input type="text" class="form-control" th:field="*{name}" required>
 					</div>
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label for="exampleInputUsername">Password</label> <input
-							type="password" class="form-control" >
-					</div>
-				</div>
-			</div>
-			<!--   <div class="row">
-                        <div class="col-md-4 pr-1">
-                          <div class="form-group">
-                            <label for="exampleInputFirstName">First Name</label>
-                            <input type="text" class="form-control" placeholder="John" >
-                          </div>
-                        </div>
-                        <div class="col-md-4 pl-1">
-                          <div class="form-group">
-                            <label for="exampleInputLastName">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Smith" >
-                          </div>
-                        </div>
-                      </div> -->
-			<div class="row">
-				<div class="col-md-1 "></div>
-				<div class="col-md-4 mr-5">
-					<div class="form-group">
-						<label for="exampleInputNRC">NRC</label> <input type="text"
-							class="form-control" >
-					</div>
-				</div>
-				<div class="col-md-4 ml-5">
-					<div class="form-group">
-						<label for="exampleInputEmail1">Email address</label> <input
-							type="email" class="form-control" >
+						<label for="exampleInputUsername">Password</label>
+						<input type="password" class="form-control" th:field="*{password}" required>
 					</div>
 				</div>
 			</div>
@@ -76,14 +48,29 @@
 				<div class="col-md-1 "></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>PHONE</label> <input type="text" class="form-control"
-							>
+						<label for="exampleInputNRC">NRC</label>
+						<input type="text" class="form-control" th:field="*{nrc}" required>
 					</div>
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>SALARY</label> <input type="text" class="form-control"
-							>
+						<label for="exampleInputEmail1">Email address</label>
+						<input type="email" class="form-control"  th:field="*{email}" required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1 "></div>
+				<div class="col-md-4 mr-5">
+					<div class="form-group">
+						<label>PHONE</label>
+						<input type="text" class="form-control" th:field="*{phone}" required>
+					</div>
+				</div>
+				<div class="col-md-4 ml-5">
+					<div class="form-group">
+						<label>SALARY</label>
+						<input type="text" class="form-control" th:field="*{salary}" required>
 					</div>
 				</div>
 			</div>
@@ -91,19 +78,17 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>BANK ACC</label> <input type="text" class="form-control"
-							>
+						<label>BANK ACC</label>
+						<input type="text" class="form-control" th:field="*{bankAcc}" required>
 					</div>
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>BANK NAME</label> <br> <select name="bank"
-							class="form-control">
-							<option value="select" disabled selected>Select Bank</option>
-							<option value="AYA">AYA</option>
-							<option value="KBZ">KBZ</option>
-							<option value="CB">CB</option>
-						</select>
+						<label>BANK</label> <br>
+							<select name="bank"	class="form-control" th:field="*{bank}">
+								<option value=""></option>
+								<option th:each="list:${session.banklist}" th:value="${list.bnkid}" th:text="${list.bnkname}" th:selected="${list.bnkname==bean.name}"></option>
+							</select>
 					</div>
 				</div>
 			</div>
@@ -111,27 +96,24 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-8 mr-5">
 					<div class="form-group">
-						<label>ADDRESS</label> <input type="text" class="form-control"
-							>
-
+						<label>ADDRESS</label>
+						<input type="text" class="form-control" th:field="*{address}" required>
 					</div>
 				</div>
 			</div>
-
-
-
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>BIRTHDAY</label> <input type="Date" class="form-control"
-							>
+						<label>BIRTHDAY</label>
+						<input type="text" class="form-control" th:field="*{birthday}" required>
+						
 					</div>
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>REGISTER DATE</label> <input type="Date"
-							class="form-control" >
+						<label>REGISTER DATE</label>mm/dd/yyy
+						<input type="text" class="form-control" th:field="*{register}" value="" required>
 					</div>
 				</div>
 			</div>
@@ -140,19 +122,21 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>GENDER</label> <br> <input type="radio" name="gender"
-							value="Male" id="male"> <label>Male</label> &nbsp; &nbsp;
-						<input type="radio" name="gender" value="Female" id="female"></input>
+						<label>GENDER</label> <br>
+						<input type="radio" name="gender" value="Male" id="male" th:field="*{gender}" checked="true"> 
+						<label>Male</label> &nbsp; &nbsp;
+						<input type="radio" name="gender" value="Female" id="female" th:field="*{gender}"></input>
 						<label>Female</label>
 					</div>
 				</div>
 
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>MARRIAGE STATUS</label> <br> <input type="radio"
-							name="Marriage" value="Single" id="single"> <label>Single</label>
-						&nbsp; &nbsp; <input type="radio" name="Marriage" value="Marriage"
-							id="marrage"></input> <label>Marriage</label>
+						<label>MARRIAGE STATUS</label> <br>
+						<input type="radio" name="Marriage" value="Single" id="single" th:field="*{marrage}" checked="true">
+						<label>Single</label> 	&nbsp; &nbsp;
+						<input type="radio" name="Marriage" value="Marriage" id="marrage" th:field="*{marrage}">
+						<label>Marriage</label>
 					</div>
 				</div>
 			</div>
@@ -160,22 +144,25 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>RELGION</label> <br> <input type="radio"
-							name="relgion" value="Buddhists" id="buddhists"> <label>Buddhists</label>
-						&nbsp; &nbsp; <input type="radio" name="relgion"
-							value="Christians" id="christians"></input> <label>Christians</label>&nbsp;
-						&nbsp; <input type="radio" name="relgion" value="Muslims"
-							id="muslims"></input> <label>Muslims</label><br> <input
-							type="radio" name="relgion" value="Hindus" id="hindus"></input> <label>Hindus</label>
+						<label>RELGION</label> <br>
+						<input type="radio" name="relgion" value="Buddhists" id="buddhists" th:field="*{religion}" checked="true">
+						<label>Buddhists</label> &nbsp; &nbsp;
+						<input type="radio" name="relgion" value="Christians" id="christians" th:field="*{religion}">
+						</input> <label>Christians</label>&nbsp; &nbsp;
+						<input type="radio" name="relgion" value="Muslims" id="islam" th:field="*{religion}">
+						</input> <label>Islam</label><br>
+						<input type="radio" name="relgion" value="Hindus" id="hindus" th:field="*{religion}">
+						</input> <label>Hindus</label>
 					</div>
 				</div>
 
 				<div class="col-md-4 ml-5">
-					<div class="form-group">
-						<label>NATIONALITY</label> <br> <input type="radio"
-							name="nationality" value="Citizen" id="citizen"> <label>Citizen</label>
-						&nbsp; &nbsp; <input type="radio" name="nationality"
-							value="Foreigner" id="foreigner"></input> <label>Foreigner</label>
+					<div class="form-group">nation
+						<label>NATIONALITY</label> <br>
+						<input type="radio" name="nationality" value="Citizen" id="citizen" th:field="*{nation}" checked="true">
+						<label>Citizen</label> &nbsp; &nbsp;
+						<input type="radio" name="nationality" value="Foreigner" id="foreigner" th:field="*{nation}">
+						<label>Foreigner</label>
 					</div>
 				</div>
 			</div>
@@ -260,76 +247,37 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-			<!-- <div class="col-md-4 pl-1">
-                          <div class="form-group">
-                            <label>CERTIFICATION</label>
-                            <input type="text" class="form-control" placeholder="N3" >
-                          </div>
-                        </div> -->
-
-
-
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>ROLE</label> <br> <select name="role"
-							class="form-control" th:field="*{rolname}">
+						<label>ROLE</label> <br>
+						<select name="role" class="form-control" th:field="*{role}">
 							<option value=""></option>
-							<option th:each="list:${session.rolelist}"
-								th:value="${list.name}" th:text="${list.name}"
-								th:selected="${list.name==bean.rolname}">Select Role</option>
+							<option th:each="list:${session.rolelist}" th:value="${list.rolid}" th:text="${list.rolname}" th:selected="${list.rolname==bean.name}"></option>
 						</select>
 					</div>
 				</div>
 
 			</div>
-			<!-- <div class="col-md-4">
-                       <div class="form-group">
-                        <label>JOB STATUS</label>
-                        <br>
-                        <select name="jobstatus" class="form-control">
-                          <option value="select" disabled selected>Select Status</option>
-                          <option value="Promotion">Promotion</option>
-                          <option value="Demotion">Demotion</option>
-                          <option value="Resign">Resign</option>
-                          <option value="BlackList">BlackList</option>
-                          
-                        </select>
-                      </div>
-                    </div> -->
-
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>DEPARTMENT</label> <br> <select name="department"
-							class="form-control">
-							<option value="select" disabled selected>Select
-								Department</option>
-							<option value="IT">IT</option>
-							<option value="Software">Software</option>
-							<option value="Hardware">Hardware</option>
-							<option value="HR">HR</option>
-							<option value="Marketing">Marketing</option>
+						<label>DEPARTMENT</label> <br>
+						<select name="department" class="form-control" th:field="*{department}">
+							<option value=""></option>
+							<option th:each="list:${session.deplist}" th:value="${list.id}" th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
 						</select>
 					</div>
 				</div>
 
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>POSITION</label> <br> <select name="position"
-							class="form-control">
-							<option value="select" disabled selected>Select Position</option>
-							<option value="Manager">Manager</option>
-							<option value="Team Leader">Team Leader</option>
-							<option value="Senior">Senior</option>
-							<option value="Junior">Junior</option>
+						<label>POSITION</label> <br> 
+						<select name="position" class="form-control" th:field="*{position}">
+							<option value=""></option>
+							<option th:each="list:${session.poslist}" th:value="${list.posid}" th:text="${list.posname}" th:selected="${list.posname==bean.name}"></option>
 
 						</select>
 					</div>
@@ -342,11 +290,13 @@
 
 					<div class="form-group">
 
-						<td class="text-center"><input type="submit" value="Register"
-							class="btn btn-round btn-primary"></td> &nbsp; &nbsp; &nbsp;
+						<td class="text-center">
+							<input type="submit" value="Register" class="btn btn-round btn-primary">
+						</td> &nbsp; &nbsp; &nbsp;
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						<td><a href=""><input type="button" value="Cancel"
-								class="btn btn-round btn-primary"></a></td>
+						<td>
+							<a href=""><a href="/displayqualify" class="btn btn-round btn-primary">Cancle</a></a>
+						</td>
 
 					</div>
 				</div>

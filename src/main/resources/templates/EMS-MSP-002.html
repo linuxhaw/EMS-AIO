@@ -20,7 +20,9 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Position ID (disabled)</label> 
-							<input type="text" class="form-control"  placeholder="id" th:field="${bean.id}" readonly>							
+
+							<input type="text" class="form-control" th:field="${bean.id}" readonly>							
+
 						</div>
 					</div>
 				</div>
@@ -29,16 +31,16 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Position Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
+							<input type="text" class="form-control" th:field="*{name}">
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{Posname}" style="color: red;">Error</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Update" class="btn btn-round btn-primary" />
-							<a href="/setupPositionList" class="btn btn-round btn-primary">Cancle</a>
+							<a href="/displayposition" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

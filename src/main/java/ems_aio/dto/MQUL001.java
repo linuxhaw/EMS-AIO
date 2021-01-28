@@ -1,5 +1,7 @@
 package ems_aio.dto;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,9 +18,9 @@ public class MQUL001 {
 	@Column(name="qul_school")
 	private String qulschool;
 	@Column(name="qul_create")
-	private String createdate;
+	private Timestamp createdate;
 	@Column(name="qul_update")
-	private String updatedate;
+	private Timestamp updatedate;
 	@Column(name="qul_status")
 	private boolean status;
 	public String getQulid() {
@@ -39,16 +41,16 @@ public class MQUL001 {
 	public void setQulschool(String qulschool) {
 		this.qulschool = qulschool;
 	}
-	public String getCreatedate() {
+	public Timestamp getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
 	public boolean isStatus() {
@@ -57,7 +59,7 @@ public class MQUL001 {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public MQUL001(String qulid, String qulname, String qulschool, String createdate, String updatedate,
+	public MQUL001(String qulid, String qulname, String qulschool, Timestamp createdate, Timestamp updatedate,
 			boolean status) {
 		super();
 		this.qulid = qulid;

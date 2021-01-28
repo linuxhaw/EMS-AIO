@@ -21,77 +21,94 @@
 			<h4 class="card-title">Certificate List</h4>
 		</div>
 		<div class="row">
+			<div class="col-md-6"></div>
+			<label style="color: blue;" th:text="${msg}"></label>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<a href="/setupaddcertify" style="margin-left: 40px;" class="btn btn-round btn-primary">Add Certification</a>
+					<a href="/setupaddcertify" style="margin-left: 40px;"
+						class="btn btn-round btn-primary">Add Certification</a>
 				</div>
 			</div>
 
 			<div class="col-md-4">
-				<form action="searchcertify" method="get" th:object="${bean}">
+				<form action="/page/searchcertification" method="get" th:object="${bean}">
+
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 							th:field="*{id}">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<i><input type="submit" class="now-ui-icons ui-1_zoom-bold" /></i>
-							</div>
-						</div>
+
 					</div>
 				</form>
 			</div>
 			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+			<a th:href="@{/displaycertification}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
 
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
-					<thead class=" text-primary">
+					<thead class=" text-primary"><tr>
 						<th>ID</th>
 						<th>Name</th>
 						<th>School Name</th>
-						<th>Action</th>
+						<th>Action</th></tr>
 					</thead>
 					<tbody>
-						
+
 						<tr th:each="data: ${certifylist}">
 							<td th:text="${data.id}" />
 							<td th:text="${data.name}" />
 							<td th:text="${data.school}" />
-							<td>
-								<a th:href="@{/setupcertifyupdate(id=${data.id})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="Update" /></a>
-								<a th:href="@{/certifydelete(id=${data.id})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
+							<td><a th:href="@{/setupcertifyupdate(id=${data.id})}"><input
+									type="button" value="Update" class="btn btn-round btn-primary"
+									id="Update" /></a> <a th:href="@{/certifydelete(id=${data.id})}"><input
+									type="button"
+									onclick="return confirm('Are you sure to delete?');"
+									value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<nav aria-label="pagination">
-			<ul class="pagination pagination-md justify-content-center">
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">Previous</span>
-                      <span class="sr-only">Previous</span>
-                    </a> --> <a class="page-link" href="#" tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item active"><a
-					style="border-color: orangered; background-color: orangered;"
-					class="page-link" href="#">1</a></li>
+		<div th:if="${totalPages>1}">
 
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">Next</span>
-                      <span class="sr-only">Next</span>
-                    </a> --> <a class="page-link" href="#" tabindex="+1">Next</a>
 
-				</li>
-			</ul>
-		</nav>
+<nav>
+<ul class="pagination pagination-md justify-content-center" >
+<!-- <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+<li class="page-item">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{/displaycertification/page/1}">First</a>
+<span class="page-link" th:unless="${currentPage>1}">First</span>
+</li>
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaycertification/page/'+${currentPage-1}}">Previous</a>
+<span class="page-link" th:unless="${currentPage>1}">Previous</span>
+
+</li>
+<li class="page-item">
+<div class="page-link active" style="border-color: orangered;color:white; background-color: orangered;" >[[${currentPage}]]</div>
+</li>
+
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaycertification/page/'+${currentPage+1}}">Next</a>
+<span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+</li>
+<li class="page-item">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaycertification	/page/'+${totalPages}}">Last</a>
+<span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+
+</li>
+</ul>
+</nav>
+</div>
 	</div>
-	
+
 
 
 </body>

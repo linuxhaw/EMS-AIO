@@ -109,7 +109,7 @@ public class StaffController {
 		System.out.println(bean.getBirthday());
 		System.out.println(bean.getRegister());
 		Timestamp now=new Timestamp(date.getTime());
-		System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole());
+		//System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole());
 		StaffDto dto = new StaffDto();
 		dto.setId(bean.getId());
 		dto.setName(bean.getName());

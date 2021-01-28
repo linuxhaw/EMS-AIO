@@ -1,13 +1,15 @@
 package ems_aio.model;
 
+import java.sql.Timestamp;
+
 import javax.validation.constraints.NotEmpty;
 
 public class PositionBean {
 	private String id;
 	@NotEmpty(message="Input Require")
 	private String name;
-	private String create;
-	private String update;
+	private Timestamp create;
+	private Timestamp update;
 	private String status;
 	public String getId() {
 		return id;
@@ -21,16 +23,16 @@ public class PositionBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCreate() {
+	public Timestamp getCreate() {
 		return create;
 	}
-	public void setCreate(String create) {
+	public void setCreate(Timestamp create) {
 		this.create = create;
 	}
-	public String getUpdate() {
+	public Timestamp getUpdate() {
 		return update;
 	}
-	public void setUpdate(String update) {
+	public void setUpdate(Timestamp update) {
 		this.update = update;
 	}
 	public String getStatus() {
@@ -39,5 +41,5 @@ public class PositionBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	
 }

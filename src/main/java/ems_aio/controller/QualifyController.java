@@ -1,7 +1,9 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,13 +66,14 @@ public class QualifyController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MQUL001 dto = new MQUL001();
 		dto.setQulid(bean.getId());
 		dto.setQulname(bean.getName());
 		dto.setQulschool(bean.getSchool());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MQUL001> chk = serv.getByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -108,13 +111,14 @@ public class QualifyController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MQUL001 dto = new MQUL001();
 		dto.setQulid(bean.getId()); 
 		dto.setQulname(bean.getName());
 		dto.setQulschool(bean.getSchool());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		try {
 			serv.update(dto, bean.getId());
@@ -130,10 +134,11 @@ public class QualifyController {
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		Optional<MQUL001> dtoget = serv.getByCode(id);
 		MQUL001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displayqualify";

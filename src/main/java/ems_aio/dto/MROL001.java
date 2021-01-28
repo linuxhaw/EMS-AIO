@@ -1,5 +1,7 @@
 package ems_aio.dto;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,12 +16,11 @@ public class MROL001 {
 	@Column(name="rol_name")
 	private String rolname;
 	@Column(name="rol_create")
-	private String createdate;
+	private Timestamp createdate;
 	@Column(name="rol_update")
-	private String updatedate;
+	private Timestamp updatedate;
 	@Column(name="rol_status")
 	private boolean status;
-	
 	public String getRolid() {
 		return rolid;
 	}
@@ -32,37 +33,35 @@ public class MROL001 {
 	public void setRolname(String rolname) {
 		this.rolname = rolname;
 	}
-	public String getCreatedate() {
+	public Timestamp getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
-	public boolean getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
-	public void setStatus(boolean b) {
-		this.status = b;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
-	
-	
-	public MROL001() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public MROL001(String rolid, String rolname, String createdate, String updatedate, boolean status) {
+	public MROL001(String rolid, String rolname, Timestamp createdate, Timestamp updatedate, boolean status) {
 		super();
 		this.rolid = rolid;
 		this.rolname = rolname;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
 		this.status = status;
+	}
+	public MROL001() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

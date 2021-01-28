@@ -1,7 +1,9 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,16 +62,18 @@ public class BankController {
 		if (bs.hasErrors()) {
 			return "EMS-MSB-001";
 		}
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		MBNK001 dto = new MBNK001();
 		dto.setBnkid(bean.getId());
 		dto.setBnkname(bean.getName());
 		dto.setBnkphone(bean.getPhone());
 		dto.setBnkloc(bean.getLoc());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MBNK001> chk = serv.getByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -106,16 +110,18 @@ public class BankController {
 		if (bs.hasErrors()) {
 			return "EMS-MSB-002";
 		}
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		MBNK001 dto = new MBNK001();
 		dto.setBnkid(bean.getId()); 
 		dto.setBnkname(bean.getName());
 		dto.setBnkphone(bean.getPhone());
 		dto.setBnkloc(bean.getLoc());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		
 		try {
@@ -130,12 +136,14 @@ public class BankController {
 	
 	@RequestMapping(value = "/bankdelete", method = RequestMethod.GET)
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		//LocalDateTime now = LocalDateTime.now();
 		Optional<MBNK001> dtoget = serv.getByCode(id);
 		MBNK001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displaybank";

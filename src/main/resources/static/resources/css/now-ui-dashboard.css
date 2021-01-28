@@ -4661,7 +4661,9 @@ font-size: 40px; */
   display: inline-block;
   position: relative;
   width: 100%;
+
   margin-bottom: 50px;
+
   margin-top:-30px;
   box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1);
 }
@@ -4784,7 +4786,7 @@ font-size: 40px; */
 
 .card-chart .card-header .card-title {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom:-6px;
 }
 
 .card-chart .card-header .card-category {

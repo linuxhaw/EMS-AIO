@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MPOS001;
 import ems_aio.dto.MQUL001;
 
 //defining the business logic
@@ -54,5 +58,12 @@ public class QualifyService {
 //updating a record
 	public void update(MQUL001 data, String Code) {
 		repo.save(data);
+	}
+	//	Hlwann
+//	pagi_service with findAll method
+	public Page<MQUL001>quaPagi(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findAll(pageable);
+		
 	}
 }

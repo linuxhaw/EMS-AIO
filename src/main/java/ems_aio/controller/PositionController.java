@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.PositionService;
 import ems_aio.dto.MPOS001;
+
 import ems_aio.model.PositionBean;
 
 @Controller
@@ -42,6 +43,8 @@ public class PositionController {
 	@GetMapping("/displayposition/page/{pageNo}")
 	public String posPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
 		int pageSize=3;
+		PositionBean bean=new PositionBean();
+	model.addAttribute("bean", bean);
 		Page<MPOS001>page=serv.posPagi(pageNo, pageSize);
 		List<MPOS001> list =page.getContent();
 		model.addAttribute("positionlist",list);
@@ -154,7 +157,13 @@ public class PositionController {
 		return "redirect:/displayposition";
 	}
 
-	@RequestMapping(value = "/searchposition", method = RequestMethod.GET)
+	@RequestMapping(value = "/positionsearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSP-003", "bean", new PositionBean());
+	}
+	@RequestMapping(value = "/page/searchposition", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
 		
 		List<MPOS001> list;
@@ -166,7 +175,7 @@ public class PositionController {
 		}
 		System.out.println(list.size());
 		if (list.size() == 0)
-			model.addAttribute("msg", "User not found!");
+			model.addAttribute("msg", "Position not found!");
 		else
 			model.addAttribute("positionlist", list);
 		//return "BUD001";

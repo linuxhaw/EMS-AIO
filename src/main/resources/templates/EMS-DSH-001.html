@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	th:href="@{/resources/img/apple-icon.png}">
+<link rel="icon" type="image/png"
+	th:href="@{/resources/img/allinone_logo.png}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>All 1n One Human Resource</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+	crossorigin="anonymous">
+<!-- CSS Files -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/cal.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/now-ui-dashboard.css?v=1.5.0}"
+	rel="stylesheet" />
+	
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/demo/demo.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="/frame/header.html :: myheader"></div>
+	<div th:replace="/frame/sidebar_admin.html :: sidebar"></div>
+	
+	
+	<div class="main-panel" id="main-panel">
+      
+      <div class="panel-header-lg">
+        <img src="/resources/images/LGO.png" width="150px" height="87px" style="margin:-200px 100px;">
+        <h2 style="float: right;margin-right: 100px;color:white;margin-bottom: 50px; ">To Be Smart Your System !</h2>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Global Staffs</h5>
+                <h4 class="card-title">Num of Total Staffs</h4>
+                <br><br>
+                
+                <div class="doughnut"><h1>832</h1></div>
+                
+            </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="now-ui-icons arrows-1_refresh-69"></i> 
+                  Just Updated
+                </div>
+              </div>
+              <div>  
+                <h4 class="card-footer">
+                  <a href="./EMS-STI-003.html">
+                  <i  class="now-ui-icons users_single-02"></i>
+                  View Details </h4>  
+                </a>
+              </div>
+            </div>
+          </div>
+                   
+          <div class="col-lg-4 col-md-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">This Year</h5>
+                <h4 class="card-title">Total Departments</h4>
+                </div>
+                <br><br>
+                <div class="doughnut"><h1>102</h1></div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+                </div>
+              </div>
+              <div>  
+                <h4 class="card-footer">
+                  <a href="./EMS-REP-DEP.html">
+                  <i  class="now-ui-icons users_single-02"></i>
+                  View Details</h4>  
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-4 col-md-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h1 class="card-category">Calendar</h1>
+              </div>
+             
+            <div th:replace="/frame/cal.html :: calendar"></div>
+            <!--<div id="calendar"></div>-->
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="now-ui-icons ui-2_time-alarm"></i> Reminder
+                </div>
+              </div> 
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row">
+         
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-category">All Staff Lists</h5>
+                <h4 class="card-title">New Recent Staff List </h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        No
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Position
+                      </th>
+                      <th>
+                        Department
+                      </th>
+                      <th>
+                        Date
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          Dakota Rice
+                        </td>
+                        <td>
+                          Java Developer
+                        </td>
+                        <td>
+                          IT
+                        </td>
+                        <td >
+                          7.1.2021
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          Minerva Hooper
+                        </td>
+                        <td>
+                          Graphic Designer
+                        </td>
+                        <td>
+                          IT
+                        </td>
+                        <td >
+                          1.1.2021
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          Sage Rodriguez
+                        </td>
+                        <td>
+                          PHP Developer
+                        </td>
+                        <td>
+                          IT
+                        </td>
+                        <td >
+                          1.12.2020
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          4
+                        </td>
+                        <td>
+                          Doris Greene
+                        </td>
+                        <td>
+                          Manager
+                        </td>
+                        <td>
+                          HR
+                        </td>
+                        <td >
+                          1.11.2020
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          5
+                        </td>
+                        <td>
+                          Mason Porter
+                        </td>
+                        <td>
+                          System Analysis
+                        </td>
+                        <td>
+                          IT
+                        </td>
+                        <td >
+                          12.6.2020
+                        </td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div th:insert="/frame/footer.html :: foot"></div>
+    </div>
+	<div ></div>
+	<!--<div th:insert="/frame/footer.html :: foot"></div>-->
+</body>
+</html>

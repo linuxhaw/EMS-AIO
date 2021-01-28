@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,15 +32,33 @@ public class QualifyController {
 	@Autowired
 	private QualifyService serv;
 
-	@RequestMapping(value = "/displayqualify", method = RequestMethod.GET)
-	public ModelAndView displayQualification(Model model) {
-		List<MQUL001> list;
-		list = serv.getAll();
+//	@RequestMapping(value = "/displayqualify", method = RequestMethod.GET)
+//	public ModelAndView displayQualification(Model model) {
+//		List<MQUL001> list;
+//		list = serv.getAll();
+//		QualifyBean bean=new QualifyBean();
+//		model.addAttribute("bean", bean);
+//		return new ModelAndView("EMS-MSQ-003", "qualifylist", list);
+//	}
+//	
+	@GetMapping("/displayqualification/page/{pageNo}")
+	public String quaPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+		int pageSize=3;
 		QualifyBean bean=new QualifyBean();
 		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-MSQ-003", "qualifylist", list);
+		Page<MQUL001>page=serv.quaPagi(pageNo, pageSize);
+		List<MQUL001> list =page.getContent();
+		model.addAttribute("qualifylist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-MSQ-003";
+		
 	}
-	
+	@GetMapping("/displayqualification")
+	public String displayQualification(Model model) {
+		return quaPagi(1, model);
+	}
 	@RequestMapping(value = "/setupaddqualify", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") QualifyBean bean, ModelMap model) {
 		MQUL001 chk = serv.findLastID();
@@ -139,7 +160,13 @@ public class QualifyController {
 		return "redirect:/displayqualify";
 	}
 
-	@RequestMapping(value = "/searchqualify", method = RequestMethod.GET)
+	@RequestMapping(value = "/qualifysearch", method = RequestMethod.GET)
+	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+			ModelMap model) {
+		model.addAttribute("msg", message);
+		return new ModelAndView("EMS-MSQ-003", "bean", new QualifyBean());
+	}
+	@RequestMapping(value = "/page/searchqualify", method = RequestMethod.GET)
 	public String displayView(@ModelAttribute("bean") QualifyBean bean, ModelMap model) {
 		
 		List<MQUL001> list;

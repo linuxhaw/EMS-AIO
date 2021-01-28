@@ -14,6 +14,10 @@
 			<h4 class="card-title">Position List</h4>
 		</div>
 		<div class="row">
+			<div class="col-md-6"></div>
+			<label class="success" th:text="${msg}"></label>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
 					<a href="/setupaddposition" style="margin-left: 40px;"
@@ -21,6 +25,7 @@
 						class="btn btn-round btn-primary">Add Position</a>
 				</div>
 			</div>
+
 
 
 
@@ -37,9 +42,22 @@
 <!-- 					</div> -->
 <!-- 				</form> -->
 <!-- 			</div> -->
-			<div class="col-md-2 ">
-				<input class="btn btn-round btn-primary" type="reset">
+
+			<div class="col-md-4">
+				<form action="/page/searchposition" method="get" th:object="${bean}">
+				
+					<div class="input-group no-border" style="padding-top: 10px;">
+						<input type="text" class="form-control" placeholder="Search..."
+							th:field="*{Posid}">
+						
+					</div>
+				</form>
 			</div>
+			<div class="col-md-2 ">
+			<a th:href="@{/displayposition}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
+			</div>
+		
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -63,32 +81,11 @@
 			</div>
 		</div>
 <div th:if="${totalPages>1}">
-<!-- 		<nav aria-label="pagination"> -->
-<!-- 			<ul class="pagination pagination-md justify-content-center"> -->
-<!-- 				<li class="page-item"> -->
-<!-- 					<a class="page-link" href="#" aria-label="Previous">
-<!--                       <span aria-hidden="true">Previous</span> -->
-<!--                       <span class="sr-only">Previous</span> -->
-<!--                     </a>  <a class="page-link" href="#" tabindex="-1">Previous</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="page-item active"><a -->
-<!-- 					style="border-color: orangered; background-color: orangered;" -->
-<!-- 					class="page-link" href="#">1</a></li> -->
-
-<!-- 				<li class="page-item"> -->
-<!-- 					<a class="page-link" href="#" aria-label="Next">
-<!--                       <span aria-hidden="true">Next</span> -->
-<!--                       <span class="sr-only">Next</span> -->
-<!--                     </a> <a class="page-link" href="#" tabindex="+1">Next</a> -->
-
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
 
 
 <nav>
 <ul class="pagination pagination-md justify-content-center">
-<li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li>
+<!-- <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
 <li class="page-item">
 <a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{/displayposition/page/1}">First</a>
 <span class="page-link" th:unless="${currentPage>1}">First</span>

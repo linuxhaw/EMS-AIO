@@ -1,7 +1,9 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,12 +66,13 @@ public class RoleController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MROL001 dto = new MROL001();
 		dto.setRolid(bean.getId());
 		dto.setRolname(bean.getName());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MROL001> chk = RoleService.getRoleByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -105,12 +108,13 @@ public class RoleController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MROL001 dto = new MROL001();
 		dto.setRolid(bean.getId()); 
 		dto.setRolname(bean.getName());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		try {
 			RoleService.update(dto, bean.getId());
@@ -126,10 +130,11 @@ public class RoleController {
 	public String deleterole(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
 		MROL001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		RoleService.update(dto, id);
 		return "redirect:/displayrole";

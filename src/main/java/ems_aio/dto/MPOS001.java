@@ -1,5 +1,7 @@
 package ems_aio.dto;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,9 +16,9 @@ public class MPOS001 {
 	@Column(name="pos_name")
 	private String posname;
 	@Column(name="pos_create")
-	private String createdate;
+	private Timestamp createdate;
 	@Column(name="pos_update")
-	private String updatedate;
+	private Timestamp updatedate;
 	@Column(name="pos_status")
 	private boolean status;
 	public String getPosid() {
@@ -31,16 +33,16 @@ public class MPOS001 {
 	public void setPosname(String posname) {
 		this.posname = posname;
 	}
-	public String getCreatedate() {
+	public Timestamp getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
 	public boolean isStatus() {
@@ -49,7 +51,7 @@ public class MPOS001 {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public MPOS001(String posid, String posname, String createdate, String updatedate, boolean status) {
+	public MPOS001(String posid, String posname, Timestamp createdate, Timestamp updatedate, boolean status) {
 		super();
 		this.posid = posid;
 		this.posname = posname;
@@ -61,6 +63,8 @@ public class MPOS001 {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
 	
 	
 }

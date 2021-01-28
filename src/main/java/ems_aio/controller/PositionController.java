@@ -1,7 +1,9 @@
 package ems_aio.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,12 +67,13 @@ public class PositionController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MPOS001 dto = new MPOS001();
 		dto.setPosid(bean.getId());
 		dto.setPosname(bean.getName());
-		dto.setCreatedate(dtf.format(now));
-		dto.setUpdatedate(dtf.format(now));
+		dto.setCreatedate(now);
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		Optional<MPOS001> chk = serv.getPositionByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -106,12 +109,13 @@ public class PositionController {
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		MPOS001 dto = new MPOS001();
 		dto.setPosid(bean.getId()); 
 		dto.setPosname(bean.getName());
 		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		
 		try {
@@ -128,10 +132,11 @@ public class PositionController {
 	public String deleteposition(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
 		Optional<MPOS001> dtoget = serv.getPositionByCode(id);
 		MPOS001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
+		dto.setUpdatedate(now);
 		dto.setStatus(b);
 		serv.update(dto, id);
 		return "redirect:/displayposition";

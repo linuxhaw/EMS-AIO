@@ -1,5 +1,7 @@
 package ems_aio.dto;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,9 +20,9 @@ public class MDEP001 {
 	@Column(name="dep_head")
 	private String head;
 	@Column(name="dep_create")
-	private String createdate;
+	private Timestamp createdate;
 	@Column(name="dep_update")
-	private String updatedate;
+	private Timestamp updatedate;
 	@Column(name="dep_status")
 	private boolean status;
 	public String getId() {
@@ -47,16 +49,16 @@ public class MDEP001 {
 	public void setHead(String head) {
 		this.head = head;
 	}
-	public String getCreatedate() {
+	public Timestamp getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
 	public boolean isStatus() {
@@ -65,7 +67,7 @@ public class MDEP001 {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public MDEP001(String id, String name, String loc, String head, String createdate, String updatedate,
+	public MDEP001(String id, String name, String loc, String head, Timestamp createdate, Timestamp updatedate,
 			boolean status) {
 		super();
 		this.id = id;
@@ -80,7 +82,7 @@ public class MDEP001 {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 	
 }

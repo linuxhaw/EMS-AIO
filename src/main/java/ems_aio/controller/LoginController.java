@@ -37,15 +37,13 @@ public class LoginController {
 		return new ModelAndView("EMS-ARP-003","user",new UserBean());
 	}
 	
-	@RequestMapping(value="/setupReportStaff" ,method=RequestMethod.GET)
-	public ModelAndView setupReportStaff() {
-		return new ModelAndView("EMS-ARS-003","user",new UserBean());
-	}
+	/*
+	 * @RequestMapping(value="/setupReportStaff" ,method=RequestMethod.GET) public
+	 * ModelAndView setupReportStaff() { return new
+	 * ModelAndView("EMS-ARS-003","user",new UserBean()); }
+	 */
 	
-	@RequestMapping(value="/setupReportStaffList" ,method=RequestMethod.GET)
-	public ModelAndView setupReportStaffList() {
-		return new ModelAndView("EMS-ARS-004","user",new UserBean());
-	}
+	
 	
 	@RequestMapping(value="/setupPosition" ,method=RequestMethod.GET)
 	public ModelAndView setupPosition() {

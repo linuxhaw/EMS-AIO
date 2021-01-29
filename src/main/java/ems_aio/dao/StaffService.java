@@ -33,7 +33,7 @@ public class StaffService {
 
 //getting a specific record by using the method findById() of	CrudRepository
 
-	public Optional<StaffDto> getByCode(String code) {
+	public Optional<StaffDto> getStaffByCode(String code) {
 
 		return repo.findById(code);
 

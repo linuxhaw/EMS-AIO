@@ -58,6 +58,24 @@
 
 					</thead>
 					<tbody>
+						<tr th:each="data: ${stafflist}">
+							<td th:text="${data.id}" />
+							<td th:text="${data.name}" />
+							<td th:text="${data.phone}" />
+							<td th:text="${data.email}" />
+							<td th:text="${data.role}" />
+							<td th:text="${data.dep}" />
+							<td th:text="${data.pos}" />
+							<td>
+								
+								<a th:href="@{/staffdetail(id=${data.id})}"><input type="button" value="Detail" class="btn btn-round btn-primary" id="staffdetail" /></a>
+								
+							</td>
+						</tr>
+						
+
+					</tbody>
+					<!--<tbody>
 						<tr>
 							<td>S0001</td>
 							<td>Hlwan Moe Aung</td>
@@ -115,7 +133,7 @@
 									value="Detail" class="btn btn-round btn-primary"></a>
 						</tr>
 
-					</tbody>
+					</tbody>-->
 				</table>
 			</div>
 		</div>

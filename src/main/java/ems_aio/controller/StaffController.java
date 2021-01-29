@@ -100,7 +100,8 @@ public class StaffController {
 	@RequestMapping(value = "/addstaff", method = RequestMethod.POST)
 	public String addrole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			return "/addstaff";
+			System.out.println(bean.getBirthday());
+			return "EMS-STI-001";
 		}
 		boolean b = true;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

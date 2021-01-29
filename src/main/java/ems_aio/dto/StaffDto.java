@@ -50,12 +50,15 @@ public class StaffDto {
 	private MBNK001 emp_bnk;
 	
 	private Date emp_register;
-	
-	private String emp_pos;
-	
-	private String emp_dep;
-	
-	private String emp_rol;
+	@ManyToOne
+	@JoinColumn
+	private MPOS001 emp_pos;
+	@ManyToOne
+	@JoinColumn
+	private MDEP001 emp_dep;
+	@ManyToOne
+	@JoinColumn
+	private MROL001 emp_rol;
 	
 	private Timestamp emp_create;
 	
@@ -176,7 +179,6 @@ public class StaffDto {
 		this.emp_bnkacc = emp_bnkacc;
 	}
 
-
 	public MBNK001 getEmp_bnk() {
 		return emp_bnk;
 	}
@@ -193,27 +195,27 @@ public class StaffDto {
 		this.emp_register = emp_register;
 	}
 
-	public String getEmp_pos() {
+	public MPOS001 getEmp_pos() {
 		return emp_pos;
 	}
 
-	public void setEmp_pos(String emp_pos) {
+	public void setEmp_pos(MPOS001 emp_pos) {
 		this.emp_pos = emp_pos;
 	}
 
-	public String getEmp_dep() {
+	public MDEP001 getEmp_dep() {
 		return emp_dep;
 	}
 
-	public void setEmp_dep(String emp_dep) {
+	public void setEmp_dep(MDEP001 emp_dep) {
 		this.emp_dep = emp_dep;
 	}
 
-	public String getEmp_rol() {
+	public MROL001 getEmp_rol() {
 		return emp_rol;
 	}
 
-	public void setEmp_rol(String emp_rol) {
+	public void setEmp_rol(MROL001 emp_rol) {
 		this.emp_rol = emp_rol;
 	}
 
@@ -244,7 +246,7 @@ public class StaffDto {
 	public StaffDto(String emp_id, String emp_name, String emp_nrc, String emp_email, String emp_address,
 			String emp_phone, Date emp_birthday, String emp_gender, String emp_marrage, String emp_religion,
 			String emp_nationality, String emp_password, double emp_payroll, String emp_bnkacc, MBNK001 emp_bnk,
-			Date emp_register, String emp_pos, String emp_dep, String emp_rol, Timestamp emp_create,
+			Date emp_register, MPOS001 emp_pos, MDEP001 emp_dep, MROL001 emp_rol, Timestamp emp_create,
 			Timestamp emp_update, boolean emp_status) {
 		super();
 		this.emp_id = emp_id;

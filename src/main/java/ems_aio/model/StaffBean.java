@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import ems_aio.dto.MBNK001;
+import ems_aio.dto.MDEP001;
+import ems_aio.dto.MPOS001;
+import ems_aio.dto.MROL001;
 
 public class StaffBean {
 
@@ -23,9 +26,9 @@ public class StaffBean {
 	private String marrage;
 	private String religion;
 	private String nation;
-	private String position;
-	private String department;
-	private String role;
+	private MPOS001 position;
+	private MDEP001 department;
+	private MROL001 role;
 	private String status;
 	private Timestamp create;
 	private Timestamp update;
@@ -125,22 +128,22 @@ public class StaffBean {
 	public void setNation(String nation) {
 		this.nation = nation;
 	}
-	public String getPosition() {
+	public MPOS001 getPosition() {
 		return position;
 	}
-	public void setPosition(String position) {
+	public void setPosition(MPOS001 position) {
 		this.position = position;
 	}
-	public String getDepartment() {
+	public MDEP001 getDepartment() {
 		return department;
 	}
-	public void setDepartment(String department) {
+	public void setDepartment(MDEP001 department) {
 		this.department = department;
 	}
-	public String getRole() {
+	public MROL001 getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(MROL001 role) {
 		this.role = role;
 	}
 	public String getStatus() {
@@ -163,4 +166,5 @@ public class StaffBean {
 	}
 	
 
+	
 }

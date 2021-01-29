@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,187 +18,263 @@ import javax.persistence.Table;
 @Table(name="MEMP001")
 public class StaffDto {
 	@Id
-	@Column(name="emp_id")
-	private String id;
-	@Column(name="emp_name")
-	private String name;
-	@Column(name="emp_nrc")
-	private String nrc;
-	@Column(name="emp_email")
-	private String email;
-	@Column(name="emp_address")
-	private String address;
-	@Column(name="emp_phone")
-	private String phone;
-	@Column(name="emp_birthday")
-	private Date birthday;
-	@Column(name="emp_gender")
-	private String gender;
-	@Column(name="emp_marrage")
-	private String marrage;
-	@Column(name="emp_religion")
-	private String religion;
-	@Column(name="emp_nationality")
-	private String nation;
-	@Column(name="emp_password")
-	private String password;
-	@Column(name="emp_payroll")
-	private double payroll;
-	@Column(name="emp_bnkacc")
-	private String bnkacc;
-	/*@OneToMany
-	@JoinColumn(name="bnk_id")*/
-	@Column(name="emp_bnk")
-	private String bank;
-	@Column(name="emp_register")
-	private Date register;
-	@Column(name="emp_pos")
-	private String pos;
-	@Column(name="emp_dep")
-	private String dep;
-	@Column(name="emp_rol")
-	private String role;
-	@Column(name="emp_create")
-	private Timestamp createdate;
-	@Column(name="emp_update")
-	private Timestamp updatedate;
-	@Column(name="emp_status")
-	private boolean status;
-	/*
-	 * @OneToMany private List<MBNK001> mbnk001=new ArrayList<MBNK001>();
-	 */
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getDep() {
-		return dep;
-	}
-	public void setDep(String dep) {
-		this.dep = dep;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getName() {
-		return name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String getNrc() {
-		return nrc;
-	}
-	public void setNrc(String nrc) {
-		this.nrc = nrc;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public String getMarrage() {
-		return marrage;
-	}
-	public void setMarrage(String marrage) {
-		this.marrage = marrage;
-	}
-	public String getReligion() {
-		return religion;
-	}
-	public void setReligion(String religion) {
-		this.religion = religion;
-	}
-	public String getNation() {
-		return nation;
-	}
-	public void setNation(String nation) {
-		this.nation = nation;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public double getPayroll() {
-		return payroll;
-	}
-	public void setPayroll(double payroll) {
-		this.payroll = payroll;
-	}
-	public String getBnkacc() {
-		return bnkacc;
-	}
-	public void setBnkacc(String bnkacc) {
-		this.bnkacc = bnkacc;
-	}
-	public String getBank() {
-		return bank;
-	}
-	public void setBank(String bank) {
-		this.bank = bank;
-	}
-	public Date getRegister() {
-		return register;
-	}
-	public void setRegister(Date register) {
-		this.register = register;
-	}
-	public String getPos() {
-		return pos;
-	}
-	public void setPos(String pos) {
-		this.pos = pos;
+	private String emp_id;
+	
+	private String emp_name;
+	
+	private String emp_nrc;
+	
+	private String emp_email;
+	
+	private String emp_address;
+	
+	private String emp_phone;
+	
+	private Date emp_birthday;
+	
+	private String emp_gender;
+	
+	private String emp_marrage;
+	
+	private String emp_religion;
+	
+	private String emp_nationality;
+	
+	private String emp_password;
+	
+	private double emp_payroll;
+	
+	private String emp_bnkacc;
+	@ManyToOne
+	@JoinColumn
+	private MBNK001 emp_bnk;
+	
+	private Date emp_register;
+	
+	private String emp_pos;
+	
+	private String emp_dep;
+	
+	private String emp_rol;
+	
+	private Timestamp emp_create;
+	
+	private Timestamp emp_update;
+	
+	private boolean emp_status;
+	////////////////////////////////////
+
+	public String getEmp_id() {
+		return emp_id;
 	}
 
-	public Timestamp getCreatedate() {
-		return createdate;
+	public void setEmp_id(String emp_id) {
+		this.emp_id = emp_id;
 	}
-	public void setCreatedate(Timestamp createdate) {
-		this.createdate = createdate;
+
+	public String getEmp_name() {
+		return emp_name;
 	}
-	public Timestamp getUpdatedate() {
-		return updatedate;
+
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
-	public void setUpdatedate(Timestamp updatedate) {
-		this.updatedate = updatedate;
+
+	public String getEmp_nrc() {
+		return emp_nrc;
 	}
-	public boolean isStatus() {
-		return status;
+
+	public void setEmp_nrc(String emp_nrc) {
+		this.emp_nrc = emp_nrc;
 	}
-	public void setStatus(boolean status) {
-		this.status = status;
+
+	public String getEmp_email() {
+		return emp_email;
 	}
+
+	public void setEmp_email(String emp_email) {
+		this.emp_email = emp_email;
+	}
+
+	public String getEmp_address() {
+		return emp_address;
+	}
+
+	public void setEmp_address(String emp_address) {
+		this.emp_address = emp_address;
+	}
+
+	public String getEmp_phone() {
+		return emp_phone;
+	}
+
+	public void setEmp_phone(String emp_phone) {
+		this.emp_phone = emp_phone;
+	}
+
+	public Date getEmp_birthday() {
+		return emp_birthday;
+	}
+
+	public void setEmp_birthday(Date emp_birthday) {
+		this.emp_birthday = emp_birthday;
+	}
+
+	public String getEmp_gender() {
+		return emp_gender;
+	}
+
+	public void setEmp_gender(String emp_gender) {
+		this.emp_gender = emp_gender;
+	}
+
+	public String getEmp_marrage() {
+		return emp_marrage;
+	}
+
+	public void setEmp_marrage(String emp_marrage) {
+		this.emp_marrage = emp_marrage;
+	}
+
+	public String getEmp_religion() {
+		return emp_religion;
+	}
+
+	public void setEmp_religion(String emp_religion) {
+		this.emp_religion = emp_religion;
+	}
+
+	public String getEmp_nationality() {
+		return emp_nationality;
+	}
+
+	public void setEmp_nationality(String emp_nationality) {
+		this.emp_nationality = emp_nationality;
+	}
+
+	public String getEmp_password() {
+		return emp_password;
+	}
+
+	public void setEmp_password(String emp_password) {
+		this.emp_password = emp_password;
+	}
+
+	public double getEmp_payroll() {
+		return emp_payroll;
+	}
+
+	public void setEmp_payroll(double emp_payroll) {
+		this.emp_payroll = emp_payroll;
+	}
+
+	public String getEmp_bnkacc() {
+		return emp_bnkacc;
+	}
+
+	public void setEmp_bnkacc(String emp_bnkacc) {
+		this.emp_bnkacc = emp_bnkacc;
+	}
+
+
+	public MBNK001 getEmp_bnk() {
+		return emp_bnk;
+	}
+
+	public void setEmp_bnk(MBNK001 emp_bnk) {
+		this.emp_bnk = emp_bnk;
+	}
+
+	public Date getEmp_register() {
+		return emp_register;
+	}
+
+	public void setEmp_register(Date emp_register) {
+		this.emp_register = emp_register;
+	}
+
+	public String getEmp_pos() {
+		return emp_pos;
+	}
+
+	public void setEmp_pos(String emp_pos) {
+		this.emp_pos = emp_pos;
+	}
+
+	public String getEmp_dep() {
+		return emp_dep;
+	}
+
+	public void setEmp_dep(String emp_dep) {
+		this.emp_dep = emp_dep;
+	}
+
+	public String getEmp_rol() {
+		return emp_rol;
+	}
+
+	public void setEmp_rol(String emp_rol) {
+		this.emp_rol = emp_rol;
+	}
+
+	public Timestamp getEmp_create() {
+		return emp_create;
+	}
+
+	public void setEmp_create(Timestamp emp_create) {
+		this.emp_create = emp_create;
+	}
+
+	public Timestamp getEmp_update() {
+		return emp_update;
+	}
+
+	public void setEmp_update(Timestamp emp_update) {
+		this.emp_update = emp_update;
+	}
+
+	public boolean isEmp_status() {
+		return emp_status;
+	}
+
+	public void setEmp_status(boolean emp_status) {
+		this.emp_status = emp_status;
+	}
+
+	public StaffDto(String emp_id, String emp_name, String emp_nrc, String emp_email, String emp_address,
+			String emp_phone, Date emp_birthday, String emp_gender, String emp_marrage, String emp_religion,
+			String emp_nationality, String emp_password, double emp_payroll, String emp_bnkacc, MBNK001 emp_bnk,
+			Date emp_register, String emp_pos, String emp_dep, String emp_rol, Timestamp emp_create,
+			Timestamp emp_update, boolean emp_status) {
+		super();
+		this.emp_id = emp_id;
+		this.emp_name = emp_name;
+		this.emp_nrc = emp_nrc;
+		this.emp_email = emp_email;
+		this.emp_address = emp_address;
+		this.emp_phone = emp_phone;
+		this.emp_birthday = emp_birthday;
+		this.emp_gender = emp_gender;
+		this.emp_marrage = emp_marrage;
+		this.emp_religion = emp_religion;
+		this.emp_nationality = emp_nationality;
+		this.emp_password = emp_password;
+		this.emp_payroll = emp_payroll;
+		this.emp_bnkacc = emp_bnkacc;
+		this.emp_bnk = emp_bnk;
+		this.emp_register = emp_register;
+		this.emp_pos = emp_pos;
+		this.emp_dep = emp_dep;
+		this.emp_rol = emp_rol;
+		this.emp_create = emp_create;
+		this.emp_update = emp_update;
+		this.emp_status = emp_status;
+	}
+
+	public StaffDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 }

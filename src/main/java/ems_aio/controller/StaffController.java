@@ -80,7 +80,7 @@ public class StaffController {
 			Intlast = 1;
 			sf2 = String.format("STF%04d", Intlast);
 		} else {
-			String StrID = chk.getId();
+			String StrID = chk.getEmp_id();
 			Intlast = Integer.parseInt(StrID.substring(3, 7))+1;
 			sf2 = String.format("STF%04d", Intlast);
 		}
@@ -111,30 +111,30 @@ public class StaffController {
 		Timestamp now=new Timestamp(date.getTime());
 		//System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole());
 		StaffDto dto = new StaffDto();
-		dto.setId(bean.getId());
-		dto.setName(bean.getName());
-		dto.setPassword(bean.getPassword());
-		dto.setNrc(bean.getNrc());
-		dto.setEmail(bean.getEmail());
-		dto.setPhone(bean.getPhone());
-		dto.setPayroll(bean.getSalary());
-		dto.setBnkacc(bean.getBankAcc());
-		dto.setBank(bean.getBank());
-		dto.setAddress(bean.getAddress());
+		dto.setEmp_id(bean.getId());
+		dto.setEmp_name(bean.getName());
+		dto.setEmp_password(bean.getPassword());
+		dto.setEmp_nrc(bean.getNrc());
+		dto.setEmp_email(bean.getEmail());
+		dto.setEmp_phone(bean.getPhone());
+		dto.setEmp_payroll(bean.getSalary());
+		dto.setEmp_bnkacc(bean.getBankAcc());
+		dto.setEmp_bnk(bean.getBank());
+		dto.setEmp_address(bean.getAddress());
 		java.sql.Date sDate = convertUtilToSql(bean.getRegister());
-		dto.setRegister(sDate);
+		dto.setEmp_register(sDate);
 		sDate= convertUtilToSql(bean.getBirthday());
-		dto.setBirthday(sDate);
-		dto.setGender(bean.getGender());
-		dto.setMarrage(bean.getMarrage());
-		dto.setReligion(bean.getReligion());
-		dto.setNation(bean.getNation());
-		dto.setPos(bean.getPosition());
-		dto.setDep(bean.getDepartment());
-		dto.setRole(bean.getRole());
-		dto.setStatus(b);
-		dto.setCreatedate(now);
-		dto.setUpdatedate(now);
+		dto.setEmp_birthday(sDate);
+		dto.setEmp_gender(bean.getGender());
+		dto.setEmp_marrage(bean.getMarrage());
+		dto.setEmp_religion(bean.getReligion());
+		dto.setEmp_nationality(bean.getNation());
+		dto.setEmp_pos(bean.getPosition());
+		dto.setEmp_dep(bean.getDepartment());
+		dto.setEmp_rol(bean.getRole());
+		dto.setEmp_status(b);
+		dto.setEmp_create(now);
+		dto.setEmp_update(now);
 		
 		Optional<StaffDto> chk = StaffService.getByCode(bean.getId());
 		if (chk.isPresent()) {

@@ -1,6 +1,9 @@
 package ems_aio.model;
 
+import java.sql.Timestamp;
 import java.util.*;
+
+import ems_aio.dto.MBNK001;
 
 public class StaffBean {
 
@@ -12,7 +15,7 @@ public class StaffBean {
 	private String phone;
 	private double salary;
 	private String bankAcc;
-	private String bank;
+	private MBNK001 bank;
 	private String address;
 	private Date register;
 	private Date birthday;
@@ -24,8 +27,8 @@ public class StaffBean {
 	private String department;
 	private String role;
 	private String status;
-	private String create;
-	private String update;
+	private Timestamp create;
+	private Timestamp update;
 	public String getId() {
 		return id;
 	}
@@ -74,10 +77,10 @@ public class StaffBean {
 	public void setBankAcc(String bankAcc) {
 		this.bankAcc = bankAcc;
 	}
-	public String getBank() {
+	public MBNK001 getBank() {
 		return bank;
 	}
-	public void setBank(String bank) {
+	public void setBank(MBNK001 bank) {
 		this.bank = bank;
 	}
 	public String getAddress() {
@@ -146,17 +149,18 @@ public class StaffBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getCreate() {
+	public Timestamp getCreate() {
 		return create;
 	}
-	public void setCreate(String create) {
+	public void setCreate(Timestamp create) {
 		this.create = create;
 	}
-	public String getUpdate() {
+	public Timestamp getUpdate() {
 		return update;
 	}
-	public void setUpdate(String update) {
+	public void setUpdate(Timestamp update) {
 		this.update = update;
 	}
+	
 
 }

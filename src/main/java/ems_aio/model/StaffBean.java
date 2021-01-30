@@ -21,7 +21,7 @@ public class StaffBean {
 	private MBNK001 bank;
 	private String address;
 	private Date register;
-	private Date birthday;
+	private String birthday;
 	private String gender;
 	private String marrage;
 	private String religion;
@@ -98,10 +98,11 @@ public class StaffBean {
 	public void setRegister(Date register) {
 		this.register = register;
 	}
-	public Date getBirthday() {
+	
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public String getGender() {

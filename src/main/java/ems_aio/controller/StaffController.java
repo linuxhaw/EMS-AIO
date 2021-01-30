@@ -101,6 +101,7 @@ public class StaffController {
 	public String addrole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
 			System.out.println(bean.getBirthday());
+			System.out.println(bean.getRegister());
 			return "EMS-STI-001";
 		}
 		boolean b = true;
@@ -124,7 +125,7 @@ public class StaffController {
 		dto.setEmp_address(bean.getAddress());
 		java.sql.Date sDate = convertUtilToSql(bean.getRegister());
 		dto.setEmp_register(sDate);
-		sDate= convertUtilToSql(bean.getBirthday());
+		//sDate= convertUtilToSql(bean.getBirthday());
 		dto.setEmp_birthday(sDate);
 		dto.setEmp_gender(bean.getGender());
 		dto.setEmp_marrage(bean.getMarrage());

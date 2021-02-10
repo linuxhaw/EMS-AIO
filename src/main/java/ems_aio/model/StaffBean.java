@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import ems_aio.dto.MBNK001;
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.MQUL001;
 import ems_aio.dto.MROL001;
 
 public class StaffBean {
@@ -20,7 +22,7 @@ public class StaffBean {
 	private String bankAcc;
 	private MBNK001 bank;
 	private String address;
-	private Date register;
+	private String register;
 	private String birthday;
 	private String gender;
 	private String marrage;
@@ -32,6 +34,22 @@ public class StaffBean {
 	private String status;
 	private Timestamp create;
 	private Timestamp update;
+	private Set<MCTF001> certify;
+	private Set<MQUL001> qualify;
+	
+	public Set<MCTF001> getCertify() {
+		return certify;
+	}
+	public void setCertify(Set<MCTF001> certify) {
+		this.certify = certify;
+	}
+	
+	public Set<MQUL001> getQualify() {
+		return qualify;
+	}
+	public void setQualify(Set<MQUL001> qualify) {
+		this.qualify = qualify;
+	}
 	public String getId() {
 		return id;
 	}
@@ -92,13 +110,13 @@ public class StaffBean {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Date getRegister() {
+	
+	public String getRegister() {
 		return register;
 	}
-	public void setRegister(Date register) {
+	public void setRegister(String register) {
 		this.register = register;
 	}
-	
 	public String getBirthday() {
 		return birthday;
 	}

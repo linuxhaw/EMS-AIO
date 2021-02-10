@@ -1,11 +1,17 @@
 package ems_aio.controller;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,7 +33,11 @@ import ems_aio.dao.StaffService;
 import ems_aio.dao.RoleService;
 import ems_aio.dao.DepartmentService;
 import ems_aio.dao.PositionService;
+import ems_aio.dao.CertifyService;
+import ems_aio.dao.QualifyService;
 import ems_aio.dto.MBNK001;
+import ems_aio.dto.MCTF001;
+import ems_aio.dto.MQUL001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 import ems_aio.dto.MROL001;
@@ -49,6 +59,10 @@ public class StaffController {
 	private DepartmentService DepartmentService;
 	@Autowired
 	private PositionService PositionService;
+	@Autowired
+	private CertifyService CertifyService;
+	@Autowired
+	private QualifyService QualifyService;
 	
 	@RequestMapping(value = "/displaystaff", method = RequestMethod.GET)
 	public ModelAndView displayrole(Model model) {
@@ -59,6 +73,7 @@ public class StaffController {
 		return new ModelAndView("EMS-STI-003", "stafflist", list);
 	}
 	
+
 	@RequestMapping(value = "/setupaddstaff", method = RequestMethod.GET)
 	public String setupadduser(@ModelAttribute("bean") StaffBean bean, ModelMap model,HttpServletRequest request) {
 		StaffDto chk = StaffService.findLastID();
@@ -66,13 +81,17 @@ public class StaffController {
 		List<MROL001> rolList=RoleService.getAll();
 		List<MDEP001> depList=DepartmentService.getAll();
 		List<MPOS001> posList=PositionService.getAll(); 
+		List<MCTF001> ctfList=CertifyService.getAll(); 
+		List<MQUL001> qulList=QualifyService.getAll(); 
 		request.getSession().setAttribute("banklist", bnkList);
 		request.getSession().setAttribute("rolelist", rolList);
 		request.getSession().setAttribute("deplist", depList);
 		request.getSession().setAttribute("poslist", posList);
+		request.getSession().setAttribute("ctflist", ctfList);
+		request.getSession().setAttribute("qullist", qulList);
 		int Intlast=0;
 		String sf2;
-		StaffBean rol=new StaffBean();
+		StaffBean staff=new StaffBean();
 		BankBean bnk=new BankBean();
 		DepartmentBean dep=new DepartmentBean();
 		PositionBean pos=new PositionBean();
@@ -84,34 +103,23 @@ public class StaffController {
 			Intlast = Integer.parseInt(StrID.substring(3, 7))+1;
 			sf2 = String.format("STF%04d", Intlast);
 		}
-		rol.setId(sf2);
-		model.addAttribute("bean",rol);
-		model.addAttribute("bank",bnkList);
-		model.addAttribute("dep",depList);
-		model.addAttribute("pos", posList);
+		staff.setId(sf2);
+		staff.setGender("Male");
+		staff.setMarrage("Single");
+		staff.setNation("Citizen");
+		staff.setReligion("Christians");
+		model.addAttribute("bean",staff);
 		return "EMS-STI-001";
 	}
-	
-	private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
-        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-        return sDate;
-    }
-	
+
 	@RequestMapping(value = "/addstaff", method = RequestMethod.POST)
-	public String addrole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	public String addrole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls) {
 		if (bs.hasErrors()) {
-			System.out.println(bean.getBirthday());
-			System.out.println(bean.getRegister());
 			return "EMS-STI-001";
 		}
 		boolean b = true;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now1 = LocalDateTime.now();
 		Date date=new Date();
-		System.out.println(bean.getBirthday());
-		System.out.println(bean.getRegister());
 		Timestamp now=new Timestamp(date.getTime());
-		//System.out.println(bean.getId()+bean.getName()+bean.getPassword()+bean.getNrc()+bean.getEmail()+bean.getPhone()+bean.getSalary()+bean.getBankAcc()+bean.getBank()+bean.getAddress()+bean.getBirthday()+bean.getGender()+bean.getMarrage()+bean.getPosition()+bean.getDepartment()+bean.getRole());
 		StaffDto dto = new StaffDto();
 		dto.setEmp_id(bean.getId());
 		dto.setEmp_name(bean.getName());
@@ -123,10 +131,8 @@ public class StaffController {
 		dto.setEmp_bnkacc(bean.getBankAcc());
 		dto.setEmp_bnk(bean.getBank());
 		dto.setEmp_address(bean.getAddress());
-		java.sql.Date sDate = convertUtilToSql(bean.getRegister());
-		dto.setEmp_register(sDate);
-		//sDate= convertUtilToSql(bean.getBirthday());
-		dto.setEmp_birthday(sDate);
+		dto.setEmp_register(java.sql.Date.valueOf(bean.getRegister()));
+		dto.setEmp_birthday(java.sql.Date.valueOf(bean.getBirthday()));
 		dto.setEmp_gender(bean.getGender());
 		dto.setEmp_marrage(bean.getMarrage());
 		dto.setEmp_religion(bean.getReligion());
@@ -137,6 +143,33 @@ public class StaffController {
 		dto.setEmp_status(b);
 		dto.setEmp_create(now);
 		dto.setEmp_update(now);
+		
+		if(cers != null) {
+			Set<MCTF001> certificate = new HashSet<MCTF001>();
+			for (int i = 0; i < cers.length; i++) {
+				System.out.println(cers[i]);
+				Optional<MCTF001> addi=CertifyService.getByCode(cers[i]);
+				if (addi != null) {
+					MCTF001 i1=addi.get();
+					certificate.add(i1);
+				}
+				
+			}
+			dto.setCtf(certificate);
+		}
+		
+		if(quls != null) {
+			Set<MQUL001> qualification = new HashSet<MQUL001>();
+			for (int i = 0; i < quls.length; i++) {
+				Optional<MQUL001> addi=QualifyService.getByCode(quls[i]);
+				if (addi != null) {
+					MQUL001 i1=addi.get();
+					qualification.add(i1);
+				}
+				
+			}
+			dto.setQul(qualification);
+		}
 		
 		Optional<StaffDto> chk = StaffService.getByCode(bean.getId());
 		if (chk.isPresent()) {
@@ -152,42 +185,95 @@ public class StaffController {
 			return "EMS-STI-001";
 		}
 	}
-	/*
-	@RequestMapping(value = "/setuproleupdate", method = RequestMethod.GET)
-	public ModelAndView setuproleupdate(@RequestParam("id")String id, ModelMap model) {
-		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
-		MROL001 dto1=dtoget.get();
-		RoleBean rol = new RoleBean();
-		rol.setId(dto1.getRolid());
-		rol.setName(dto1.getRolname());
-		rol.setCreate(dto1.getCreatedate());
-		return new ModelAndView("EMS-MSR-002", "bean", rol);
+	
+	@RequestMapping(value = "/setupstaffupdate", method = RequestMethod.GET)
+	public ModelAndView setuproleupdate(@RequestParam("id")String id, ModelMap model,HttpServletRequest request) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<MBNK001> bnkList=BankService.getAll();
+		List<MROL001> rolList=RoleService.getAll();
+		List<MDEP001> depList=DepartmentService.getAll();
+		List<MPOS001> posList=PositionService.getAll(); 
+		List<MCTF001> ctfList=CertifyService.getAll(); 
+		List<MQUL001> qulList=QualifyService.getAll(); 
+		request.getSession().setAttribute("banklist", bnkList);
+		request.getSession().setAttribute("rolelist", rolList);
+		request.getSession().setAttribute("deplist", depList);
+		request.getSession().setAttribute("poslist", posList);
+		request.getSession().setAttribute("ctflist", ctfList);
+		request.getSession().setAttribute("qullist", qulList);
+		Optional<StaffDto> dtoget = StaffService.getByCode(id);
+		StaffDto dto1=dtoget.get();
+		StaffBean staff = new StaffBean();
+		staff.setId(dto1.getEmp_id());
+		staff.setName(dto1.getEmp_name());
+		staff.setPassword(dto1.getEmp_password());
+		staff.setNrc(dto1.getEmp_nrc());
+		staff.setEmail(dto1.getEmp_email());
+		staff.setPhone(dto1.getEmp_phone());
+		staff.setSalary(dto1.getEmp_payroll());
+		staff.setBankAcc(dto1.getEmp_bnkacc());
+		staff.setBank(dto1.getEmp_bnk());
+		staff.setAddress(dto1.getEmp_address());
+		staff.setRegister(dateFormat.format(dto1.getEmp_register()));
+		staff.setBirthday(dateFormat.format(dto1.getEmp_birthday()));
+		staff.setGender(dto1.getEmp_gender());
+		staff.setMarrage(dto1.getEmp_marrage());
+		staff.setReligion(dto1.getEmp_religion());
+		staff.setNation(dto1.getEmp_nationality());
+		staff.setDepartment(dto1.getEmp_dep());
+		staff.setRole(dto1.getEmp_rol());
+		staff.setPosition(dto1.getEmp_pos());
+		staff.setCertify(dto1.getCtf());
+		List<String> qul=new ArrayList<String>(); 
+		
+		for (MQUL001 qu : dto1.getQul()) {
+			qul.add(qu.getQulid());
+		}
+		System.out.println(qul.contains("CTF002"));
+		request.getSession().setAttribute("qulselect", qul);
+		return new ModelAndView("EMS-STI-002", "bean", staff);
 	}
 	
-	@RequestMapping(value = "/updaterole", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated RoleBean bean, BindingResult bs, ModelMap model) {
+	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
+	public String updaterole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model) {
 		if (bs.hasErrors()) {
 			return "EMS-MSR-002";
 		}
 		boolean b = true;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-		MROL001 dto = new MROL001();
-		dto.setRolid(bean.getId()); 
-		dto.setRolname(bean.getName());
-		dto.setCreatedate(bean.getCreate()); 
-		dto.setUpdatedate(dtf.format(now));
-		dto.setStatus(b);
+		Date date=new Date();
+		Timestamp now=new Timestamp(date.getTime());
+		StaffDto dto = new StaffDto();
+		dto.setEmp_id(bean.getId());
+		dto.setEmp_name(bean.getName());
+		dto.setEmp_password(bean.getPassword());
+		dto.setEmp_nrc(bean.getNrc());
+		dto.setEmp_email(bean.getEmail());
+		dto.setEmp_phone(bean.getPhone());
+		dto.setEmp_payroll(bean.getSalary());
+		dto.setEmp_bnkacc(bean.getBankAcc());
+		dto.setEmp_bnk(bean.getBank());
+		dto.setEmp_address(bean.getAddress());
+		dto.setEmp_register(java.sql.Date.valueOf(bean.getRegister()));
+		dto.setEmp_birthday(java.sql.Date.valueOf(bean.getBirthday()));
+		dto.setEmp_gender(bean.getGender());
+		dto.setEmp_marrage(bean.getMarrage());
+		dto.setEmp_religion(bean.getReligion());
+		dto.setEmp_nationality(bean.getNation());
+		dto.setEmp_pos(bean.getPosition());
+		dto.setEmp_dep(bean.getDepartment());
+		dto.setEmp_rol(bean.getRole());
+		dto.setEmp_status(b);
+		dto.setEmp_update(now);
 		try {
-			RoleService.update(dto, bean.getId());
+			StaffService.update(dto, bean.getId());
 			model.addAttribute("msg", "Update successful");
-			return "EMS-MSR-002";
+			return "EMS-STI-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");
-			return "EMS-MSR-002";
+			return "EMS-STI-002";
 		}
 	}
-	
+	/*
 	@RequestMapping(value = "/roledelete", method = RequestMethod.GET)
 	public String deleterole(@RequestParam("id")String id, ModelMap model) {
 		boolean b = false;

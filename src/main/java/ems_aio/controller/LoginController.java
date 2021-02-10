@@ -31,10 +31,7 @@ public class LoginController {
 		return new ModelAndView("EMS-ARB-003","user",new UserBean());
 	}
 	
-	@RequestMapping(value="/setupReportDepartment" ,method=RequestMethod.GET)
-	public ModelAndView setupReportDepartment() {
-		return new ModelAndView("EMS-ARD-003","user",new UserBean());
-	}
+
 	
 	@RequestMapping(value="/setupReportPosition" ,method=RequestMethod.GET)
 	public ModelAndView setupReportPosition() {

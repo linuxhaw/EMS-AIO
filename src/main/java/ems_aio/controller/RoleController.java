@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -43,14 +44,46 @@ public class RoleController {
 //		model.addAttribute("bean", bean);
 //		return new ModelAndView("EMS-MSR-003", "rolelist", list);
 //	}
-	@GetMapping("/displayrole/page/{pageNo}")
-	public String rolePagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+	@GetMapping("/displayrole/searchpage/{pageNo}")
+	public String rolePagi(@PathVariable(value="pageNo")int pageNo,
+			@Param("id")String id,
+			Model model) {
+		
 		int pageSize=3;
 		RoleBean bean=new RoleBean();
+		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
-		Page<MROL001>page=RoleService.rolePagi(pageNo, pageSize);
+		Page<MROL001>page=RoleService.rolePagi(id,pageNo, pageSize);
+		List<MROL001> list=page.getContent();
+		if(id.equals("")) {
+			model.addAttribute("msg","Please Enter data to search!");
+			return "redirect:/displayrole";
+		}
+		if(list.size()==0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MSR-003";
+		}
+//	List<MROL001>list=RoleService.getAll();
+		else {
+		model.addAttribute("rolelist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);}
+		return "EMS-MSR-003";
+		
+	}
+	@GetMapping("/displayrole/page/{pageNo}")
+	public String rolePagiQuery(@PathVariable(value="pageNo")int pageNo,
+			
+			Model model) {
+		
+		int pageSize=3;
+		RoleBean bean=new RoleBean();
+		
+		Page<MROL001>page=RoleService.rolePagiQuery(pageNo, pageSize);
 		List<MROL001> list=page.getContent();
 //	List<MROL001>list=RoleService.getAll();
+		model.addAttribute("bean",bean);
 		model.addAttribute("rolelist",list);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalElements",page.getTotalElements());
@@ -59,8 +92,14 @@ public class RoleController {
 		
 	}
 	@GetMapping("/displayrole")
-	public String displayRole(Model model) {
-		return rolePagi(1, model);
+	public String displayRole(@ModelAttribute("bean")RoleBean bean,Model model) {
+		String id=bean.getId();
+		if(id!=null) {
+		model.addAttribute("id",id);
+		return rolePagi(1,id, model);}
+		else {
+			return rolePagiQuery(1,model);
+		}
 	}
 	@RequestMapping(value = "/setupaddrole", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
@@ -168,22 +207,22 @@ public class RoleController {
 		model.addAttribute("msg", message);
 		return new ModelAndView("", "bean", new RoleBean());
 	}
-	@RequestMapping(value = "/page/searchrole", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
-		
-		List<MROL001> list;
-		String i = bean.getId();
-		if (i.equals("")) {
-			list = RoleService.getAll();
-		}else {
-			 list = RoleService.getsearchrole(i);
-		}
-		System.out.println(list.size());
-		if (list.size() == 0)
-			model.addAttribute("msg", "Role not found!");
-		else
-			model.addAttribute("rolelist", list);
-		//return "BUD001";
-		return "EMS-MSR-003";
-	}
+//	@RequestMapping(value = "/page/searchrole", method = RequestMethod.GET)
+//	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
+//		
+//		List<MROL001> list;
+//		String i = bean.getId();
+//		if (i.equals("")) {
+//			list = RoleService.getAll();
+//		}else {
+//			 list = RoleService.getsearchrole(i);
+//		}
+//		System.out.println(list.size());
+//		if (list.size() == 0)
+//			model.addAttribute("msg", "Role not found!");
+//		else
+//			model.addAttribute("rolelist", list);
+//		//return "BUD001";
+//		return "EMS-MSR-003";
+//	}
 }

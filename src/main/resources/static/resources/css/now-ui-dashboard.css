@@ -23,7 +23,7 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
-SELECT, INPUT[type="text"] {
+/* SELECT, INPUT[type="text"] {
     width: 160px;
     box-sizing: border-box;
 }
@@ -41,7 +41,7 @@ SECTION > DIV + DIV {
     text-align: center;
 }
 
-
+ */
 /* qualification certificate add css */
 .ms-container{
   background: transparent url('../img/switch.png') no-repeat 50% 50%;

@@ -22,7 +22,12 @@ public interface RoleRepository extends CrudRepository<MROL001, String> {
 	  @Query(value = "SELECT * FROM mrol001 WHERE rol_status=1;", nativeQuery =	  true)
 	  List<MROL001> getvalid();
 	
-	  @Query(value = "SELECT * FROM mrol001 n WHERE (n.ROL_ID =?1 OR n.ROL_NAME = ?1) AND rol_status=1", nativeQuery = true)
-		List<MROL001> findrole(String cname);
-	  Page<MROL001> findAll(Pageable pageable);
+	
+//		List<MROL001> findrole(String cname);
+	  @Query(value = "SELECT * FROM mrol001 n WHERE n.rol_status=1 AND (n.rol_id=?1 OR n.rol_name=?1)"
+			 , nativeQuery = true)
+	  Page<MROL001> findAll(String cname,Pageable pageable);
+	  @Query(value = "SELECT * FROM mrol001 WHERE mrol001.rol_status=1", nativeQuery =	true)
+	  Page<MROL001> findQuery(Pageable pageable);
+
 }

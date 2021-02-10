@@ -27,6 +27,7 @@ import ems_aio.dao.DepartmentService;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 import ems_aio.model.DepartmentBean;
+import ems_aio.model.UserBean;
 
 @Controller
 public class DepartmentController {
@@ -195,4 +196,10 @@ model.addAttribute("bean", bean);
 		//return "BUD001";
 		return "EMS-MSD-003";
 	}
+	
+	@RequestMapping(value="/setupReportDepartment" ,method=RequestMethod.GET)
+	public ModelAndView setupReportDepartment() {
+		return new ModelAndView("EMS-ARD-003","user",new UserBean());
+	}
+	
 }

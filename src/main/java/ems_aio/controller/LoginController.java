@@ -148,10 +148,7 @@ public class LoginController {
 	public ModelAndView addPayRoll() {
 		return new ModelAndView("EMS-PYR-001","user",new UserBean());
 	}
-	@RequestMapping(value="/setupPayRollHistory" ,method=RequestMethod.GET)
-	public ModelAndView setupPayRollHistory() {
-		return new ModelAndView("EMS-PYR-003","user",new UserBean());
-	}
+	
 	@RequestMapping(value="/setupMovementHistory" ,method=RequestMethod.GET)
 	public ModelAndView setupMovementHistory() {
 		return new ModelAndView("EMS-STM-003","user",new UserBean());

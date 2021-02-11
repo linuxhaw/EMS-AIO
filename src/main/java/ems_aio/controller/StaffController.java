@@ -147,13 +147,11 @@ public class StaffController {
 		if(cers != null) {
 			Set<MCTF001> certificate = new HashSet<MCTF001>();
 			for (int i = 0; i < cers.length; i++) {
-				System.out.println(cers[i]);
 				Optional<MCTF001> addi=CertifyService.getByCode(cers[i]);
 				if (addi != null) {
 					MCTF001 i1=addi.get();
 					certificate.add(i1);
 				}
-				
 			}
 			dto.setCtf(certificate);
 		}

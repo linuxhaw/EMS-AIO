@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import ems_aio.dto.EmployeeSalaryDto;
+import ems_aio.dto.EmpSalDto;
 
 
-public interface SalaryRepository extends CrudRepository<EmployeeSalaryDto,String>{
-	@Query(value = "SELECT * FROM EMPSAL ORDER BY EMPSAL_CREATE DESC LIMIT 1;", nativeQuery = true)
-	EmployeeSalaryDto findLastID();
+public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
+	@Query(value = "SELECT * FROM EMPSAL ORDER BY sal_create DESC LIMIT 1;", nativeQuery = true)
+	EmpSalDto findLastID();
 
 	@Query(value = "SELECT * FROM EMPSAL;", nativeQuery = true)
-	List<EmployeeSalaryDto> getvalid();
+	List<EmpSalDto> getvalid();
 
-	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.EMPSAL_ID =?1 OR n.EMPSAL_EMP = ?1) ", nativeQuery = true)
-	List<EmployeeSalaryDto> find(String cname);
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 OR n.sal_empid = ?1) ", nativeQuery = true)
+	List<EmpSalDto> find(String cname);
 
 }

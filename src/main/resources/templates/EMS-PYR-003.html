@@ -40,6 +40,8 @@
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
+					
+						<th>Payment ID</th>
 
 						<th>Staff ID</th>
 
@@ -59,64 +61,16 @@
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>S0001</td>
-							<td>Hlwan Moe Aung</td>
-							<td>Java Developer</td>
-							<td>IT</td>
-							<td>Admin Name</td>
-							<td>$200</td>
-							<td>12.2.2019</td>
-
+						<tr th:each="data: ${salhis}">
+							<td th:text="${data.sal_id}" />
+							<td th:text="${data.sal_empid.emp_id}" />
+							<td th:text="${data.sal_empid.emp_name}" />
+							<td th:text="${data.sal_pos.posname}" />
+							<td th:text="${data.sal_dep.name}" />
+							<td th:text="${data.sal_admin.emp_name}" />
+							<td th:text="${data.sal_salary}" />
+							<td th:text="${data.sal_date}" />
 						</tr>
-						<tr>
-							<td>S0002</td>
-							<td>Willion Jame</td>
-							<td>Senior Java Developer</td>
-							<td>IT</td>
-							<td>Admin Name</td>
-							<td>$200</td>
-							<td>12.2.2019</td>
-
-
-						</tr>
-
-						<tr>
-							<td>S0003</td>
-							<td>Crist Maloe</td>
-							<td>Designer</td>
-							<td>IT</td>
-							<td>Admin Name</td>
-							<td>$200</td>
-							<td>12.2.2019</td>
-
-
-						</tr>
-						<tr>
-							<td>S0004</td>
-							<td>Herry</td>
-							<td>Designer</td>
-							<td>IT</td>
-							<td>Admin Name</td>
-							<td>$200</td>
-							<td>12.2.2019</td>
-
-
-
-						</tr>
-						<tr>
-							<td>S0005</td>
-							<td>Manson</td>
-							<td>Designer</td>
-							<td>IT</td>
-							<td>Admin Name</td>
-							<td>$200</td>
-							<td>12.2.2019</td>
-
-
-
-						</tr>
-
 					</tbody>
 				</table>
 			</div>
@@ -145,6 +99,6 @@
 			</ul>
 		</nav>
 	</div>
-	
+
 </body>
 </html>

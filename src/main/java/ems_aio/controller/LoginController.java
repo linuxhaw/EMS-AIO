@@ -153,10 +153,6 @@ public class LoginController {
 	public ModelAndView setupMovementHistory() {
 		return new ModelAndView("EMS-STM-003","user",new UserBean());
 	}
-	@RequestMapping(value="/setupPositionChange" ,method=RequestMethod.GET)
-	public ModelAndView setupPositionChange() {
-		return new ModelAndView("EMS-STM-002","user",new UserBean());
-	}
 	@RequestMapping(value="/x`Staff" ,method=RequestMethod.GET)
 	public ModelAndView setupaddStaff() {
 		return new ModelAndView("EMS-STI-001","user",new UserBean());

@@ -57,7 +57,7 @@
 			}
 		}
 	</script>
-			<form action="addmovement" method="post" th:object="${bean}">
+		<form action="addmovement" method="post" th:object="${bean}">
 				<!--row :id name-->
 				<div class="row">
 					<div class="col-md-5 ml-5">
@@ -101,14 +101,14 @@
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="designation">Designation</label> <select
-								id="designation" onchange="showTextBox()" class="form-control">
+							<label for="designation">Designation</label>
+							<select id="designation" onchange="showTextBox()" class="form-control" th:field="*{process}">
 								<option value="">Choose One of Designation</option>
 								<!-- <option selected disabled>Choose One of Designation</option> -->
-								<option value="promotion">Promote</option>
-								<option value="demotion">Demote</option>
+								<option value="promotion">Promotion</option>
+								<option value="demotion">demotion</option>
 								<option value="transfer">Transfer</option>
-								<option value="resignation">Resign</option>
+								<option value="resignation">Resignation</option>
 								<option value="blackList">BlackList</option>
 
 							</select>
@@ -120,7 +120,7 @@
 					<div class="col-md-11 ml-5">
 						<div class="form-group mr-4">
 							<label for="remark">Remark</label>
-							<input id="remark" type="text" class="form-control" th:field="*{Remark}" >
+							<input id="remark" type="text" class="form-control" th:field="*{remark}" >
 						</div>
 					</div>
 				</div>
@@ -130,7 +130,7 @@
 							style="display: none;">
 							<label for="transferPosition">Transferred Position</label>
 							<select name="position" class="form-control" th:field="*{pos}">
-								<option value=""></option>
+								<option value="" selected></option>
 								<option th:each="list:${session.poslist}" th:value="${list.posid}" th:text="${list.posname}"></option>
 	
 							</select>
@@ -140,7 +140,7 @@
 						<div class="form-group" id="transferDepartment" style="display: none;">
 							<label for="transferDepartment">Transferred Department</label>
 							<select name="department" class="form-control" th:field="*{dep}">
-								<option value=""></option>
+								<option value="" selected></option>
 								<option th:each="list:${session.deplist}" th:value="${list.id}" th:text="${list.name}" ></option>
 							</select>
 						</div>
@@ -149,8 +149,7 @@
 				<div class="col-md-6 text-center">
 					<div class="form-group">
 						<label></label>
-						<input class="btn btn-round btn-primary" type="button" value="Back">
-						<input class="btn btn-round btn-primary" type="button" value="Confirm">
+						<input class="btn btn-round btn-primary" type="submit" value="Submit">
 
 					</div>
 				</div>

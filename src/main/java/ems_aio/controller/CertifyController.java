@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.CertifyService;
+import ems_aio.dto.MBNK001;
 import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
+import ems_aio.model.BankBean;
 import ems_aio.model.CertifyBean;
 import ems_aio.model.DepartmentBean;
 
@@ -43,14 +46,44 @@ public class CertifyController {
 //		return new ModelAndView("EMS-MSC-003", "certifylist", list);
 //	}
 //	
-	@GetMapping("/displaycertification/page/{pageNo}")
-	public String certiPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+	@GetMapping("/displaycertify/searchpage/{pageNo}")
+	public String certifyPagi(@PathVariable(value="pageNo")int pageNo,
+			@Param("id")String id,
+			Model model) {
+		
 		int pageSize=3;
-		Page<MCTF001>page=serv.certiPagi(pageNo, pageSize);
-		List<MCTF001> list =page.getContent();
-//		List<MDEP001>list=serv.getAll();
 		CertifyBean bean=new CertifyBean();
-	model.addAttribute("bean", bean);
+		model.addAttribute("id",id);
+		model.addAttribute("bean", bean);
+		Page<MCTF001>page=serv.certifyPagi(id,pageNo, pageSize);
+		List<MCTF001> list=page.getContent();
+		if(id.equals("")) {
+			model.addAttribute("msg","Please Enter data to search!");
+			return "redirect:/displaycertify";
+		}
+		if(list.size()==0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MSC-003";
+		}
+		else {
+		model.addAttribute("certifylist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);}
+		return "EMS-MSC-003";
+		
+	}
+	@GetMapping("/displaycertify/page/{pageNo}")
+	public String certifyPagiQuery(@PathVariable(value="pageNo")int pageNo,
+			
+			Model model) {
+		
+		int pageSize=3;
+		CertifyBean bean=new CertifyBean();
+		
+		Page<MCTF001>page=serv.certifyPagiQuery(pageNo, pageSize);
+		List<MCTF001> list=page.getContent();
+		model.addAttribute("bean",bean);
 		model.addAttribute("certifylist",list);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalElements",page.getTotalElements());
@@ -58,9 +91,15 @@ public class CertifyController {
 		return "EMS-MSC-003";
 		
 	}
-	@GetMapping("/displaycertification")
-	public String displaycertification(Model model) {
-		return certiPagi(1, model);
+	@GetMapping("/displaycertify")
+	public String displaycertify(@ModelAttribute("bean")CertifyBean bean,Model model) {
+		String id=bean.getId();
+		if(id!=null) {
+		model.addAttribute("id",id);
+		return certifyPagi(1,id, model);}
+		else {
+			return certifyPagiQuery(1,model);
+		}
 	}
 	@RequestMapping(value = "/setupaddcertify", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
@@ -165,27 +204,27 @@ public class CertifyController {
 		serv.update(dto, id);
 		return "redirect:/displaycertify";
 	}
-	@RequestMapping(value = "/certifysearch", method = RequestMethod.GET)
-	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
-			ModelMap model) {
-		model.addAttribute("msg", message);
-		return new ModelAndView("EMS-MSC-003", "bean", new CertifyBean());
-	}
-	@RequestMapping(value = "/page/searchcertification", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
-		
-		List<MCTF001> list;
-		String i = bean.getId();
-		if (i.equals("")) {
-			list = serv.getAll();
-		}else {
-			 list = serv.getsearch(i);
-		}
-		if (list.size() == 0)
-			model.addAttribute("msg", "Certification not found!");
-		else
-			model.addAttribute("certifylist", list);
-		//return "BUD001";
-		return "EMS-MSC-003";
-	}
+//	@RequestMapping(value = "/certifysearch", method = RequestMethod.GET)
+//	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
+//			ModelMap model) {
+//		model.addAttribute("msg", message);
+//		return new ModelAndView("EMS-MSC-003", "bean", new CertifyBean());
+//	}
+//	@RequestMapping(value = "/page/searchcertification", method = RequestMethod.GET)
+//	public String displayView(@ModelAttribute("bean") CertifyBean bean, ModelMap model) {
+//		
+//		List<MCTF001> list;
+//		String i = bean.getId();
+//		if (i.equals("")) {
+//			list = serv.getAll();
+//		}else {
+//			 list = serv.getsearch(i);
+//		}
+//		if (list.size() == 0)
+//			model.addAttribute("msg", "Certification not found!");
+//		else
+//			model.addAttribute("certifylist", list);
+//		//return "BUD001";
+//		return "EMS-MSC-003";
+//	}
 }

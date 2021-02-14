@@ -18,7 +18,8 @@ public class MovementBean {
 	private MDEP001 predep;
 	private MDEP001 dep;
 	private String depname;
-	private Double Remark;
+	private String remark;
+	private String process;
 	private Timestamp create;
 	public String getId() {
 		return id;
@@ -74,11 +75,17 @@ public class MovementBean {
 	public void setDepname(String depname) {
 		this.depname = depname;
 	}
-	public Double getRemark() {
-		return Remark;
+	public String getRemark() {
+		return remark;
 	}
-	public void setRemark(Double remark) {
-		Remark = remark;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getProcess() {
+		return process;
+	}
+	public void setProcess(String process) {
+		this.process = process;
 	}
 	public Timestamp getCreate() {
 		return create;

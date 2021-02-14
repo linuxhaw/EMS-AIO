@@ -25,7 +25,9 @@ public class EmpMovDto {
 	@ManyToOne
 	private StaffDto mov_admin;
 	@Column
-	private Timestamp mov_remark;
+	private String mov_process;
+	@Column
+	private String mov_remark;
 	@Column
 	private Timestamp mov_create;
 	public String getMov_id() {
@@ -58,10 +60,11 @@ public class EmpMovDto {
 	public void setMov_admin(StaffDto mov_admin) {
 		this.mov_admin = mov_admin;
 	}
-	public Timestamp getMov_remark() {
+	
+	public String getMov_remark() {
 		return mov_remark;
 	}
-	public void setMov_remark(Timestamp mov_remark) {
+	public void setMov_remark(String mov_remark) {
 		this.mov_remark = mov_remark;
 	}
 	public Timestamp getMov_create() {
@@ -70,14 +73,21 @@ public class EmpMovDto {
 	public void setMov_create(Timestamp mov_create) {
 		this.mov_create = mov_create;
 	}
+	public String getMov_process() {
+		return mov_process;
+	}
+	public void setMov_process(String mov_process) {
+		this.mov_process = mov_process;
+	}
 	public EmpMovDto(String mov_id, StaffDto mov_empid, MPOS001 mov_pos, MDEP001 mov_dep, StaffDto mov_admin,
-			Timestamp mov_remark, Timestamp mov_create) {
+			String mov_process, String mov_remark, Timestamp mov_create) {
 		super();
 		this.mov_id = mov_id;
 		this.mov_empid = mov_empid;
 		this.mov_pos = mov_pos;
 		this.mov_dep = mov_dep;
 		this.mov_admin = mov_admin;
+		this.mov_process = mov_process;
 		this.mov_remark = mov_remark;
 		this.mov_create = mov_create;
 	}

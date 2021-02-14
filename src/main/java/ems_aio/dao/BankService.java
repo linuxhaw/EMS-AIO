@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ems_aio.dto.MBNK001;
 import ems_aio.dto.MDEP001;
+import ems_aio.dto.MROL001;
 
 //defining the business logic
 @Service
@@ -19,9 +20,9 @@ public class BankService {
 	BankRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MBNK001> getsearch(String id) {
-		 List<MBNK001> list = (List<MBNK001>) repo.findrole(id); 
-	 return list; }
+//	public List<MBNK001> getsearch(String id) {
+//		 List<MBNK001> list = (List<MBNK001>) repo.findrole(id); 
+//	 return list; }
 	
 	 public List<MBNK001> getAll() {
 		 List<MBNK001> list = (List<MBNK001>) repo.getvalid(); 
@@ -59,9 +60,16 @@ public class BankService {
 	public void update(MBNK001 data, String Code) {
 		repo.save(data);
 	}
-	public Page<MBNK001>bankPagi(int PageNo,int PageSize){
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<MBNK001>bankPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		return this.repo.findAll(pageable);
+		return this.repo.findAll(cname,pageable);
+		
+	}
+	public Page<MBNK001>bankPagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findQuery(pageable);
 		
 	}
 }

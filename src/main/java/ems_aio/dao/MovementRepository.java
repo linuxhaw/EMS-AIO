@@ -10,6 +10,12 @@ import ems_aio.dto.EmpMovDto;
 
 
 public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
+	
+	
+
+	@Query(value = "SELECT * FROM EMPMOV WHERE mov_process=?1 ORDER BY mov_create", nativeQuery = true)
+	List<EmpMovDto> blacklist(String process);
+
 	@Query(value = "SELECT * FROM EMPMOV ORDER BY mov_create DESC LIMIT 1;", nativeQuery = true)
 	EmpMovDto findLastID();
 
@@ -17,4 +23,11 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	@Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov_id =?1 OR n.mov_empid = ?1) ", nativeQuery = true)
 	List<EmpMovDto> find(String cname);
 
+	@Query(value = "SELECT * FROM EMPMOV ORDER BY mov_create", nativeQuery = true)
+	List<EmpMovDto> gethistory();
+	
+	/*
+	 * @Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov =?1 ) ", nativeQuery =
+	 * true) List<EmpMovDto> blacklist = null;
+	 */
 }

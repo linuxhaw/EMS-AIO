@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.PositionService;
+import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
-
+import ems_aio.model.CertifyBean;
+import ems_aio.model.DepartmentBean;
 import ems_aio.model.PositionBean;
 
 @Controller
@@ -42,13 +45,44 @@ public class PositionController {
 //		model.addAttribute("bean", bean);
 //		return new ModelAndView("EMS-MSP-003", "positionlist", list);
 //	}
-	@GetMapping("/displayposition/page/{pageNo}")
-	public String posPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
+	@GetMapping("/displayposition/searchpage/{pageNo}")
+	public String posPagi(@PathVariable(value="pageNo")int pageNo,
+			@Param("id")String id,
+			Model model) {
+		
 		int pageSize=3;
 		PositionBean bean=new PositionBean();
-	model.addAttribute("bean", bean);
-		Page<MPOS001>page=serv.posPagi(pageNo, pageSize);
-		List<MPOS001> list =page.getContent();
+		model.addAttribute("id",id);
+		model.addAttribute("bean", bean);
+		Page<MPOS001>page=serv.posPagi(id,pageNo, pageSize);
+		List<MPOS001> list=page.getContent();
+		if(id.equals("")) {
+			model.addAttribute("msg","Please Enter data to search!");
+			return "redirect:/displayposition";
+		}
+		if(list.size()==0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MSP-003";
+		}
+		else {
+		model.addAttribute("positionlist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);}
+		return "EMS-MSP-003";
+		
+	}
+	@GetMapping("/displayposition/page/{pageNo}")
+	public String posPagiQuery(@PathVariable(value="pageNo")int pageNo,
+			
+			Model model) {
+		
+		int pageSize=3;
+		PositionBean bean=new PositionBean();
+		
+		Page<MPOS001>page=serv.posPagiQuery(pageNo, pageSize);
+		List<MPOS001> list=page.getContent();
+		model.addAttribute("bean",bean);
 		model.addAttribute("positionlist",list);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalElements",page.getTotalElements());
@@ -57,8 +91,14 @@ public class PositionController {
 		
 	}
 	@GetMapping("/displayposition")
-	public String displayPosition(Model model) {
-		return posPagi(1, model);
+	public String displayPosition(@ModelAttribute("bean")PositionBean bean,Model model) {
+		String id=bean.getId();
+		if(id!=null) {
+		model.addAttribute("id",id);
+		return posPagi(1,id, model);}
+		else {
+			return posPagiQuery(1,model);
+		}
 	}
 	@RequestMapping(value = "/setupaddposition", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
@@ -172,22 +212,22 @@ public class PositionController {
 		model.addAttribute("msg", message);
 		return new ModelAndView("EMS-MSP-003", "bean", new PositionBean());
 	}
-	@RequestMapping(value = "/page/searchposition", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
-		
-		List<MPOS001> list;
-		String i = bean.getId();
-		if (i.equals("")) {
-			list = serv.getAll();
-		}else {
-			 list = serv.getsearchPosition(i);
-		}
-		System.out.println(list.size());
-		if (list.size() == 0)
-			model.addAttribute("msg", "Position not found!");
-		else
-			model.addAttribute("positionlist", list);
-		//return "BUD001";
-		return "EMS-MSP-003";
-	}
+//	@RequestMapping(value = "/page/searchposition", method = RequestMethod.GET)
+//	public String displayView(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
+//		
+//		List<MPOS001> list;
+//		String i = bean.getId();
+//		if (i.equals("")) {
+//			list = serv.getAll();
+//		}else {
+//			 list = serv.getsearchPosition(i);
+//		}
+//		System.out.println(list.size());
+//		if (list.size() == 0)
+//			model.addAttribute("msg", "Position not found!");
+//		else
+//			model.addAttribute("positionlist", list);
+//		//return "BUD001";
+//		return "EMS-MSP-003";
+//	}
 }

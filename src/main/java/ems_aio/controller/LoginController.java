@@ -1,6 +1,10 @@
 package ems_aio.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -9,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import ems_aio.dao.StaffService;
+import ems_aio.dto.StaffDto;
 import ems_aio.model.UserBean;
 	
 @Controller
 public class LoginController {
+	
+	@Autowired
+	StaffService service;
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -23,13 +31,34 @@ public class LoginController {
 		return "EMS-LGN-001";
 
 	}
-
+	
+	//hawlogin
+	
+	  @RequestMapping(value = "/login",method = RequestMethod.POST) public String
+	  login(@ModelAttribute("login")UserBean bean,HttpSession session,ModelMap
+	  model) {
+	  
+	 	  
+	  StaffDto dto=new StaffDto(); dto.setEmp_id(bean.getId()); List<StaffDto>
+	  list = service.getAll(); if (list.size() == 0) { model.addAttribute("err",
+	  "User not found!"); return "/"; }else if
+	  (bean.getPassword().equals(list.get(0).getEmp_password())) {
+	  session.setAttribute("sesUser", list.get(0));
+	  if(list.get(0).getEmp_rol().equals("1")) { return
+	  "/EMS-DSH-001.html"; }else
+	  if(list.get(0).getEmp_rol().equals("2")) { return
+	  "/EMS-MRP-003.html";
+	  
+	  }
+	  
+	  else { return "/EMS-SRP-003.html"; }
+	  
+	  } else { model.addAttribute("err", "Your password is incorrect!"); return
+	  "/"; } }
+	 
 	
 	
-	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
-	public ModelAndView setupRepoetBlackList() {
-		return new ModelAndView("EMS-ARB-003","user",new UserBean());
-	}
+	
 	
 
 	
@@ -148,10 +177,17 @@ public class LoginController {
 	public ModelAndView addPayRoll() {
 		return new ModelAndView("EMS-PYR-001","user",new UserBean());
 	}
-	
+	@RequestMapping(value="/setupPayRollHistory" ,method=RequestMethod.GET)
+	public ModelAndView setupPayRollHistory() {
+		return new ModelAndView("EMS-PYR-003","user",new UserBean());
+	}
 	@RequestMapping(value="/setupMovementHistory" ,method=RequestMethod.GET)
 	public ModelAndView setupMovementHistory() {
 		return new ModelAndView("EMS-STM-003","user",new UserBean());
+	}
+	@RequestMapping(value="/setupPositionChange" ,method=RequestMethod.GET)
+	public ModelAndView setupPositionChange() {
+		return new ModelAndView("EMS-STM-002","user",new UserBean());
 	}
 	@RequestMapping(value="/x`Staff" ,method=RequestMethod.GET)
 	public ModelAndView setupaddStaff() {

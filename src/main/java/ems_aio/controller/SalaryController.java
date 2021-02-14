@@ -118,14 +118,13 @@ public class SalaryController {
 
 	}
 	
-	@RequestMapping(value="/setupPayRollHistory" ,method=RequestMethod.GET)
-	public ModelAndView setupPayRollHistory(Model model) {
-		List<EmpSalDto> list;
-		list=SalaryService.getAll();
-		SalaryBean bean=new SalaryBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-PYR-003","salhis",list);
-	}
+	/*
+	 * @RequestMapping(value="/setupPayRollHistory" ,method=RequestMethod.GET)
+	 * public ModelAndView setupPayRollHistory(Model model) { List<EmpSalDto> list;
+	 * list=SalaryService.getAll(); SalaryBean bean=new SalaryBean();
+	 * model.addAttribute("bean", bean); return new
+	 * ModelAndView("EMS-PYR-003","salhis",list); }
+	 */
 	//salhis
 	/*List<StaffDto> list;
 		list = StaffService.getAll();

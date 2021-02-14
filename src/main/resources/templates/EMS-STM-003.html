@@ -56,54 +56,18 @@
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>E0001</td>
-							<td>Jack</td>
-							<td>Junior</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>start level</td>
-							<td>1/1/2019</td>
-						</tr>
-						<tr>
-							<td>E0001</td>
-							<td>Jack</td>
-							<td>Senior</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He have enough exprience</td>
-							<td>1/6/2019</td>
-						</tr>
-						<tr>
-							<td>E0001</td>
-							<td>Jack</td>
-							<td>Team Leader</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He can lead a team now!</td>
-							<td>1/1/2020</td>
-						</tr>
-						<tr>
-							<td>E0001</td>
-							<td>Jack</td>
-							<td>Manager</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He can manage well</td>
-							<td>1/6/2020</td>
-						</tr>
-						<tr>
-							<td>E0001</td>
-							<td>Jack</td>
-							<td>Manager</td>
-							<td>HR</td>
-							<td>Resign</td>
-							<td>Health Problem</td>
-							<td>1/1/2021</td>
+						<tr th:each="data: ${movelist}">
+							<td th:text="${data.mov_id}" />
+							<td th:text="${data.mov_empid.emp_name}" />
+							<td th:text="${data.mov_pos.posname}" />
+							<td th:text="${data.mov_dep.name}" />
+							<td th:text="${data.mov_admin.emp_name}" />
+							<td th:text="${data.mov_remark}" />
+							<td th:text="${data.mov_create}" />
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</div> 
 		</div>
 		<nav aria-label="pagination">
 			<ul class="pagination pagination-md justify-content-center">

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MBNK001;
 import ems_aio.dto.MCTF001;
 
 //defining the business logic
@@ -18,10 +19,10 @@ public class CertifyService {
 	CertifyRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MCTF001> getsearch(String id) {
-		 List<MCTF001> list = (List<MCTF001>) repo.find(id); 
-	 return list; }
-	
+//	public List<MCTF001> getsearch(String id) {
+//		 List<MCTF001> list = (List<MCTF001>) repo.find(id); 
+//	 return list; }
+//	
 	 public List<MCTF001> getAll() {
 		 List<MCTF001> list = (List<MCTF001>) repo.getvalid(); 
 	 return list; }
@@ -58,8 +59,16 @@ public class CertifyService {
 	public void update(MCTF001 data, String Code) {
 		repo.save(data);
 	}
-	public Page<MCTF001> certiPagi(int pageNo,int pageSize){
-		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
-		return this.repo.findAll(pageable);
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<MCTF001>certifyPagi(String cname,	int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findAll(cname,pageable);
+		
+	}
+	public Page<MCTF001>certifyPagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findQuery(pageable);
+		
 	}
 }

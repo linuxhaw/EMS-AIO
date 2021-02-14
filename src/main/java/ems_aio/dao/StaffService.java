@@ -55,4 +55,5 @@ public class StaffService {
 	public void update(StaffDto data, String Code) {
 		repo.save(data);
 	}
+
 }

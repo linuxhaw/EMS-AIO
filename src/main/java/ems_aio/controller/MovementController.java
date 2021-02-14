@@ -55,7 +55,15 @@ public class MovementController {
 	private ems_aio.dao.MovementService MovementService;
 	@Autowired
 	private StaffService StaffService;
-
+	
+	@RequestMapping(value = "/displaymovement", method = RequestMethod.GET)
+	public ModelAndView displayrole(Model model) {
+		List<EmpMovDto> list;
+		list = MovementService.getAll();
+		MovementBean bean=new MovementBean();
+		model.addAttribute("bean", bean);
+		return new ModelAndView("EMS-STM-003", "movelist", list);
+	}
 
 	@RequestMapping(value = "/setupaddmovement", method = RequestMethod.GET)
 	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model,
@@ -83,55 +91,70 @@ public class MovementController {
 	}
 	
 	@RequestMapping(value = "/addmovement", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated SalaryBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
 			return "EMS-STM-002";
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		Timestamp now = new Timestamp(date.getTime());
-		EmpSalDto dto = new EmpSalDto();
-		dto.setSal_id(bean.getId());
+		EmpMovDto dto = new EmpMovDto();		
+		String process=bean.getProcess();
+		if (process!=null) {
+			dto.setMov_id(bean.getId());
+			dto.setMov_empid(bean.getSid());
+			dto.setMov_admin((StaffService.getByCode("STF0001")).get());
+			dto.setMov_remark(bean.getRemark());
+			dto.setMov_create(now);
+			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
+			if (process.equals("promotion") || process.equals("demotion")) {
+				dto.setMov_pos(bean.getPos());
+				dto.setMov_dep(bean.getPredep());
+				dto.setMov_process(bean.getProcess());				
+				staff.setEmp_pos(bean.getPos());
+			}else if (process.equals("transfer")) {
+				dto.setMov_pos(bean.getPos());
+				dto.setMov_dep(bean.getDep());
+				dto.setMov_process(bean.getProcess());	
+				staff.setEmp_pos(bean.getPos());
+				staff.setEmp_dep(bean.getDep());
+				
+			}else if (process.equals("resignation")) {
+				dto.setMov_process(bean.getProcess());	
+				staff.setEmp_status(false);
+			}else {
+				dto.setMov_process(bean.getProcess());	
+				staff.setEmp_status(false);
+				staff.setEmp_blacklist(true);
+			}
+			try {
+				staff.setEmp_update(now);
+				StaffService.update(staff, staff.getEmp_id());
 
-		dto.setSal_empid(bean.getSid());
-		dto.setSal_dep(bean.getSaldep());
-		dto.setSal_pos(bean.getSalpos());
-		dto.setSal_salary(bean.getSalary());
-		dto.setSal_admin((StaffService.getByCode("STF0001")).get());
-		dto.setSal_date(java.sql.Date.valueOf(bean.getSaldate()));
-		dto.setSal_create(now);
-
-		/*Optional<EmpSalDto> chk = SalaryService.getByCode(bean.getId());
-		if (chk.isPresent()) {
-			redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
-			return "redirect:/setupaddstaff";
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				return "EMS-STM-002";
+			}
+			Optional<EmpMovDto> chk = MovementService.getByCode(bean.getId());
+			if (chk.isPresent()) {
+				redirAttrs.addFlashAttribute("msg", "Timeout Session Please Tryagain");
+				return "redirect:/setupaddmovement";
+			}
+			try {
+				MovementService.save(dto);
+				redirAttrs.addFlashAttribute("msg", "Register successful");
+				return "redirect:/setupaddsalary";
+			} catch (Exception e) {
+				model.addAttribute("err", "Register fail");
+				return "EMS-PYR-001";
+			}
+		}else {
+			return "redirect:/setupaddmovement";
 		}
-		try {
-			SalaryService.save(dto);
-			redirAttrs.addFlashAttribute("msg", "Register successful");
-			return "redirect:/setupaddsalary";
-		} catch (Exception e) {
-			model.addAttribute("err", "Register fail");
-			return "EMS-PYR-001";
-		}*/
-		return "EMS-PYR-001";
+
 	}
 	
-	/*
-	@RequestMapping(value="/setupPayRollHistory" ,method=RequestMethod.GET)
-	public ModelAndView setupPayRollHistory(Model model) {
-		List<EmpSalDto> list;
-		list=SalaryService.getAll();
-		SalaryBean bean=new SalaryBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-PYR-003","salhis",list);
-	}
-	//salhis
-	/*List<StaffDto> list;
-		list = StaffService.getAll();
-		StaffBean bean=new StaffBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-STI-003", "stafflist", list);*/
+	
 
 	@GetMapping(path = "/setupstaffid", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<StaffDto> courseName(@RequestParam(name = "id", required = true) String Id) {
@@ -142,4 +165,14 @@ public class MovementController {
 		return new ResponseEntity<StaffDto>(course, HttpStatus.OK);
 	}
 
+	
+	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
+	public ModelAndView setupRepoetBlackList(Model model) {
+		List<EmpMovDto> list;
+		list = MovementService.getBlackList();
+		StaffBean bean=new StaffBean();
+		model.addAttribute("bean", bean);
+		//return new ModelAndView("EMS-STI-003", "blacklist", list);
+		return new ModelAndView("EMS-ARB-003","blacklist",list);
+	}
 }

@@ -56,4 +56,14 @@ public class StaffService {
 		repo.save(data);
 	}
 
+	public List<StaffDto> getPosition(String pos) {
+		 List<StaffDto> list = (List<StaffDto>) repo.findpos(pos); 
+		 return list;
+	}
+
+	public  List<StaffDto> getDepartment(String id) {
+		 List<StaffDto> list = (List<StaffDto>) repo.finddep(id); 
+		 return list;
+	}
+
 }

@@ -29,9 +29,6 @@
 								</div>
 
 							</div>
-
-
-
 						</div>
 						<div class="col-md-2 ml-4 ">
 							<input class="btn btn-round btn-primary" type="reset">
@@ -59,8 +56,8 @@
 						<tr th:each="data: ${movelist}">
 							<td th:text="${data.mov_id}" />
 							<td th:text="${data.mov_empid.emp_name}" />
-							<td th:text="${data.mov_pos.posname}" />
-							<td th:text="${data.mov_dep.name}" />
+							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : ''" />
+							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : ''" />
 							<td th:text="${data.mov_admin.emp_name}" />
 							<td th:text="${data.mov_remark}" />
 							<td th:text="${data.mov_create}" />

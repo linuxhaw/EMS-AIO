@@ -7,9 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,17 +30,23 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
+import ems_aio.dao.StaffService;
 import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.StaffDto;
 import ems_aio.model.BankBean;
 import ems_aio.model.CertifyBean;
+import ems_aio.model.DepReportBean;
 import ems_aio.model.DepartmentBean;
+import ems_aio.model.PosReportBean;
 
 @Controller
 public class DepartmentController {
 	@Autowired
 	private DepartmentService serv;
+	@Autowired
+	private StaffService StaffService;
 
 //	@RequestMapping(value = "/displaydepartment", method = RequestMethod.GET)
 //	public ModelAndView displayQualification(Model model) {
@@ -207,29 +218,29 @@ public class DepartmentController {
 		serv.update(dto, id);
 		return "redirect:/displaydepartment";
 	}
-//	@RequestMapping(value = "/departmentsearch", method = RequestMethod.GET)
-//	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
-//			ModelMap model) {
-//		model.addAttribute("msg", message);
-//		return new ModelAndView("EMS-MSD-003", "bean", new DepartmentBean());
-//	}
-//
-//	@RequestMapping(value = "/page/searchdepartment", method = RequestMethod.GET)
-//	public String displayView(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
-//		
-//		List<MDEP001> list;
-//		String i = bean.getId();
-//		{if (i.equals("")) {
-//			list = serv.getAll();
-//		}else {
-//			 list = serv.getsearch(i);
-//		}}
-//	
-//		 if (list.size() == 0)
-//			model.addAttribute("msg", "Department not found!");
-//		else
-//			model.addAttribute("departmentlist", list);
-//		//return "BUD001";
-//		return "EMS-MSD-003";
-//	}
+	
+	@RequestMapping(value = "/setupReportDepartment", method = RequestMethod.GET)
+	public String setupReportPosition(Model model,HttpServletRequest request) {
+		List<MDEP001> list=serv.getAll();
+		DepReportBean bean=new DepReportBean();
+		model.addAttribute("bean", bean);
+		request.getSession().setAttribute("deplist", list);
+		return  "EMS-ARD-003";
+	}
+	
+	@GetMapping(path = "/depreportid", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<DepReportBean> courseName(@RequestParam(name = "id", required = true) String Id,Model model) {
+		MDEP001 obj = serv.getByCode(Id).get();
+		List<StaffDto> list =StaffService.getDepartment(Id);
+		DepReportBean dep=new DepReportBean();
+		dep.setId(Id);
+		dep.setName(obj.getName());
+		dep.setTotal(list.size());
+		dep.setHead(obj.getHead());
+		dep.setLocation(obj.getLoc());
+		dep.setList(list);
+		return new ResponseEntity<DepReportBean>(dep, HttpStatus.OK);
+	}
+	
+	
 }

@@ -7,9 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,26 +30,23 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.PositionService;
+import ems_aio.dao.StaffService;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.StaffDto;
 import ems_aio.model.CertifyBean;
 import ems_aio.model.DepartmentBean;
+import ems_aio.model.PosReportBean;
 import ems_aio.model.PositionBean;
+import ems_aio.model.UserBean;
 
 @Controller
 public class PositionController {
 	@Autowired
 	private PositionService serv;
+	@Autowired
+	private StaffService StaffService;
 
-//	@RequestMapping(value = "/displayposition", method = RequestMethod.GET)
-//	public ModelAndView displayPosition(Model model) {
-//		List<MPOS001> list;
-//		list = serv.getAll();
-//		System.out.println(list.size());
-//		PositionBean bean=new PositionBean();
-//		model.addAttribute("bean", bean);
-//		return new ModelAndView("EMS-MSP-003", "positionlist", list);
-//	}
 	@GetMapping("/displayposition/searchpage/{pageNo}")
 	public String posPagi(@PathVariable(value="pageNo")int pageNo,
 			@Param("id")String id,
@@ -212,22 +214,29 @@ public class PositionController {
 		model.addAttribute("msg", message);
 		return new ModelAndView("EMS-MSP-003", "bean", new PositionBean());
 	}
-//	@RequestMapping(value = "/page/searchposition", method = RequestMethod.GET)
-//	public String displayView(@ModelAttribute("bean") PositionBean bean, ModelMap model) {
-//		
-//		List<MPOS001> list;
-//		String i = bean.getId();
-//		if (i.equals("")) {
-//			list = serv.getAll();
-//		}else {
-//			 list = serv.getsearchPosition(i);
-//		}
-//		System.out.println(list.size());
-//		if (list.size() == 0)
-//			model.addAttribute("msg", "Position not found!");
-//		else
-//			model.addAttribute("positionlist", list);
-//		//return "BUD001";
-//		return "EMS-MSP-003";
-//	}
+
+	
+	@RequestMapping(value = "/setupReportPosition", method = RequestMethod.GET)
+	public String setupReportPosition(Model model,HttpServletRequest request) {
+		List<MPOS001> list=serv.getAll();
+		PosReportBean bean=new PosReportBean();
+		model.addAttribute("bean", bean);
+		request.getSession().setAttribute("poslist", list);
+		return  "EMS-ARP-003";
+	}
+	
+	@GetMapping(path = "/posreportid", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<PosReportBean> courseName(@RequestParam(name = "id", required = true) String Id,Model model) {
+		MPOS001 posobj = serv.getPositionByCode(Id).get();
+		List<StaffDto> list =StaffService.getPosition(Id);
+		
+		PosReportBean pos=new PosReportBean();
+		pos.setId(Id);
+		pos.setName(posobj.getPosname());
+		pos.setTotal(list.size());
+		pos.setList(list);
+		List<StaffDto> list1=pos.getList();
+		//model.addAttribute("list", list);
+		return new ResponseEntity<PosReportBean>(pos, HttpStatus.OK);
+	}
 }

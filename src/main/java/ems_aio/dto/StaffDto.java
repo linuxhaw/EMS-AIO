@@ -3,6 +3,7 @@ package ems_aio.dto;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -65,7 +67,12 @@ public class StaffDto {
 	private Timestamp emp_update;
 	
 	private boolean emp_status;
-	////////////////////////////////////
+	
+	@ManyToMany
+	private Set<MCTF001> ctf = new HashSet<>();
+	
+	@ManyToMany
+	private Set<MQUL001> qul = new HashSet<>();
 
 	public String getEmp_id() {
 		return emp_id;
@@ -243,11 +250,27 @@ public class StaffDto {
 		this.emp_status = emp_status;
 	}
 
+	public Set<MCTF001> getCtf() {
+		return ctf;
+	}
+
+	public void setCtf(Set<MCTF001> ctf) {
+		this.ctf = ctf;
+	}
+
+	public Set<MQUL001> getQul() {
+		return qul;
+	}
+
+	public void setQul(Set<MQUL001> qul) {
+		this.qul = qul;
+	}
+
 	public StaffDto(String emp_id, String emp_name, String emp_nrc, String emp_email, String emp_address,
 			String emp_phone, Date emp_birthday, String emp_gender, String emp_marrage, String emp_religion,
 			String emp_nationality, String emp_password, double emp_payroll, String emp_bnkacc, MBNK001 emp_bnk,
 			Date emp_register, MPOS001 emp_pos, MDEP001 emp_dep, MROL001 emp_rol, Timestamp emp_create,
-			Timestamp emp_update, boolean emp_status) {
+			Timestamp emp_update, boolean emp_status, Set<MCTF001> ctf, Set<MQUL001> qul) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_name = emp_name;
@@ -271,6 +294,8 @@ public class StaffDto {
 		this.emp_create = emp_create;
 		this.emp_update = emp_update;
 		this.emp_status = emp_status;
+		this.ctf = ctf;
+		this.qul = qul;
 	}
 
 	public StaffDto() {

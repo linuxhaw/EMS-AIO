@@ -24,9 +24,9 @@ public class RoleService {
 		return list;
 	}*/
 	
-	public List<MROL001> getsearchrole(String id) {
-		 List<MROL001> list = (List<MROL001>) RoleRepository.findrole(id); 
-	 return list; }
+//	public List<MROL001> getsearchrole(String id) {
+//		 List<MROL001> list = (List<MROL001>) RoleRepository.findrole(id); 
+//	 return list; }
 	
 	 public List<MROL001> getAll() {
 		 List<MROL001> list = (List<MROL001>) RoleRepository.getvalid(); 
@@ -66,10 +66,14 @@ public class RoleService {
 	}
 //	Hlwann
 //	pagi_service with findAll method
-	public Page<MROL001>rolePagi(int PageNo,int PageSize){
+	public Page<MROL001>rolePagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		 List<MROL001> list = (List<MROL001>) RoleRepository.getvalid(); 
-		return this.RoleRepository.findAll(pageable);
+		return this.RoleRepository.findAll(cname,pageable);
+		
+	}
+	public Page<MROL001>rolePagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.RoleRepository.findQuery(pageable);
 		
 	}
 }

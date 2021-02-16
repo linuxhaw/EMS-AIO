@@ -1,10 +1,13 @@
 package ems_aio.dto;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,42 +26,57 @@ public class MCTF001 {
 	private Timestamp updatedate;
 	@Column(name="ctf_status")
 	private boolean status;
+	
+	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getSchool() {
 		return school;
 	}
+
 	public void setSchool(String school) {
 		this.school = school;
 	}
+
 	public Timestamp getCreatedate() {
 		return createdate;
 	}
+
 	public void setCreatedate(Timestamp createdate) {
 		this.createdate = createdate;
 	}
+
 	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
+
 	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
+
 	public boolean isStatus() {
 		return status;
 	}
+
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
 	public MCTF001(String id, String name, String school, Timestamp createdate, Timestamp updatedate, boolean status) {
 		super();
 		this.id = id;
@@ -68,6 +86,7 @@ public class MCTF001 {
 		this.updatedate = updatedate;
 		this.status = status;
 	}
+
 	public MCTF001() {
 		super();
 		// TODO Auto-generated constructor stub

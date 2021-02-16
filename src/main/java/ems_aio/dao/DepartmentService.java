@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 
@@ -19,10 +20,10 @@ public class DepartmentService {
 	DepartmentRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MDEP001> getsearch(String id) {
-		 List<MDEP001> list = (List<MDEP001>) repo.find(id); 
-	 return list; }
-	
+//	public List<MDEP001> getsearch(String id) {
+//		 List<MDEP001> list = (List<MDEP001>) repo.find(id); 
+//	 return list; }
+//	
 	 public List<MDEP001> getAll() {
 		 List<MDEP001> list = (List<MDEP001>) repo.getvalid(); 
 	 return list; }
@@ -61,11 +62,14 @@ public class DepartmentService {
 	}
 //	Hlwann
 //	pagi_service with findAll method
-	public Page<MDEP001>depPagi(int PageNo,int PageSize){
-	
+	public Page<MDEP001>depPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findAll(cname,pageable);
 		
-		return this.repo.findAll(pageable);
+	}
+	public Page<MDEP001>depPagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findQuery(pageable);
 		
 	}
 }

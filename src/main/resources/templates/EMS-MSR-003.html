@@ -33,7 +33,9 @@
 							<div class="input-group mb-3">
   <input type="text" class="form-control" th:field="*{id}" placeholder="Search...." aria-label="Recipient's username" aria-describedby="basic-addon2">
   <div class="input-group-append">
-    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2"></button>
+    <button type="submit" class="btn-primary fa fa-search" 
+    style="border-color:lightgrey;width:50px;border-bottom-right-radius: 20px; 
+    border-top-right-radius: 20px;" id="basic-addon2">Go</button>
   </div>
 </div>
 				</div>
@@ -52,7 +54,7 @@
 					<thead class=" text-primary"><tr>
 						<th>ID</th>
 						<th>Role Name</th>
-						<th colspan="2">Action</th>
+						<th style="padding-left:70px;">Action</th>
 </tr>
 					</thead>
 					<tbody>
@@ -60,10 +62,8 @@
 							<td th:text="${role.rolid}" />
 							<td th:text="${role.rolname}" />
 							<td>
-								<!-- <a href="./EMS-MSR-002.html" class="btn btn-round btn-primary">Update</a> -->
 								<a th:href="@{/setuproleupdate(id=${role.rolid})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="roleUpdate" /></a>
 								<a th:href="@{/roledelete(id=${role.rolid})}"><input type="button"	onclick="return confirm('Are you sure to delete?');" value="Delete" id="delete" class="btn btn-round btn-primary" /></a>
-								<!-- <button type="button" class="btn btn-round btn-primary">Delete</button> -->
 							</td>
 						</tr>
 					</tbody>

@@ -61,17 +61,18 @@
 						<tr th:each="data: ${stafflist}">
 							<td th:text="${data.emp_id}" />
 							<td th:text="${data.emp_name}" />
-							<td th:text="${data.emp_phone}" />
+							<td th:text="${data.emp_phone}"/>
 							<td th:text="${data.emp_email}" />
 							<td th:text="${data.emp_rol.rolname}" />
 							<td th:text="${data.emp_dep.name}" />
 							<td th:text="${data.emp_pos.posname}" />
 							<td>
 								
-								<a th:href="@{/setupstaffupdate(id=${data.emp_id})}"><input type="button" value="Detail" class="btn btn-round btn-primary" id="roleUpdate" /></a>
+								<a th:href="@{/setupstaffreport(id=${data.emp_id})}"><input type="button" value="Detail" class="btn btn-round btn-primary" id="staffReportDetail" /></a>
 								
 							</td>
 						</tr>
+						
 
 					</tbody>
 				</table>

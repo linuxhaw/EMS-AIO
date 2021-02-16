@@ -68,6 +68,8 @@ public class StaffDto {
 	
 	private boolean emp_status;
 	
+	private boolean emp_blacklist;
+	
 	@ManyToMany
 	private Set<MCTF001> ctf = new HashSet<>();
 	
@@ -250,6 +252,14 @@ public class StaffDto {
 		this.emp_status = emp_status;
 	}
 
+	public boolean isEmp_blacklist() {
+		return emp_blacklist;
+	}
+
+	public void setEmp_blacklist(boolean emp_blacklist) {
+		this.emp_blacklist = emp_blacklist;
+	}
+
 	public Set<MCTF001> getCtf() {
 		return ctf;
 	}
@@ -270,7 +280,7 @@ public class StaffDto {
 			String emp_phone, Date emp_birthday, String emp_gender, String emp_marrage, String emp_religion,
 			String emp_nationality, String emp_password, double emp_payroll, String emp_bnkacc, MBNK001 emp_bnk,
 			Date emp_register, MPOS001 emp_pos, MDEP001 emp_dep, MROL001 emp_rol, Timestamp emp_create,
-			Timestamp emp_update, boolean emp_status, Set<MCTF001> ctf, Set<MQUL001> qul) {
+			Timestamp emp_update, boolean emp_status, boolean emp_blacklist, Set<MCTF001> ctf, Set<MQUL001> qul) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_name = emp_name;
@@ -294,6 +304,7 @@ public class StaffDto {
 		this.emp_create = emp_create;
 		this.emp_update = emp_update;
 		this.emp_status = emp_status;
+		this.emp_blacklist = emp_blacklist;
 		this.ctf = ctf;
 		this.qul = qul;
 	}
@@ -302,6 +313,8 @@ public class StaffDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 	
 }

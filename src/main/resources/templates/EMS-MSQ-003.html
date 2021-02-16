@@ -34,17 +34,19 @@
 
 
 			<div class="col-md-4">
-				<form action="/page/searchqualify" method="get" th:object="${bean}">
+				<form th:action="@{/displayqualify}" method="get" th:object="${bean}">
 				
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 							th:field="*{id}">
-						
+						<div class="input-group-append">
+    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2">Go</button>
+  </div>
 					</div>
 				</form>
 			</div>
 			<div class="col-md-2 ">
-			<a th:href="@{/displayqualification}">
+			<a th:href="@{/displayqualify}">
 				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
@@ -56,7 +58,7 @@
 						<th>ID</th>
 						<th>Title</th>
 						<th>School Name</th>
-						<th>Action</th></tr>
+						<th style="padding-left:70px;">Action</th></tr>
 					</thead>
 					<tbody>
 						<tr th:each="data: ${qualifylist}">
@@ -75,15 +77,22 @@
 	<div th:if="${totalPages>1}">
 
 
-<nav>
+ <nav>
 <ul class="pagination pagination-md justify-content-center">
-<!-- <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
 <li class="page-item">
-<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{/displayqualification/page/1}">First</a>
+<div th:if="${id}==null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayqualify/page/1' }">First</a>
+</div><div th:if="${id}!=null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayqualify/searchpage/1' +'?id='+${id}}">First</a>
+</div>
 <span class="page-link" th:unless="${currentPage>1}">First</span>
 </li>
 <li class="page-item">
-<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayqualification/page/'+${currentPage-1}}">Previous</a>
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayqualify/page/'+${currentPage-1}}">Previous</a>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displayqualify/searchpage/'+${currentPage-1}+'?id='+${id}}">Previous</a>
+</div>
 <span class="page-link" th:unless="${currentPage>1}">Previous</span>
 
 </li>
@@ -92,13 +101,24 @@
 </li>
 
 <li class="page-item">
-<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualification/page/'+${currentPage+1}}">Next</a>
+
+<!-- <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayrole/page/'+${currentPage+1}}">Next</a> -->
+<div th:if="${id}!=null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualify/searchpage/'+${currentPage+1}+'?id='+${id}}">Next</a>
+</div>
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualify/page/'+${currentPage+1}}">Next</a>
+</div>
+
+
 <span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
 
 </li>
 <li class="page-item">
-<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualification/page/'+${totalPages}}">Last</a>
-<span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualify/page/'+${totalPages}}">Last</a>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayqualify/searchpage/'+${totalPages}+'?id='+${id}}">Last</a>
+</div><span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
 
 </li>
 </ul>

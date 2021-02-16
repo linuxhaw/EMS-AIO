@@ -2,6 +2,8 @@ package ems_aio.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -20,7 +22,12 @@ public interface StaffRepository extends CrudRepository<StaffDto, String> {
 
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	List<StaffDto> find(String cname);
-	
+
+	@Query(value = "SELECT * FROM memp001 n WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
+	Page<StaffDto> findSearchPagi(String cname,Pageable pageable);
+	@Query(value="SELECT * FROM memp001 n WHERE EMP_status=1 AND emp_blacklist=0",nativeQuery=true)
+	Page<StaffDto> findPagi(Pageable pageable);
+
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.emp_pos_pos_id =?1 ) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	List<StaffDto> findpos(String pos);
 

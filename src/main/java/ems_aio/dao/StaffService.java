@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MROL001;
 import ems_aio.dto.StaffDto;
 
 //defining the business logic
@@ -15,9 +19,9 @@ public class StaffService {
 	StaffRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<StaffDto> getsearch(String id) {
-		 List<StaffDto> list = (List<StaffDto>) repo.find(id); 
-	 return list; }
+//	public List<StaffDto> getPosition(String id) {
+//		 List<StaffDto> list = (List<StaffDto>) repo.find(id); 
+//	 return list; }
 	
 	 public List<StaffDto> getAll() {
 		 List<StaffDto> list = (List<StaffDto>) repo.getvalid(); 
@@ -55,7 +59,6 @@ public class StaffService {
 	public void update(StaffDto data, String Code) {
 		repo.save(data);
 	}
-
 	public List<StaffDto> getPosition(String pos) {
 		 List<StaffDto> list = (List<StaffDto>) repo.findpos(pos); 
 		 return list;
@@ -64,6 +67,18 @@ public class StaffService {
 	public  List<StaffDto> getDepartment(String id) {
 		 List<StaffDto> list = (List<StaffDto>) repo.finddep(id); 
 		 return list;
+	}
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<StaffDto>staffSearchPagi(String cname,int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+	return this.repo.findSearchPagi(cname, pageable);
+		
+	}
+	public Page<StaffDto>staffPagi(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findPagi(pageable);
+		
 	}
 
 }

@@ -2,10 +2,13 @@ package ems_aio.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import ems_aio.dto.EmpMovDto;
+import ems_aio.dto.StaffDto;
 
 
 
@@ -30,4 +33,8 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	 * @Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov =?1 ) ", nativeQuery =
 	 * true) List<EmpMovDto> blacklist = null;
 	 */
+	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_id=?1 ", nativeQuery = true)
+	Page<EmpMovDto> findSearchPagi(String cname,Pageable pageable);
+	@Query(value = "SELECT * FROM EMPMOV  ", nativeQuery = true)
+	Page<EmpMovDto> findPagi(Pageable pageable);
 }

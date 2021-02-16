@@ -2,10 +2,13 @@ package ems_aio.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import ems_aio.dto.EmpSalDto;
+import ems_aio.dto.MROL001;
 
 
 public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
@@ -17,5 +20,10 @@ public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
 
 	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 OR n.sal_empid = ?1) ", nativeQuery = true)
 	List<EmpSalDto> find(String cname);
-
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 ) ", nativeQuery = true)
+			 
+	  Page<EmpSalDto> findSearchPagi(String cname,Pageable pageable);
+	
+	@Query(value = "SELECT * FROM EMPSAL ", nativeQuery = true)
+	  Page<EmpSalDto> findPagi(Pageable pageable);
 }

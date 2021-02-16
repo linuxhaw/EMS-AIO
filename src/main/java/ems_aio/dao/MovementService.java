@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ems_aio.dto.EmpMovDto;
+import ems_aio.dto.StaffDto;
 
 @Service
 public class MovementService {
@@ -47,6 +51,18 @@ public class MovementService {
 	public List<EmpMovDto> getBlackList() {
 		List<EmpMovDto> list = (List<EmpMovDto>) repo.blacklist("blacklist");
 		return list;
+	}
+//	Hlwann
+//	pagi_service with findAll method
+	public Page<EmpMovDto>movementSearchPagi(String cname,int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+	return this.repo.findSearchPagi(cname, pageable);
+		
+	}
+	public Page<EmpMovDto>movementPagi(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findPagi(pageable);
+		
 	}
 
 }

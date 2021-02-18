@@ -120,8 +120,7 @@ public class MovementController {
 	}
 
 	@RequestMapping(value = "/setupaddmovement", method = RequestMethod.GET)
-	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model,
-			HttpServletRequest request) {
+	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model, HttpServletRequest request) {
 		EmpMovDto chk = MovementService.findLastID();
 		int Intlast = 0;
 		String sf2;
@@ -147,7 +146,9 @@ public class MovementController {
 	@RequestMapping(value = "/addmovement", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
+			System.out.println("hello");
 			return "EMS-STM-002";
+			
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
@@ -163,7 +164,7 @@ public class MovementController {
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
 			if (process.equals("promotion") || process.equals("demotion")) {
 				dto.setMov_pos(bean.getPos());
-				dto.setMov_dep(bean.getPredep());
+				dto.setMov_dep(staff.getEmp_dep());
 				dto.setMov_process(bean.getProcess());				
 				staff.setEmp_pos(bean.getPos());
 			}else if (process.equals("transfer")) {

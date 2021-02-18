@@ -118,7 +118,7 @@ th {
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
 						<label>BANK</label> <br> <select name="bank"
-							class="form-control" th:field="*{bank}">
+							class="form-control" th:field="*{bank}" required>
 							<option value=""></option>
 							<option th:each="list:${session.banklist}"
 								th:value="${list.bnkid}" th:text="${list.bnkname}"
@@ -265,7 +265,7 @@ th {
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>ROLE</label> <br> <select name="role"
-							class="form-control" th:field="*{role}">
+							class="form-control" th:field="*{role}" required>
 							<option value=""></option>
 							<option th:each="list:${session.rolelist}"
 								th:value="${list.rolid}" th:text="${list.rolname}"
@@ -280,7 +280,7 @@ th {
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>DEPARTMENT</label> <br> <select name="department"
-							class="form-control" th:field="*{department}">
+							class="form-control" th:field="*{department}" required>
 							<option value=""></option>
 							<option th:each="list:${session.deplist}" th:value="${list.id}"
 								th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
@@ -291,7 +291,7 @@ th {
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
 						<label>POSITION</label> <br> <select name="position"
-							class="form-control" th:field="*{position}">
+							class="form-control" th:field="*{position}" required>
 							<option value=""></option>
 							<option th:each="list:${session.poslist}"
 								th:value="${list.posid}" th:text="${list.posname}"
@@ -308,10 +308,10 @@ th {
 
 					<div class="form-group">
 
-						<td class="text-center"><input type="submit" value="Register"
+						<td class="text-center"><input type="submit" value="Update"
 							class="btn btn-round btn-primary"></td> &nbsp; &nbsp; &nbsp;
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						<td><a href=""><a href="/displayqualify"
+						<td><a href=""><a href="/displaystaff"
 								class="btn btn-round btn-primary">Cancle</a></a></td>
 
 					</div>

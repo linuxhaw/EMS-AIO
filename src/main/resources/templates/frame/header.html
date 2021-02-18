@@ -66,10 +66,11 @@
 							</p>
 					</a><p id="pin" th:text="*{sesUser}"></p>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#EMS-ARI-003.html" th:text="*{sesUser}"></a>
-							<a class="dropdown-item" href="#EMS-ARI-003.html">Profile</a>
-							 <a class="dropdown-item" href="#EMS-ARI-002.html">Change Password</a>
-							  <a onclick="return confirm('Are you sure want to log out ?');" class="dropdown-item" href="../EMS-LGN-001.html">Log Out</a>
+							<!-- <a class="dropdown-item" href="#EMS-ARI-003.html" th:text="*{sesUser}"></a> -->
+							<a class="dropdown-item" th:href="@{/MngStaffInformationDetail(id=${session.sesUser.emp_id})}">Profile</a>
+							<!-- <a class="dropdown-item" href="#EMS-ARI-003.html">Profile</a> -->
+							<!--  <a class="dropdown-item" href="#EMS-ARI-002.html">Change Password</a> -->
+							  <a onclick="return confirm('Are you sure want to log out ?');" class="dropdown-item" href="/logout">Log Out</a>
 							   
 						</div></li>
 				</ul>

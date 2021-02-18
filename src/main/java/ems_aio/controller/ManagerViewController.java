@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,12 +43,21 @@ public class ManagerViewController {
 	private PositionService positionserv;
 	@Autowired
 	private ems_aio.dao.MovementService MovementService;
-		
-	@RequestMapping(value="/ManagerProfile" ,method=RequestMethod.GET)
+
+	@RequestMapping(value = "/ManagerProfile", method = RequestMethod.GET)
 	public ModelAndView setupStaffList() {
-		return new ModelAndView("EMS-MRI-003","user",new UserBean());
+		return new ModelAndView("EMS-MRI-003", "user", new UserBean());
 	}
-	
+	/*
+	 * @GetMapping("/ManagerProfile") public String managerdash(Model model) {
+	 * List<StaffDto> stflist=StaffService.getAll();
+	 * model.addAttribute("stf",stflist.size()); List<MDEP001>
+	 * deplist=DepartmentService.getAll(); model.addAttribute("dep",deplist.size());
+	 * List<StaffDto> stflast=service.getLatest();
+	 * model.addAttribute("stflast",stflast); return "EMS-DSH-001";
+	 * 
+	 * }
+	 */
 //	@RequestMapping(value="/MngStaffInformation" ,method=RequestMethod.GET)
 //	public ModelAndView MngStaffInformation() {
 //		return new ModelAndView("EMS-MRS-003","user",new UserBean());
@@ -53,17 +66,18 @@ public class ManagerViewController {
 	public ModelAndView MngStaffInformation(Model model) {
 		List<StaffDto> list;
 		list = StaffService.getAll();
-		StaffBean bean=new StaffBean();
+		StaffBean bean = new StaffBean();
 		model.addAttribute("bean", bean);
 		return new ModelAndView("EMS-MRS-003", "stafflist", list);
 	}
-	
+
 	@RequestMapping(value = "/MngStaffInformationDetail", method = RequestMethod.GET)
-	public ModelAndView MngStaffInformationDetail(@RequestParam("id")String id, ModelMap model,HttpServletRequest request) {
+	public ModelAndView MngStaffInformationDetail(@RequestParam("id") String id, ModelMap model,
+			HttpServletRequest request) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		Optional<StaffDto> dtoget = StaffService.getByCode(id);
-		StaffDto dto1=dtoget.get();
+		StaffDto dto1 = dtoget.get();
 		StaffBean staff = new StaffBean();
 		staff.setId(dto1.getEmp_id());
 		staff.setName(dto1.getEmp_name());
@@ -87,49 +101,49 @@ public class ManagerViewController {
 		staff.setCertify(dto1.getCtf());
 		staff.setQualify(dto1.getQul());
 
-		
-	return new ModelAndView("EMS-MRS-004", "bean", staff);
-		
+		return new ModelAndView("EMS-MRS-004", "bean", staff);
+
 	}
-	
+
 //	@RequestMapping(value="/MngDepartments" ,method=RequestMethod.GET)
 //	public ModelAndView MngDepartments() {
 //		return new ModelAndView("EMS-MRD-003","user",new UserBean());
 //	}
 	@RequestMapping(value = "/MngDepartments", method = RequestMethod.GET)
-	public String MngDepartments(Model model,HttpServletRequest request) {
-		List<MDEP001> list=serv.getAll();
-		DepReportBean bean=new DepReportBean();
+	public String MngDepartments(Model model, HttpServletRequest request) {
+		
+		List<MDEP001> list = serv.getAll();
+		DepReportBean bean = new DepReportBean();
 		model.addAttribute("bean", bean);
 		request.getSession().setAttribute("deplist", list);
-		return  "EMS-MRD-003";
+		return "EMS-MRD-003";
 	}
-	
+
 //	@RequestMapping(value="/MngPositions" ,method=RequestMethod.GET)
 //	public ModelAndView MngPositions() {
 //		return new ModelAndView("EMS-MRP-003","user",new UserBean());
 //	}
-	
+
 	@RequestMapping(value = "/MngPositions", method = RequestMethod.GET)
-	public String MngPositions(Model model,HttpServletRequest request) {
-		List<MPOS001> list=positionserv.getAll();
-		PosReportBean bean=new PosReportBean();
+	public String MngPositions(Model model, HttpServletRequest request) {
+		List<MPOS001> list = positionserv.getAll();
+		PosReportBean bean = new PosReportBean();
 		model.addAttribute("bean", bean);
 		request.getSession().setAttribute("poslist", list);
-		return  "EMS-MRP-003";
+		return "EMS-MRP-003";
 	}
-	
+
 //	@RequestMapping(value="/MngBlacklists" ,method=RequestMethod.GET)
 //	public ModelAndView MngBanks() {
 //		return new ModelAndView("EMS-MRB-003","user",new UserBean());
 //	}
-	@RequestMapping(value="/MngBlacklists" ,method=RequestMethod.GET)
+	@RequestMapping(value = "/MngBlacklists", method = RequestMethod.GET)
 	public ModelAndView MngBlacklists(Model model) {
 		List<EmpMovDto> list;
 		list = MovementService.getBlackList();
-		StaffBean bean=new StaffBean();
+		StaffBean bean = new StaffBean();
 		model.addAttribute("bean", bean);
-		//return new ModelAndView("EMS-STI-003", "blacklist", list);
-		return new ModelAndView("EMS-MRB-003","blacklist",list);
+		// return new ModelAndView("EMS-STI-003", "blacklist", list);
+		return new ModelAndView("EMS-MRB-003", "blacklist", list);
 	}
 }

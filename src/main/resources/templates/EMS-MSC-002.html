@@ -29,25 +29,25 @@
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>Certificate Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 pr-1">
 						<div class="form-group">
 							<label>School Name</label>
-							<input type="text" class="form-control" placeholder="School" th:field="*{school}">
+							<input type="text" class="form-control" placeholder="School" th:field="*{school}" required>
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Update" class="btn btn-round btn-primary" />
-							<a	href="/displaycertification" class="btn btn-round btn-primary">Cancel</a>
+							<a	href="/displaycertify" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

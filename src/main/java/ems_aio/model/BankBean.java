@@ -3,15 +3,14 @@ package ems_aio.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
 public class BankBean {
 	private String id;
-	@NotEmpty(message="Field must not be null!")
 	private String name;
-	@NotEmpty(message="Field must not be null!")
+	@Digits( message="Mobile number is invalid", fraction = 0, integer = 11)
 	private String phone;
-	@NotEmpty(message="Field must not be null!")
 	private String loc;
 	private Timestamp create;
 	private Timestamp update;

@@ -32,10 +32,10 @@
 
 							<label>Qualification Name</label>
 
-							<input type="text" class="form-control" th:field="*{name}">
+							<input type="text" class="form-control" th:field="*{name}" required>
 
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
@@ -44,17 +44,17 @@
 
 							<label>School Name</label>
 
-							<input type="text" class="form-control" th:field="*{school}">
+							<input type="text" class="form-control" th:field="*{school}" required>
 
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Register" class="btn btn-round btn-primary" />
-							<a	href="/displayqualification" class="btn btn-round btn-primary">Cancel</a>
+							<a	href="/displayqualify" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

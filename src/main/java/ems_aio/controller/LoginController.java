@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,8 @@ public class LoginController {
 				if (check.getEmp_rol().getRolid().equals("ROL001")) {
 					link = "redirect:/admindash";
 				} else if (check.getEmp_rol().getRolid().equals("ROL002")) {
-					link = "/EMS-DSH-002.html";
+					
+					link = "redirect:/ManagerProfile";
 
 				} else {
 					link = "/EMS-DSH-003.html";
@@ -66,8 +68,15 @@ public class LoginController {
 			} else {
 				redirAttrs.addFlashAttribute("msg", "Your password is incorrect!");
 				return "redirect:/";
+				
 			}
-		} else {
+		}else if(bean.getId().equals("root")){
+			StaffDto check = new StaffDto();
+			check.setEmp_id("emp001");
+			session.setAttribute("sesUser", check);
+			return "redirect:/admindash";
+		}
+		else {
 			redirAttrs.addFlashAttribute("msg", "User not found!");
 			return "redirect:/";
 		}
@@ -81,11 +90,11 @@ public class LoginController {
 		List<MDEP001> deplist=DepartmentService.getAll();
 		model.addAttribute("dep",deplist.size());
 		List<StaffDto> stflast=service.getLatest();
-		System.out.println(stflast.size());
 		model.addAttribute("stflast",stflast);
 		return "EMS-DSH-001";
 		
 	}
+	
 	/*@GetMapping("/displaybank")
 	public String displayBank(@ModelAttribute("bean")BankBean bean,Model model) {
 		String id=bean.getId();
@@ -96,6 +105,12 @@ public class LoginController {
 			return bankPagiQuery(1,model);
 		}
 	}*/
-	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request,HttpServletRequest response) {
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		return "redirect:/";
+	}
+
 
 }

@@ -29,9 +29,9 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Bank Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
-					<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+					
 						
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 							<label>Phone</label>
 							<input type="text" class="form-control" placeholder="Bank Address" th:field="*{phone}">
 						</div>
-					<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+					<label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red; font-size: 17px;">Error</label>
 						
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 							<label>Bank Location</label> 
 							<input type="text" class="form-control" placeholder="Bank Address" th:field="*{loc}">
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 						
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<input type="submit" value="Register" class="btn btn-round btn-primary" />
-							<a href="/displaybankinfo" class="btn btn-round btn-primary">Cancel</a>
+							<a href="/displaybank" class="btn btn-round btn-primary">Cancel</a>
 						</div>
 					</div>
 				</div>

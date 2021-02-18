@@ -185,7 +185,7 @@ public class PositionController {
 		
 		try {
 			serv.update(dto, bean.getId());
-			model.addAttribute("err", "Update successful");
+			model.addAttribute("msg", "Update successful");
 			return "EMS-MSP-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");

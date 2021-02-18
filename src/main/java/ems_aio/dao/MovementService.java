@@ -64,5 +64,14 @@ public class MovementService {
 		return this.repo.findPagi(pageable);
 		
 	}
-
+	public Page<EmpMovDto>blacklistSearch(String cname,int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+	return this.repo.findSearchBlacklist(cname, pageable);
+		
+	}
+	public Page<EmpMovDto>blacklist(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findBlacklist(pageable);
+		
+	}
 }

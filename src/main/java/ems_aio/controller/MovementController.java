@@ -200,7 +200,7 @@ public class MovementController {
 				return "redirect:/setupaddsalary";
 			} catch (Exception e) {
 				model.addAttribute("err", "Register fail");
-				return "EMS-PYR-001";
+				return "EMS-STM-002";
 			}
 		}else {
 			return "redirect:/setupaddmovement";
@@ -220,13 +220,63 @@ public class MovementController {
 	}
 
 	
-	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
-	public ModelAndView setupRepoetBlackList(Model model) {
-		List<EmpMovDto> list;
-		list = MovementService.getBlackList();
+//	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
+//	public ModelAndView setupRepoetBlackList(Model model) {
+//		List<EmpMovDto> list;
+//		list = MovementService.getBlackList();
+//		StaffBean bean=new StaffBean();
+//		model.addAttribute("bean", bean);
+//		//return new ModelAndView("EMS-STI-003", "blacklist", list);
+//		return new ModelAndView("EMS-ARB-003","blacklist",list);
+//	}
+	@GetMapping("/setupReportBlackList/page/{pageNo}")
+	public String displayBlackListReport(@PathVariable("pageNo")int pageNo,Model model) {
+		int pageSize=4;
+	StaffBean bean=new StaffBean();
+		Page<EmpMovDto> page=MovementService.movementPagi(pageNo, pageSize);
+		List<EmpMovDto> pagi=page.getContent();
+		model.addAttribute("bean",bean);
+		model.addAttribute("blacklist",pagi);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);
+		return "EMS-ARB-003";
+		
+	}
+	@GetMapping("/setupReportBlackList/searchpage/{pageNo}")
+	public String displaySearchBlackList(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
+		int pageSize=4;
 		StaffBean bean=new StaffBean();
+		model.addAttribute("id",id);
+		bean.setId(id);
 		model.addAttribute("bean", bean);
-		//return new ModelAndView("EMS-STI-003", "blacklist", list);
-		return new ModelAndView("EMS-ARB-003","blacklist",list);
+		Page<EmpMovDto> page=MovementService.movementSearchPagi(id,pageNo, pageSize);
+		List<EmpMovDto> list=page.getContent();
+
+		if(id.equals("")) {
+			model.addAttribute("msg","Please Enter data to search!");
+			return "redirect:/setupReportBlackList";
+		}
+		if(list.size()==0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-ARB-003";
+		}
+		else {
+			model.addAttribute("blacklist",list);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalElements",page.getTotalElements());
+			model.addAttribute("currentPage",pageNo);
+			return "EMS-ARB-003";
+		}
+	}
+	@GetMapping("/setupReportBlackList")
+	public String displayBlacklist(@ModelAttribute("bean")MovementBean bean,Model model) {
+		String id=bean.getId();
+		if(id!=null) {
+		model.addAttribute("id",id);
+		return displaySearchBlackList(1,id, model);}
+		else {
+			return displayBlackListReport(1,model);
+		}
 	}
 }

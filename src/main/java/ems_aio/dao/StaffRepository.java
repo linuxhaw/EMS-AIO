@@ -25,7 +25,8 @@ public interface StaffRepository extends CrudRepository<StaffDto, String> {
 
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	Page<StaffDto> findSearchPagi(String cname,Pageable pageable);
-	@Query(value="SELECT * FROM memp001 n WHERE EMP_status=1 AND emp_blacklist=0",nativeQuery=true)
+	
+	@Query(value="SELECT * FROM memp001 n WHERE EMP_status=1 AND emp_blacklist=0 ",nativeQuery=true)
 	Page<StaffDto> findPagi(Pageable pageable);
 
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.emp_pos_pos_id =?1 ) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
@@ -33,4 +34,11 @@ public interface StaffRepository extends CrudRepository<StaffDto, String> {
 
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.emp_dep_dep_id =?1 ) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	List<StaffDto> finddep(String dep);
+	
+	@Query(value = "SELECT * FROM memp001 n WHERE (n.emp_dep_dep_id =?1 ) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
+	Page<StaffDto> findDepList(Pageable pageable);
+	
+	@Query(value="SELECT * FROM memp001 n WHERE EMP_status=1 AND emp_blacklist=0 ORDER BY EMP_CREATE DESC LIMIT 5",nativeQuery=true)
+	List<StaffDto> getlast();
+
 }

@@ -15,11 +15,6 @@
 <link th:href="@{/resources/css/style.css}" type="text/css"
 	rel="stylesheet" />
 
-<!-- <link rel="shortcut icon" href="/images/fav.jpg">
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/fontawsom-all.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />-->
 </head>
 
 <body>
@@ -28,7 +23,6 @@
 			<div class=" no-pdding login-box">
 				<div class="row no-margin w-100 bklmj">
 					<div class="col-lg-6 col-md-6 log-det">
-
 
 						<img src="/resources/images/logo-text.png" width="120px"
 							height="68px"><br> <br>
@@ -41,20 +35,24 @@
 
 
 						<div class="text-box-cont">
+							<label style="color: red;" th:text="${msg}"></label>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="UserID" aria-label="Username" aria-describedby="basic-addon1" th:field="*{id}" required>
+								<input type="text" class="form-control" placeholder="UserID"
+									aria-label="Username" aria-describedby="basic-addon1"
+									th:field="*{id}" required>
 							</div>
 							<div class="input-group mb-3">
 
-								<input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" th:field="*{password}" required>
+								<input type="password" class="form-control"
+									placeholder="Password" aria-label="Username"
+									aria-describedby="basic-addon1" th:field="*{password}" required>
 							</div>
 							<div class="right-bkij mb-3">
 								<input type="submit" class="btn btn-success" value="Log In">
 							</div>
 
 							<br> <br> <br>
-							<div class="row linkoi">
-							</div>
+							<div class="row linkoi"></div>
 						</div>
 						<div class="row-no-margin-past">
 							<p>@Developed by All 1N ONE</p>
@@ -65,7 +63,6 @@
 					<div class="col-lg-6 col-md-6 box-de">
 						<div class="ditk-inf">
 							<h2 class="w-100">WELCOME!</h2>
-							<br>
 							<h5>Manage Smarter</h5>
 							<h5>With Our EMS And</h5>
 							<h5>Have a Better Day!</h5>

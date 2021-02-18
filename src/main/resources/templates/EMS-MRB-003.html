@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{manager-layout}">
 <head>
 <title>Welcome to Our Site</title>
+<script type="text/javascript">
+	function deleteStudent() {
+		var isOk = confirm("Are you sure to delete?");
+		if (isOk) {
+			document.getElementById("myform").action = "StudentDeleteServlet";
+			document.getElementById("myform").submit();
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -11,72 +20,59 @@
 		<div class="card-header">
 			<h4 class="card-title">BlackLists</h4>
 		</div>
-		<form>
-			<div class="row">
-				<div class="col-md-5"></div>
-				<div class="col-md-4 pt-2 ml-4">
-					<div class="input-group no-border">
-						<input type="text" value="" class="form-control"
-							placeholder="search...">
+		
+		<div class="row">
+			
+			
 
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<i class="now-ui-icons ui-1_zoom-bold"></i>
-							</div>
-						</div>
+			<div class="col-md-4">
+				<form action="searchrole" method="get" th:object="${bean}">
+				
+					<div class="input-group no-border" style="padding-top: 10px; margin-right: 20px; padding-left:40px;" >
+					
+							<input type="text" class="form-control" placeholder="Search..." >
+							
 					</div>
-				</div>
-				<div class="col-md-2 ml-4 ">
-					<input class="btn btn-round btn-primary" type="reset">
+					
+				</form>
+			</div>
+			<div class="col-md-2 ">
+			<a th:href="@{rolesearch}">
+				<input class="btn btn-round btn-primary" type="reset"></a>
+			</div>
+			
+			
+			<div class="col-md-6">
+			
+				<div class="form-group">
+					<a href="about::printview" style="margin-left: 340px;"
+
+						class="btn btn-round btn-primary">Print</a>
 				</div>
 			</div>
-		</form>
+		</div>
 
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
-					<thead class=" text-primary">
-
-						<th>ID</th>
-
-						<th>Name</th>
-
-						<th>Department</th>
-
-						<th>Position</th>
-
+					<thead class=" text-primary"> 
+						<th>ID</th> 
+						<th>Name</th> 
+						<th>Department</th> 
+						<th>Position</th> 
 						<th>Date</th>
-
-
-
 						<th class="text-center">Remarks</th>
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>S0001</td>
-							<td>Hlwan Moe Aung</td>
-							<td>Project Leader</td>
-							<td>HR</td>
-							<td>1/4/2021</td>
-
-							<td class="text-right">He stole company Information and sell
-								another organization
-							<td>
+						<tr th:each="data: ${blacklist}">
+							<td th:text="${data.mov_empid.emp_id}" />
+							<td th:text="${data.mov_empid.emp_name}" />
+							<td th:text="${data.mov_empid.emp_pos.posname}" />
+							<td th:text="${data.mov_empid.emp_dep.name}" />
+							<td th:text="${data.mov_create}" />
+							<td th:text="${data.mov_remark}" />
 						</tr>
-						<tr>
-							<td>S0005</td>
-							<td>Manson</td>
-							<td>Junior</td>
-							<td>Software</td>
-							<td>11/10/2020</td>
-
-							<td class="text-center">He broke the rules of company and
-								against rules and law
-							<td>
-						</tr>
-						</tr>
-
 
 					</tbody>
 				</table>
@@ -106,8 +102,6 @@
 			</ul>
 		</nav>
 	</div>
-
-
 
 
 </body>

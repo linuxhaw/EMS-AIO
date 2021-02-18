@@ -18,12 +18,12 @@ public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
 	@Query(value = "SELECT * FROM EMPSAL;", nativeQuery = true)
 	List<EmpSalDto> getvalid();
 
-	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 OR n.sal_empid = ?1) ", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 OR n.sal_empid= ?1)", nativeQuery = true)
 	List<EmpSalDto> find(String cname);
-	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 ) ", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_id =?1 OR n.sal_empid= ?1)  ORDER BY  n.sal_date DESC", nativeQuery = true)
 			 
 	  Page<EmpSalDto> findSearchPagi(String cname,Pageable pageable);
 	
-	@Query(value = "SELECT * FROM EMPSAL ", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPSAL n ORDER BY  n.sal_date DESC", nativeQuery = true)
 	  Page<EmpSalDto> findPagi(Pageable pageable);
 }

@@ -114,7 +114,8 @@ public String displaySerachStaff(@PathVariable("pageNo")int pageNo,@Param("id")S
 	model.addAttribute("stafflist",list);
 	model.addAttribute("totalPages", page.getTotalPages());
 	model.addAttribute("totalElements",page.getTotalElements());
-	model.addAttribute("currentPage",pageNo);}
+	model.addAttribute("currentPage",pageNo);
+	}
 	return "EMS-STI-003";
 	
 	
@@ -277,6 +278,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setRole(dto1.getEmp_rol());
 		staff.setPosition(dto1.getEmp_pos());
 		staff.setCertify(dto1.getCtf());
+		staff.setCreate(dto1.getEmp_create());
 		List<String> qul=new ArrayList<String>(); 
 		
 		for (MQUL001 qu : dto1.getQul()) {
@@ -290,7 +292,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model) {
 		if (bs.hasErrors()) {
-			return "EMS-MSR-002";
+			return "EMS-STI-002";
 		}
 		boolean b = true;
 		Date date=new Date();
@@ -317,6 +319,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		dto.setEmp_rol(bean.getRole());
 		dto.setEmp_status(b);
 		dto.setEmp_update(now);
+		dto.setEmp_create(bean.getCreate());
 		try {
 			StaffService.update(dto, bean.getId());
 			model.addAttribute("msg", "Update successful");

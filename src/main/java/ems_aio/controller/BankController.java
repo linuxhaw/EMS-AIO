@@ -204,28 +204,5 @@ public class BankController {
 		return "redirect:/displaybank";
 	}
 	
-//	@RequestMapping(value = "/bankSearch", method = RequestMethod.GET)
-//	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
-//			ModelMap model) {
-//		model.addAttribute("msg", message);
-//		return new ModelAndView("EMS-MSB-003", "bean", new BankBean());
-//	}
-//
-//	@RequestMapping(value = "/page/searchbank", method = RequestMethod.GET)
-//	public String displayView(@ModelAttribute("bean") BankBean bean, ModelMap model) {
-//		
-//		List<MBNK001> list;
-//		String i = bean.getId();
-//		if (i.equals("")) {
-//			list = serv.getAll();
-//		}else {
-//			 list = serv.getsearch(i);
-//		}
-//		if (list.size() == 0)
-//			model.addAttribute("msg", "Bank not found!");
-//		else
-//			model.addAttribute("banklist", list);
-//		//return "BUD001";
-//		return "EMS-MSB-003";
-//	}
+
 }

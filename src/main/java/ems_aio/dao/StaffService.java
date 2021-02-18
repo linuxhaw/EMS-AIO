@@ -81,4 +81,10 @@ public class StaffService {
 		
 	}
 
+
+	public List<StaffDto> getLatest() {
+		 List<StaffDto> list = (List<StaffDto>) repo.getlast(); 
+		return list;
+	}
+
 }

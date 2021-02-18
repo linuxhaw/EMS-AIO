@@ -48,15 +48,7 @@ public class DepartmentController {
 	@Autowired
 	private StaffService StaffService;
 
-//	@RequestMapping(value = "/displaydepartment", method = RequestMethod.GET)
-//	public ModelAndView displayQualification(Model model) {
-//		List<MDEP001> list;
-//		list = serv.getAll();
-//		DepartmentBean bean=new DepartmentBean();
-//		model.addAttribute("bean", bean);
-//		return new ModelAndView("EMS-MSD-003", "departmentlist", list);
-//	}
-//	
+
 	@GetMapping("/displaydepartment/searchpage/{pageNo}")
 	public String depPagi(@PathVariable(value="pageNo")int pageNo,
 			@Param("id")String id,

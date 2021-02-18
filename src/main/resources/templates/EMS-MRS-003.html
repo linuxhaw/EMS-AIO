@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{manager-layout}">
 <head>
 <title>Welcome to Our Site</title>
 </head>
@@ -58,62 +58,21 @@
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>S0001</td>
-							<td>Hlwan Moe Aung</td>
-							<td>09425282245</td>
-							<td>Hlwan@gmail.com</td>
-							<td>Admin</td>
-							<td>HR</td>
-							<td>Team Leader</td>
-							<td><a href="EMS-MRS-004.html"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
+						<tr th:each="data: ${stafflist}">
+							<td th:text="${data.emp_id}" />
+							<td th:text="${data.emp_name}" />
+							<td th:text="${data.emp_phone}"/>
+							<td th:text="${data.emp_email}" />
+							<td th:text="${data.emp_rol.rolname}" />
+							<td th:text="${data.emp_dep.name}" />
+							<td th:text="${data.emp_pos.posname}" />
+							<td>
+								
+								<a th:href="@{/MngStaffInformationDetail(id=${data.emp_id})}"><input type="button" value="Detail" class="btn btn-round btn-primary" id="staffReportDetail" /></a>
+								
+							</td>
 						</tr>
-						<tr>
-							<td>S0002</td>
-							<td>Willion Jame</td>
-							<td>09955282235</td>
-							<td>willion@gmail.com</td>
-							<td>HR Manager</td>
-							<td>HR</td>
-							<td>Manager</td>
-							<td><a href="EMS-MRS-004.html"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-
-						<tr>
-							<td>S0003</td>
-							<td>Crist Maloe</td>
-							<td>09795282247</td>
-							<td>crist@gmail.com</td>
-							<td>Staff</td>
-							<td>IT</td>
-							<td>Senior</td>
-							<td><a href="EMS-MRS-004.html"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-						<tr>
-							<td>S0004</td>
-							<td>Herry</td>
-							<td>09425256412</td>
-							<td>herry@gmail.com</td>
-							<td>Staff</td>
-							<td>Hardware</td>
-							<td>Team Leader</td>
-							<td><a href="EMS-MRS-004.html"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
-						<tr>
-							<td>S0005</td>
-							<td>Manson</td>
-							<td>09795401548</td>
-							<td>manson@gmail.com</td>
-							<td>Staff</td>
-							<td>Software</td>
-							<td>Junior</td>
-							<td><a href="EMS-MRS-004.html"><input type="submit"
-									value="Detail" class="btn btn-round btn-primary"></a>
-						</tr>
+						
 
 					</tbody>
 				</table>
@@ -143,10 +102,6 @@
 			</ul>
 		</nav>
 	</div>
-	</div>
-
-
-
 
 
 

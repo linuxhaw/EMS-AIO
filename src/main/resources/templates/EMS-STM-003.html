@@ -46,7 +46,7 @@
 
 					</thead>
 				<tbody>
-						<tr th:each="data: ${movelist}">
+						<tr th:each="data: ${movementlist}">
 							<td th:text="${data.mov_id}" />
 							<td th:text="${data.mov_empid.emp_name}" />
 							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : ''" />

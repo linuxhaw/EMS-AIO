@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 
 //repository that extends CrudRepository
@@ -22,10 +23,9 @@ public interface PositionRepository extends CrudRepository<MPOS001, String> {
 	  @Query(value = "SELECT * FROM mpos001 WHERE pos_status=1;", nativeQuery =	  true)
 	  List<MPOS001> getvalid();
 	
-	  @Query(value = "SELECT * FROM mpos001 n WHERE (n.pos_id =?1 OR n.pos_name = ?1) AND pos_status=1", nativeQuery = true)
-		List<MPOS001> findrole(String cname);
-	  /*Hlawann added Pagination
-	   *set pagi_repository up
-	   * */
-	  Page<MPOS001> findAll(Pageable pageable);
+	  @Query(value = "SELECT * FROM mpos001 n WHERE n.pos_status=1 AND (n.pos_id=?1 OR n.pos_name=?1)"
+				 , nativeQuery = true)
+		  Page<MPOS001> findAll(String cname,Pageable pageable);
+		  @Query(value = "SELECT * FROM mpos001 WHERE mpos001.pos_status=1", nativeQuery =	true)
+		  Page<MPOS001> findQuery(Pageable pageable);
 }

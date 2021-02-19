@@ -28,12 +28,14 @@
 
 
 			<div class="col-md-4">
-				<form action="/page/searchdepartment" method="get" th:object="${bean}">
+				<form action="/displaydepartment" method="get" th:object="${bean}">
 				
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 							th:field="*{id}">
-						
+						<div class="input-group-append">
+    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2">Go</button>
+  </div>
 					</div>
 				</form>
 			</div>
@@ -74,18 +76,25 @@
 			</div>
 		</div>
 
-		<div th:if="${totalPages>1}">
+	<div th:if="${totalPages>1}">
 
 
-<nav >
-<ul class="pagination pagination-md justify-content-center" >
-<!-- <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+ <nav>
+<ul class="pagination pagination-md justify-content-center">
+<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
 <li class="page-item">
-<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{/displaydepartment/page/1}">First</a>
+<div th:if="${id}==null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaydepartment/page/1' }">First</a>
+</div><div th:if="${id}!=null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaydepartment/searchpage/1' +'?id='+${id}}">First</a>
+</div>
 <span class="page-link" th:unless="${currentPage>1}">First</span>
 </li>
 <li class="page-item">
+<div th:if="${id}==null">
 <a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaydepartment/page/'+${currentPage-1}}">Previous</a>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaydepartment/searchpage/'+${currentPage-1}+'?id='+${id}}">Previous</a>
+</div> 
 <span class="page-link" th:unless="${currentPage>1}">Previous</span>
 
 </li>
@@ -94,13 +103,23 @@
 </li>
 
 <li class="page-item">
+
+<div th:if="${id}!=null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaydepartment/searchpage/'+${currentPage+1}+'?id='+${id}}">Next</a>
+</div>
+<div th:if="${id}==null">
 <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaydepartment/page/'+${currentPage+1}}">Next</a>
+</div>
+
+
 <span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
 
 </li>
 <li class="page-item">
+<div th:if="${id}==null">
 <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaydepartment/page/'+${totalPages}}">Last</a>
-<span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displaydepartment/searchpage/'+${totalPages}+'?id='+${id}}">Last</a>
+</div><span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
 
 </li>
 </ul>

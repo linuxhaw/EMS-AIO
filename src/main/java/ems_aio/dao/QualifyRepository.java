@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import ems_aio.dto.MPOS001;
 import ems_aio.dto.MQUL001;
 
 //repository that extends CrudRepository
@@ -20,7 +21,9 @@ public interface QualifyRepository extends CrudRepository<MQUL001, String> {
 	@Query(value = "SELECT * FROM mqul001 WHERE QUL_status=1;", nativeQuery = true)
 	List<MQUL001> getvalid();
 
-	@Query(value = "SELECT * FROM mqul001 n WHERE (n.QUL_ID =?1 OR n.QUL_NAME = ?1 OR n.QUL_SCHOOL = ?1) AND QUL_status=1", nativeQuery = true)
-	List<MQUL001> find(String cname);
-	Page<MQUL001>findAll(Pageable pageable);
+	 @Query(value = "SELECT * FROM mqul001 n WHERE n.QUL_status=1 AND (n.QUL_id=?1 OR n.QUL_name=?1 OR n.QUL_school=?1)"
+			 , nativeQuery = true)
+	  Page<MQUL001> findAll(String cname,Pageable pageable);
+	  @Query(value = "SELECT * FROM mqul001 WHERE mqul001.QUL_status=1", nativeQuery =	true)
+	  Page<MQUL001> findQuery(Pageable pageable);
 }

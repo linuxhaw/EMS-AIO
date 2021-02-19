@@ -19,10 +19,10 @@ public class QualifyService {
 	QualifyRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MQUL001> getsearch(String id) {
-		 List<MQUL001> list = (List<MQUL001>) repo.find(id); 
-	 return list; }
-	
+//	public List<MQUL001> getsearch(String id) {
+//		 List<MQUL001> list = (List<MQUL001>) repo.find(id); 
+//	 return list; }
+//	
 	 public List<MQUL001> getAll() {
 		 List<MQUL001> list = (List<MQUL001>) repo.getvalid(); 
 	 return list; }
@@ -59,11 +59,16 @@ public class QualifyService {
 	public void update(MQUL001 data, String Code) {
 		repo.save(data);
 	}
-	//	Hlwann
+//	Hlwann
 //	pagi_service with findAll method
-	public Page<MQUL001>quaPagi(int PageNo,int PageSize){
+	public Page<MQUL001>qulPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		return this.repo.findAll(pageable);
+		return this.repo.findAll(cname,pageable);
+		
+	}
+	public Page<MQUL001>qulPagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findQuery(pageable);
 		
 	}
 }

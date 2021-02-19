@@ -16,12 +16,16 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +39,7 @@ import ems_aio.dao.DepartmentService;
 import ems_aio.dao.PositionService;
 import ems_aio.dao.CertifyService;
 import ems_aio.dao.QualifyService;
+import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.MBNK001;
 import ems_aio.dto.MCTF001;
 import ems_aio.dto.MQUL001;
@@ -46,6 +51,7 @@ import ems_aio.model.BankBean;
 import ems_aio.model.DepartmentBean;
 import ems_aio.model.PositionBean;
 import ems_aio.model.StaffBean;
+import ems_aio.model.UserBean;
 
 @Controller
 public class StaffController {
@@ -64,16 +70,66 @@ public class StaffController {
 	@Autowired
 	private QualifyService QualifyService;
 	
-	@RequestMapping(value = "/displaystaff", method = RequestMethod.GET)
-	public ModelAndView displayrole(Model model) {
-		List<StaffDto> list;
-		list = StaffService.getAll();
-		StaffBean bean=new StaffBean();
-		model.addAttribute("bean", bean);
-		return new ModelAndView("EMS-STI-003", "stafflist", list);
-	}
+//	@RequestMapping(value = "/displaystaff", method = RequestMethod.GET)
+//	public ModelAndView displayrole(Model model) {
+//		List<StaffDto> list;
+//		list = StaffService.getAll();
+//		StaffBean bean=new StaffBean();
+//		model.addAttribute("bean", bean);
+//		return new ModelAndView("EMS-STI-003", "stafflist", list);
+//	}
+//	
+@GetMapping("/displaystaff/page/{pageNo}")
+public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
+	int pageSize=4;
+	StaffBean bean=new StaffBean();
+	Page<StaffDto> page=StaffService.staffPagi(pageNo, pageSize);
+	List<StaffDto> pagi=page.getContent();
+	model.addAttribute("bean",bean);
+	model.addAttribute("stafflist",pagi);
+	model.addAttribute("totalPages", page.getTotalPages());
+	model.addAttribute("totalElements",page.getTotalElements());
+	model.addAttribute("currentPage",pageNo);
+	return "EMS-STI-003";
 	
-
+}
+@GetMapping("/displaystaff/searchpage/{pageNo}")
+public String displaySerachStaff(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
+	int pageSize=4;
+	StaffBean bean=new StaffBean();
+	model.addAttribute("id",id);
+	bean.setId(id);
+	model.addAttribute("bean", bean);
+	Page<StaffDto> page=StaffService.staffSearchPagi(id,pageNo, pageSize);
+	List<StaffDto> list=page.getContent();
+	if(id.equals("")) {
+		model.addAttribute("msg","Please Enter data to search!");
+		return "redirect:/displaystaff";
+	}
+	if(list.size()==0) {
+		model.addAttribute("msg", " DATA  NOT  FOUND!");
+		return "EMS-STI-003";
+	}
+	else {
+	model.addAttribute("stafflist",list);
+	model.addAttribute("totalPages", page.getTotalPages());
+	model.addAttribute("totalElements",page.getTotalElements());
+	model.addAttribute("currentPage",pageNo);
+	}
+	return "EMS-STI-003";
+	
+	
+}
+@GetMapping("/displaystaff")
+public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
+	String id=bean.getId();
+	if(id!=null) {
+	model.addAttribute("id",id);
+	return displaySerachStaff(1,id, model);}
+	else {
+		return displayStaffList(1,model);
+	}
+}
 	@RequestMapping(value = "/setupaddstaff", method = RequestMethod.GET)
 	public String setupadduser(@ModelAttribute("bean") StaffBean bean, ModelMap model,HttpServletRequest request) {
 		StaffDto chk = StaffService.findLastID();
@@ -117,7 +173,6 @@ public class StaffController {
 		if (bs.hasErrors()) {
 			return "EMS-STI-001";
 		}
-		boolean b = true;
 		Date date=new Date();
 		Timestamp now=new Timestamp(date.getTime());
 		StaffDto dto = new StaffDto();
@@ -140,20 +195,19 @@ public class StaffController {
 		dto.setEmp_pos(bean.getPosition());
 		dto.setEmp_dep(bean.getDepartment());
 		dto.setEmp_rol(bean.getRole());
-		dto.setEmp_status(b);
+		dto.setEmp_status(true);
+		dto.setEmp_blacklist(false);
 		dto.setEmp_create(now);
 		dto.setEmp_update(now);
 		
 		if(cers != null) {
 			Set<MCTF001> certificate = new HashSet<MCTF001>();
 			for (int i = 0; i < cers.length; i++) {
-				System.out.println(cers[i]);
 				Optional<MCTF001> addi=CertifyService.getByCode(cers[i]);
 				if (addi != null) {
 					MCTF001 i1=addi.get();
 					certificate.add(i1);
 				}
-				
 			}
 			dto.setCtf(certificate);
 		}
@@ -224,6 +278,7 @@ public class StaffController {
 		staff.setRole(dto1.getEmp_rol());
 		staff.setPosition(dto1.getEmp_pos());
 		staff.setCertify(dto1.getCtf());
+		staff.setCreate(dto1.getEmp_create());
 		List<String> qul=new ArrayList<String>(); 
 		
 		for (MQUL001 qu : dto1.getQul()) {
@@ -237,7 +292,7 @@ public class StaffController {
 	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model) {
 		if (bs.hasErrors()) {
-			return "EMS-MSR-002";
+			return "EMS-STI-002";
 		}
 		boolean b = true;
 		Date date=new Date();
@@ -264,6 +319,7 @@ public class StaffController {
 		dto.setEmp_rol(bean.getRole());
 		dto.setEmp_status(b);
 		dto.setEmp_update(now);
+		dto.setEmp_create(bean.getCreate());
 		try {
 			StaffService.update(dto, bean.getId());
 			model.addAttribute("msg", "Update successful");
@@ -273,36 +329,7 @@ public class StaffController {
 			return "EMS-STI-002";
 		}
 	}
-	/*
-	@RequestMapping(value = "/roledelete", method = RequestMethod.GET)
-	public String deleterole(@RequestParam("id")String id, ModelMap model) {
-		boolean b = false;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-		Optional<MROL001> dtoget = RoleService.getRoleByCode(id);
-		MROL001 dto=dtoget.get(); 
-		dto.setUpdatedate(dtf.format(now));
-		dto.setStatus(b);
-		RoleService.update(dto, id);
-		return "redirect:/displayrole";
-	}
-	@RequestMapping(value = "/searchrole", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") RoleBean bean, ModelMap model) {
-		
-		List<MROL001> list;
-		String i = bean.getId();
-		if (i.equals("")) {
-			list = RoleService.getAll();
-		}else {
-			 list = RoleService.getsearchrole(i);
-		}
-		System.out.println(list.size());
-		if (list.size() == 0)
-			model.addAttribute("msg", "User not found!");
-		else
-			model.addAttribute("rolelist", list);
-		//return "BUD001";
-		return "EMS-MSR-003";
-	}
-	*/
+	
+	
+	
 }

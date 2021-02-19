@@ -7,8 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,37 +30,64 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
+import ems_aio.dao.StaffService;
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.StaffDto;
+import ems_aio.model.BankBean;
+import ems_aio.model.CertifyBean;
+import ems_aio.model.DepReportBean;
 import ems_aio.model.DepartmentBean;
-import ems_aio.model.UserBean;
+import ems_aio.model.PosReportBean;
 
 @Controller
 public class DepartmentController {
 	@Autowired
 	private DepartmentService serv;
+	@Autowired
+	private StaffService StaffService;
 
-//	@RequestMapping(value = "/displaydepartment", method = RequestMethod.GET)
-//	public ModelAndView displayQualification(Model model) {
-//		List<MDEP001> list;
-//		list = serv.getAll();
-//		DepartmentBean bean=new DepartmentBean();
-//		model.addAttribute("bean", bean);
-//		return new ModelAndView("EMS-MSD-003", "departmentlist", list);
-//	}
-//	
-	@GetMapping("/displaydepartment/page/{pageNo}")
-	public String depPagi(@PathVariable(value="pageNo")int pageNo,Model model) {
-		int pageSize=3;
-		Page<MDEP001>page=serv.depPagi(pageNo, pageSize);
-		List<MDEP001> list =page.getContent();
-		DepartmentBean bean=new DepartmentBean();
 
-List<MDEP001>list1=serv.getAll();
-
-model.addAttribute("departmentlist",list);
-model.addAttribute("bean", bean);
+	@GetMapping("/displaydepartment/searchpage/{pageNo}")
+	public String depPagi(@PathVariable(value="pageNo")int pageNo,
+			@Param("id")String id,
+			Model model) {
 		
+		int pageSize=3;
+		DepartmentBean bean=new DepartmentBean();
+		model.addAttribute("id",id);
+		model.addAttribute("bean", bean);
+		Page<MDEP001>page=serv.depPagi(id,pageNo, pageSize);
+		List<MDEP001> list=page.getContent();
+		if(id.equals("")) {
+			model.addAttribute("msg","Please Enter data to search!");
+			return "redirect:/displaydepartment";
+		}
+		if(list.size()==0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MSD-003";
+		}
+		else {
+		model.addAttribute("departmentlist",list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("currentPage",pageNo);}
+		return "EMS-MSD-003";
+		
+	}
+	@GetMapping("/displaydepartment/page/{pageNo}")
+	public String certifyPagiQuery(@PathVariable(value="pageNo")int pageNo,
+			
+			Model model) {
+		
+		int pageSize=3;
+		DepartmentBean bean=new DepartmentBean();
+		
+		Page<MDEP001>page=serv.depPagiQuery(pageNo, pageSize);
+		List<MDEP001> list=page.getContent();
+		model.addAttribute("bean",bean);
+		model.addAttribute("departmentlist",list);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalElements",page.getTotalElements());
 		model.addAttribute("currentPage",pageNo);
@@ -62,8 +95,14 @@ model.addAttribute("bean", bean);
 		
 	}
 	@GetMapping("/displaydepartment")
-	public String displayDepartment(Model model) {
-		return depPagi(1, model);
+	public String displaydepartment(@ModelAttribute("bean")CertifyBean bean,Model model) {
+		String id=bean.getId();
+		if(id!=null) {
+		model.addAttribute("id",id);
+		return depPagi(1,id, model);}
+		else {
+			return certifyPagiQuery(1,model);
+		}
 	}
 	@RequestMapping(value = "/setupadddepartment", method = RequestMethod.GET)
 	public ModelAndView setupadduser(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
@@ -171,35 +210,29 @@ model.addAttribute("bean", bean);
 		serv.update(dto, id);
 		return "redirect:/displaydepartment";
 	}
-	@RequestMapping(value = "/departmentsearch", method = RequestMethod.GET)
-	public ModelAndView setupStudentSearch(@RequestParam(name = "message", required = false) String message,
-			ModelMap model) {
-		model.addAttribute("msg", message);
-		return new ModelAndView("EMS-MSD-003", "bean", new DepartmentBean());
-	}
-
-	@RequestMapping(value = "/page/searchdepartment", method = RequestMethod.GET)
-	public String displayView(@ModelAttribute("bean") DepartmentBean bean, ModelMap model) {
-		
-		List<MDEP001> list;
-		String i = bean.getId();
-		{if (i.equals("")) {
-			list = serv.getAll();
-		}else {
-			 list = serv.getsearch(i);
-		}}
 	
-		 if (list.size() == 0)
-			model.addAttribute("msg", "Department not found!");
-		else
-			model.addAttribute("departmentlist", list);
-		//return "BUD001";
-		return "EMS-MSD-003";
+	@RequestMapping(value = "/setupReportDepartment", method = RequestMethod.GET)
+	public String setupReportPosition(Model model,HttpServletRequest request) {
+		List<MDEP001> list=serv.getAll();
+		DepReportBean bean=new DepReportBean();
+		model.addAttribute("bean", bean);
+		request.getSession().setAttribute("deplist", list);
+		return  "EMS-ARD-003";
 	}
 	
-	@RequestMapping(value="/setupReportDepartment" ,method=RequestMethod.GET)
-	public ModelAndView setupReportDepartment() {
-		return new ModelAndView("EMS-ARD-003","user",new UserBean());
+	@GetMapping(path = "/depreportid", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<DepReportBean> courseName(@RequestParam(name = "id", required = true) String Id,Model model) {
+		MDEP001 obj = serv.getByCode(Id).get();
+		List<StaffDto> list =StaffService.getDepartment(Id);
+		DepReportBean dep=new DepReportBean();
+		dep.setId(Id);
+		dep.setName(obj.getName());
+		dep.setTotal(list.size());
+		dep.setHead(obj.getHead());
+		dep.setLocation(obj.getLoc());
+		dep.setList(list);
+		return new ResponseEntity<DepReportBean>(dep, HttpStatus.OK);
 	}
+	
 	
 }

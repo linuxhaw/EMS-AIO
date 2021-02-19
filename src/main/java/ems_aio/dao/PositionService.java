@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 
 //defining the business logic
@@ -18,9 +19,9 @@ public class PositionService {
 	PositionRepository repo;
 //getting all books record by using the method findaAll() of	CrudRepository
 
-	public List<MPOS001> getsearchPosition(String id) {
-		 List<MPOS001> list = (List<MPOS001>) repo.findrole(id); 
-	 return list; }
+//	public List<MPOS001> getsearchPosition(String id) {
+//		 List<MPOS001> list = (List<MPOS001>) repo.findrole(id); 
+//	 return list; }
 	
 	 public List<MPOS001> getAll() {
 		 List<MPOS001> list = (List<MPOS001>) repo.getvalid(); 
@@ -60,9 +61,14 @@ public class PositionService {
 	}
 //	Hlwann
 //	pagi_service with findAll method
-	public Page<MPOS001>posPagi(int PageNo,int PageSize){
+	public Page<MPOS001>posPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		return this.repo.findAll(pageable);
+		return this.repo.findAll(cname,pageable);
+		
+	}
+	public Page<MPOS001>posPagiQuery(int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findQuery(pageable);
 		
 	}
 }

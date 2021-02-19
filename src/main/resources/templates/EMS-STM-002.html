@@ -20,7 +20,7 @@
 </script>
 </head>
 <body>
-
+	
 	<div layout:fragment="content">
 		<div class="card-header">
 			<!--Header row-->
@@ -35,48 +35,65 @@
 		<!--end card header-->
 		<!--Card body-->
 		<div class="card-body">
-			<form>
+		<script>
+		function demo(selectObject) {
+			var value = selectObject.value;
+			alert(value);
+			if (value == "") {
+				$("#inputBatchCourseFee").val(null);
+			} else {
+				$.get("/setupstaffid?id=" + value, function(data) {
+					console.log(data)
+				}).done(function(data) {
+					$("#name").val(data.emp_name);
+					$("#prepos").val(data.emp_pos.posname);
+					$("#predep").val(data.emp_dep.name);
+
+				}).fail(function(data) {
+					console.log(data)
+					alert("error");
+				}).always(function(data) {
+				});
+			}
+		}
+	</script>
+		<form action="addmovement" method="post" th:object="${bean}">
 				<!--row :id name-->
 				<div class="row">
 					<div class="col-md-5 ml-5">
-						<label for="staffId">ID</label>
-
-						<div class="input-group">
-							<input id="staffId" type="text" class="form-control"
-								placeholder="Company" value="E0001">
-							<div class="input-group-append">
-								<button class="btn-primary"
-									style="width: 50px; border-color: rgb(236, 82, 10); border-bottom-right-radius: 20px; border-top-right-radius: 20px;"
-									type="submit">Go</button>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="Name">Name</label> <input id="Name" type="text"
-								class="form-control" disabled placeholder="Username"
-								value="Jhonny">
+							<label for="exampleInputUsername">ID</label> <input type="text"
+								class="form-control" th:field="${bean.id}" readonly>
 						</div>
 					</div>
 				</div>
-				<!--End of id :name-->
-				<!--row : curposi curdeper-->
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<label for="staffId">Staff ID</label> <br>
+						<select class="form-control" th:onchange="demo(this)" th:field="*{sid}">
+							<option value="">Select ID</option>
+							<option th:each="list:${session.stafflist}" th:value="${list.emp_id}" th:text="${list.emp_id}">
+						</select>
+					</div>
+
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="Name">Name</label>
+							<input type="text" class="form-control" th:field="*{name}" disabled>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="currentPosition">Current Position</label> <input
-								type="text" id="currentPosition" disabled class="form-control"
-								placeholder="Company" value="Manager">
+							<label for="currentPosition">Current Position</label>
+							<input type="text" disabled class="form-control" th:field="*{prepos}">
 						</div>
 					</div>
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="currentDepartment">Current Department </label> <input
-								id="currentDepartment" type="text" disabled class="form-control"
-								placeholder="Last Name" value="HR">
+							<label for="currentDepartment">Current Department </label>
+							<input type="text" disabled class="form-control" th:field="*{predep}">
 						</div>
 					</div>
 				</div>
@@ -84,16 +101,15 @@
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="designation">Designation</label> <select
-								id="designation" onchange="showTextBox()" class="form-control">
-								<option selected disabled>Choose One of Designation</option>
-
-								<option value="promotion">Promote</option>
-								<option value="demotion">Demote</option>
+							<label for="designation">Designation</label>
+							<select id="designation" onchange="showTextBox()" class="form-control" th:field="*{process}">
+								<option value="">Choose One of Designation</option>
+								<!-- <option selected disabled>Choose One of Designation</option> -->
+								<option value="promotion">Promotion</option>
+								<option value="demotion">demotion</option>
 								<option value="transfer">Transfer</option>
-
-								<option value="Resignation">Resign</option>
-								<option value="BlackList">BlackList</option>
+								<option value="resignation">Resignation</option>
+								<option value="blackList">BlackList</option>
 
 							</select>
 						</div>
@@ -103,9 +119,8 @@
 				<div class="row">
 					<div class="col-md-11 ml-5">
 						<div class="form-group mr-4">
-							<label for="remark">Remark</label> <input id="remark" type="text"
-								class="form-control" placeholder="Home Address"
-								value="I want to promote this emp !">
+							<label for="remark">Remark</label>
+							<input id="remark" type="text" class="form-control" th:field="*{remark}" >
 						</div>
 					</div>
 				</div>
@@ -113,54 +128,36 @@
 					<div class="col-md-5 ml-5">
 						<div class="form-group" id="transferPosition"
 							style="display: none;">
-							<label for="transferPosition">Transferred Position</label> <select
-								id="transferPosition" class="form-control">
-								<option selected disabled>Position</option>
-
-								<option value="Manager">Manager</option>
-								<option value="Team Leader">Team Leader</option>
-
-								<option value="Senior">Senior</option>
-								<option value="Junior">Junior</option>
-
+							<label for="transferPosition">Transferred Position</label>
+							<select name="position" class="form-control" th:field="*{pos}">
+								<option value="" selected></option>
+								<option th:each="list:${session.poslist}" th:value="${list.posid}" th:text="${list.posname}"></option>
+	
 							</select>
 						</div>
 					</div>
 					<div class="col-md-5 ml-5">
-						<div class="form-group" id="transferDepartment"
-							style="display: none;">
-							<label for="transferDepartment">Transferred Department</label> <select
-								id="transferDepartment" class="form-control">
-								<option selected disabled>Department</option>
-
-								<option value="IT">IT</option>
-								<option value="Software">Software</option>
-								<option value="HardWare">Hardware</option>
-								<option value="HR">Human Resource</option>
-								<option value="Marketing">Marketing</option>
-
+						<div class="form-group" id="transferDepartment" style="display: none;">
+							<label for="transferDepartment">Transferred Department</label>
+							<select name="department" class="form-control" th:field="*{dep}">
+								<option value="" selected></option>
+								<option th:each="list:${session.deplist}" th:value="${list.id}" th:text="${list.name}" ></option>
 							</select>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6 text-center">
 					<div class="form-group">
-						<label></label> <input class="btn btn-round btn-primary"
-							placeholder="Here can be your description" type="button"
-							value="Back"> <input class="btn btn-round btn-primary"
-							placeholder="Here can be your description" type="button"
-							value="Confirm">
+						<label></label>
+						<input class="btn btn-round btn-primary" type="submit" value="Submit">
 
 					</div>
 				</div>
-
-
-
 			</form>
 		</div>
 	</div>
 
-	
+
 
 
 </body>

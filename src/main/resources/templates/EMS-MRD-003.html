@@ -8,95 +8,109 @@
 <body>
 
 	<div layout:fragment="content">
-		<div class="card-header">
-			<div class="col-md-4 pl-1">
-				<div class="form-group">
-					<label for="exampleInputNRC">Departmet ID</label> <input
-						type="label" class="form-control" value="DEP001">
+		<script>
+			function demo(selectObject) {
+				var value = selectObject.value;
+				table = document.getElementById("table");
+				table.innerHTML = `<table>
+								<thead class=" text-primary">
+									<th>ID</th>
+									<th>Name</th>
+									<th>Position</th>
+									<th>Phone No</th>
+									<th>Gender</th>
+									<th>Status</th>
+								</thead>
+								</table>`;
+				if (value == "") {
+					$("#id").val(data.id);
+					$("#total").val(data.total);
+					$("#head").val(data.head);
+					$("#list").val(data.list);
+					$("#location").val(data.location);
+					
+				} else {
+					$.get("/depreportid?id=" + value, function(data) {
+						console.log(data)
+					}).done(function(data) {
+						$("#id").val(data.id);
+						$("#total").val(data.total);
+						$("#head").val(data.head);
+						$("#list").val(data.list);
+						$("#location").val(data.location);
+						var data= data.list;
+						
+						data.forEach(item => { table.innerHTML += "<tr><td>" + item.emp_id + "</td><td>"+ item.emp_name +"</td><td>"+ item.emp_pos.posname +"</td><td>"+ item.emp_phone +"</td><td>" + item.emp_gender + "</td></tr>"+"Detail"; });
+						/* for(var i=1;i<table.rows.length;i++){
+							for(var j=0;j<table.rows[i].cells.length;j++){
+								table.rows[i].cells[j].innerHTML=array[i-1][j];
+							}
+						} */
+					}).fail(function(data) {
+						console.log(data)
+						alert("error");
+					}).always(function(data) {
+					});
+				}
+			}
+		</script>
+		<form method="post" th:object="${bean}">
+			<div class="card-header">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="exampleInputNRC">Department Name</label> <br>
+						<select name="department" class="form-control" th:onchange="demo(this)">
+							<option value=""></option>
+							<option th:each="list:${session.deplist}" th:value="${list.id}" th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 pl-1">
+					<div class="form-group">
+						<label for="exampleInputNRC">Departmet ID</label>
+						<input type="text" class="form-control" th:field="*{id}" disabled>
+
+					</div>
+				</div>
+				<div class="col-md-4 pl-1">
+					<div class="form-group">
+						<label for="exampleInputNRC">Deparetment Head</label>
+						<input type="text" class="form-control" th:field="*{head}" disabled>
+					</div>
+				</div>
+				<div class="col-md-4 pl-1">
+					<div class="form-group">
+						<label for="exampleInputNRC">Department Location</label>
+						<input type="text" class="form-control" th:field="*{location}" disabled>
+					</div>
+				</div>
+				<div class="col-md-4 pl-1">
+					<div class="form-group">
+						<label for="exampleInputNRC">Total Employees</label>
+						<input type="text" class="form-control" th:field="*{total}" disabled>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-4 pl-1">
-				<div class="form-group">
-					<label for="exampleInputNRC">Department Name</label> <input
-						type="label" class="form-control" value="HR Department">
-				</div>
-			</div>
-			<div class="col-md-4 pl-1">
-				<div class="form-group">
-					<label for="exampleInputNRC">Deparetment Head</label> <input
-						type="label" class="form-control" value="U Mg Mg">
-				</div>
-			</div>
-			<div class="col-md-4 pl-1">
-				<div class="form-group">
-					<label for="exampleInputNRC">Department Location</label> <input
-						type="label" class="form-control" value="Building 5, Floor 3">
-				</div>
-			</div>
-			<div class="col-md-4 pl-1">
-				<div class="form-group">
-					<label for="exampleInputNRC">Total Employees</label> <input
-						type="label" class="form-control" value="3">
-				</div>
-			</div>
-		</div>
-		<h4 style="margin-left: 50px;">Employee Information</h4>
+		</form>
+		<h4 style="margin-left: 50px;">Department's Employees</h4>
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table">
+				<table id="table" class="table">
 					<thead class=" text-primary">
-						<th>Employee ID</th>
-						<th>Employee Name</th>
-						<th>Employee Position</th>
-						<th>Employee Phone No</th>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Position</th>
+						<th>Phone No</th>
 						<th>Gender</th>
+						<th>Status</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>EMP001</td>
-							<td>Mg Kyaw Kyaw</td>
-							<td>Leader</td>
-							<td>094561749</td>
-							<td>Male</td>
-						</tr>
-						<tr>
-							<td>EMP002</td>
-							<td>Ma Hla Hla</td>
-							<td>Programmer</td>
-							<td>094516744</td>
-							<td>Female</td>
-						</tr>
-						<tr>
-							<td>EMP003</td>
-							<td>Ma Mya Mya</td>
-							<td>HR</td>
-							<td>09387494164</td>
-							<td>Female</td>
-						</tr>
-
 					</tbody>
 				</table>
-
-				<!-- <div class="row" align="Center">
-                        <div class="col-md-8">
-                          <div class="form-group">
-                           
-                              <td class="text-center" >
-                                <input type="submit" value="OK" class="btn btn-round btn-primary" ></td>
-                                &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;
-                                <td> <a href="EMS-REP-DEP-MNG.html"><input type="button" value="Cancel" class="btn btn-round btn-primary" ></a></td>
-                            
-                          </div>
-                        </div>     
-                        </div> -->
-
 			</div>
 		</div>
+
 	</div>
-
-
-
-
 
 </body>
 </html>

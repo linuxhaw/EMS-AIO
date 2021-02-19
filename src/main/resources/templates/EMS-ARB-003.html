@@ -26,18 +26,19 @@
 			
 
 			<div class="col-md-4">
-				<form action="searchrole" method="get" th:object="${bean}">
+				<form th:action="@{/setupReportBlackList}" method="get" th:object="${bean}">
 				
-					<div class="input-group no-border" style="padding-top: 10px; margin-right: 20px; padding-left:40px;" >
-					
-							<input type="text" class="form-control" placeholder="Search..." >
-							
+					<div class="input-group no-border" style="padding-top: 10px;">
+						<input type="text" class="form-control" placeholder="Search..."
+						th:value="*{id}" 	th:field="*{id}">
+						<div class="input-group-append">
+    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:48px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2">Go</button>
+  </div>
 					</div>
-					
 				</form>
 			</div>
 			<div class="col-md-2 ">
-			<a th:href="@{rolesearch}">
+			<a th:href="@{/setupReportBlackList}">
 				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 			
@@ -51,106 +52,81 @@
 				</div>
 			</div>
 		</div>
-		
-		<!--<form>
-			<div class="row">
-				<div class="col-md-12"></div>
-				<div class="col-md-6 pt-2 ml-4">
-					<div class="input-group no-border">
-						<input type="text" value="" class="form-control"
-							placeholder="search...">
-
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<i class="now-ui-icons ui-1_zoom-bold"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2 ml-4 ">
-					<input class="btn btn-round btn-primary" type="reset">
-				</div>
-				<div class="col-md-4 ml-4">
-                    <div class="form-group">
-                      <a href="./EMS-MSR-001.html" style="margin-left: 40px;" class="btn btn-round btn-primary">Print</a>
-                    </div>
-                  </div>
-			</div>
-		</form>-->
 
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
-					<thead class=" text-primary">
-
-						<th>ID</th>
-
-						<th>Name</th>
-
-						<th>Department</th>
-
-						<th>Position</th>
-
+					<thead class=" text-primary"> 
+						<th>ID</th> 
+						<th>Name</th> 
+						<th>Department</th> 
+						<th>Position</th> 
 						<th>Date</th>
-
-
-
 						<th class="text-center">Remarks</th>
 
 					</thead>
 					<tbody>
-						<tr>
-							<td>S0001</td>
-							<td>Hlwan Moe Aung</td>
-							<td>Project Leader</td>
-							<td>HR</td>
-							<td>1/4/2021</td>
-
-							<td class="text-right">He stole company Information and sell
-								another organization
-							<td>
+						<tr th:each="data: ${blacklist}">
+							<td th:text="${data.mov_empid.emp_id}" />
+							<td th:text="${data.mov_empid.emp_name}" />
+							<td th:text="${data.mov_empid.emp_pos.posname}" />
+							<td th:text="${data.mov_empid.emp_dep.name}" />
+							<td th:text="${data.mov_create}" />
+							<td th:text="${data.mov_remark}" />
 						</tr>
-						<tr>
-							<td>S0005</td>
-							<td>Manson</td>
-							<td>Junior</td>
-							<td>Software</td>
-							<td>11/10/2020</td>
-
-							<td class="text-center">He broke the rules of company and
-								against rules and law
-							<td>
-						</tr>
-						</tr>
-
 
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<nav aria-label="pagination">
-			<ul class="pagination pagination-md justify-content-center">
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">Previous</span>
-                          <span class="sr-only">Previous</span>
-                        </a> --> <a class="page-link" href="#"
-					tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item active"><a
-					style="border-color: orangered; background-color: orangered;"
-					class="page-link" href="#">1</a></li>
+		<div th:if="${totalPages>1}">
 
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">Next</span>
-                          <span class="sr-only">Next</span>
-                        </a> --> <a class="page-link" href="#"
-					tabindex="+1">Next</a>
 
-				</li>
-			</ul>
-		</nav>
+ <nav>
+<ul class="pagination pagination-md justify-content-center">
+<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/setupReportBlackList/page/1' }">First</a>
+  </div><div th:if="${id}!=null"> 
+ <a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/setupReportBlackList/searchpage/1' +'?id='+${id}}">First</a> 
+ </div>
+<span class="page-link" th:unless="${currentPage>1}">First</span>
+</li>
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/setupReportBlackList/page/'+${currentPage-1}}">Previous</a>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/setupReportBlackList/searchpage/'+${currentPage-1}+'?id='+${id}}">Previous</a> 
+</div> 
+<span class="page-link" th:unless="${currentPage>1}">Previous</span>
+
+</li>
+<li class="page-item">
+<div class="page-link active" style="border-color: orangered;color:white; background-color: orangered;" >[[${currentPage}]]</div>
+</li>
+
+<li class="page-item">
+
+ <div th:if="${id}!=null">
+ <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/setupReportBlackList/searchpage/'+${currentPage+1}+'?id='+${id}}">Next</a>
+</div>
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/setupReportBlackList/page/'+${currentPage+1}}">Next</a>
+</div>
+
+
+<span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+</li>
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/setupReportBlackList/page/'+${totalPages}}">Last</a>
+ </div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/setupReportBlackList/searchpage/'+${totalPages}+'?id='+${id}}">Last</a> 
+</div>
+</li>
+</ul>
+</nav>
+</div>
 	</div>
 
 

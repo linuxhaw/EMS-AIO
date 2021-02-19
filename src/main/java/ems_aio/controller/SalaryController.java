@@ -52,7 +52,8 @@ public class SalaryController {
 	private SalaryService SalaryService;
 	@Autowired
 	private StaffService StaffService;
-int i=0;
+	int i = 0;
+
 //	@RequestMapping(value = "/displaysalary", method = RequestMethod.GET)
 //	public ModelAndView displaysalary(Model model) {
 //		List<EmpSalDto> list;
@@ -120,8 +121,8 @@ int i=0;
 		StaffBean bean = new StaffBean();
 		Page<StaffDto> page = StaffService.staffPagi(pageNo, pageSize);
 		List<StaffDto> pagi = page.getContent();
-		
-	model.addAttribute("bean", bean);
+
+		model.addAttribute("bean", bean);
 		model.addAttribute("paylist", pagi);
 		model.addAttribute("size", StaffService.getAll().size());
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -140,8 +141,7 @@ int i=0;
 		model.addAttribute("bean", bean);
 		Page<StaffDto> page = StaffService.staffSearchPagi(id, pageNo, pageSize);
 		List<StaffDto> list = page.getContent();
-	
-	
+
 		if (id.equals("")) {
 			model.addAttribute("msg", "Please Enter data to search!");
 			return "redirect:/displaysalarylist";
@@ -198,12 +198,12 @@ int i=0;
 
 	@RequestMapping(value = "/addsalary", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated SalaryBean bean, BindingResult bs, ModelMap model,
-			RedirectAttributes redirAttrs) {
+			RedirectAttributes redirAttrs, HttpSession session) {
 		if (bs.hasErrors()) {
-			return "EMS-MSR-002";
+			return "EMS-PYR-001";
 		}
-		boolean b = true;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+
 		Date date = new Date();
 		Timestamp now = new Timestamp(date.getTime());
 		EmpSalDto dto = new EmpSalDto();
@@ -213,7 +213,7 @@ int i=0;
 		dto.setSal_dep(bean.getSaldep());
 		dto.setSal_pos(bean.getSalpos());
 		dto.setSal_salary(bean.getSalary());
-		dto.setSal_admin((StaffService.getByCode("STF0001")).get());
+		dto.setSal_admin(staff);
 		dto.setSal_date(java.sql.Date.valueOf(bean.getSaldate()));
 		dto.setSal_create(now);
 
@@ -224,9 +224,9 @@ int i=0;
 		}
 		try {
 			SalaryService.save(dto);
-		
+
 			redirAttrs.addFlashAttribute("msg", "Register successful");
-i++;
+			i++;
 			return "redirect:/setupaddsalary";
 		} catch (Exception e) {
 			model.addAttribute("err", "Register fail");

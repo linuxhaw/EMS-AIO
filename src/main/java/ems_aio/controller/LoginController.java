@@ -95,6 +95,10 @@ public class LoginController {
 		
 	}
 	
+	@RequestMapping(value = "/AdminProfile", method = RequestMethod.GET)
+	public ModelAndView setupStaffList() {
+		return new ModelAndView("EMS-ARI-003", "user", new UserBean());
+	}
 	/*@GetMapping("/displaybank")
 	public String displayBank(@ModelAttribute("bean")BankBean bean,Model model) {
 		String id=bean.getId();

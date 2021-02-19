@@ -92,6 +92,7 @@ public class StaffReportController {
 			return displayStaffList(1,model);
 		}
 	}
+	
 	@RequestMapping(value = "/setupstaffreport", method = RequestMethod.GET)
 	public ModelAndView setuproleupdate(@RequestParam("id")String id, ModelMap model,HttpServletRequest request) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

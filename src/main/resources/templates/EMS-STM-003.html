@@ -27,7 +27,7 @@
 						<input type="text" class="form-control" placeholder="Search..."
 						th:value="*{id}" 	th:field="*{id}">
 						<div class="input-group-append">
-    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2">Go</button>
+    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2"></button>
   </div>
 					</div>
 				</form>
@@ -50,16 +50,16 @@
 						<th>Department</th>
 						<th>Transaction</th>
 						<th>Remark</th>
-						<th>Date</th>
+						<th>Recorded Time</th>
 
 					</thead>
 				<tbody>
 						<tr th:each="data: ${movementlist}">
 							<td th:text="${data.mov_id}" />
 							<td th:text="${data.mov_empid.emp_name}" />
-							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : ''" />
-							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : ''" />
-							<td th:text="${data.mov_admin.emp_name}" />
+							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : '-'" />
+							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : '-'" />
+							<td th:text="${data.mov_process}" />
 							<td th:text="${data.mov_remark}" />
 							<td th:text="${data.mov_create}" />
 						</tr>

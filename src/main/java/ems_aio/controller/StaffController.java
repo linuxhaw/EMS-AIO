@@ -155,7 +155,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setGender("Male");
 		staff.setMarrage("Single");
 		staff.setNation("Citizen");
-		staff.setReligion("Christians");
+		staff.setReligion("Buddhists");
 		model.addAttribute("bean",staff);
 		return "EMS-STI-001";
 	}

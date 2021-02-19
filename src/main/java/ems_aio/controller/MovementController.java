@@ -120,7 +120,8 @@ public class MovementController {
 	}
 
 	@RequestMapping(value = "/setupaddmovement", method = RequestMethod.GET)
-	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model, HttpServletRequest request) {
+	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model,
+			HttpServletRequest request) {
 		EmpMovDto chk = MovementService.findLastID();
 		int Intlast = 0;
 		String sf2;
@@ -146,9 +147,7 @@ public class MovementController {
 	@RequestMapping(value = "/addmovement", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
 		if (bs.hasErrors()) {
-			System.out.println("hello");
 			return "EMS-STM-002";
-			
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
@@ -234,7 +233,7 @@ public class MovementController {
 	public String displayBlackListReport(@PathVariable("pageNo")int pageNo,Model model) {
 		int pageSize=4;
 	StaffBean bean=new StaffBean();
-		Page<EmpMovDto> page=MovementService.movementPagi(pageNo, pageSize);
+		Page<EmpMovDto> page=MovementService.blacklist(pageNo, pageSize);
 		List<EmpMovDto> pagi=page.getContent();
 		model.addAttribute("bean",bean);
 		model.addAttribute("blacklist",pagi);
@@ -251,7 +250,7 @@ public class MovementController {
 		model.addAttribute("id",id);
 		bean.setId(id);
 		model.addAttribute("bean", bean);
-		Page<EmpMovDto> page=MovementService.movementSearchPagi(id,pageNo, pageSize);
+		Page<EmpMovDto> page=MovementService.blacklistSearch(id,pageNo, pageSize);
 		List<EmpMovDto> list=page.getContent();
 
 		if(id.equals("")) {

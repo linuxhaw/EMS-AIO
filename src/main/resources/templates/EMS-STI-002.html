@@ -71,9 +71,8 @@ th {
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label for="exampleInputUsername">Password</label> <input
-							type="password" class="form-control" th:field="*{password}"
-							required>
+						<label for="exampleInputUsername">Password</label>
+						<input type="text"  class="form-control" th:field="*{password}" value="*{password}"  required>
 					</div>
 				</div>
 			</div>

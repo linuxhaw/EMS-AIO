@@ -62,7 +62,7 @@ public class LoginController {
 					link = "redirect:/ManagerProfile";
 
 				} else {
-					link = "/EMS-DSH-003.html";
+					link = "redirect:/StaffProfile";
 				}
 				session.setAttribute("sesUser", check);
 			} else {

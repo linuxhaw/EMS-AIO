@@ -26,4 +26,7 @@ public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
 	
 	@Query(value = "SELECT * FROM EMPSAL n ORDER BY  n.sal_date DESC", nativeQuery = true)
 	  Page<EmpSalDto> findPagi(Pageable pageable);
+	//zay 19
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_empid_emp_id =?1 )  ORDER BY  n.sal_date DESC", nativeQuery = true)
+	List<EmpSalDto> stffsal(String id);
 }

@@ -111,7 +111,6 @@ public class ManagerViewController {
 //	}
 	@RequestMapping(value = "/MngDepartments", method = RequestMethod.GET)
 	public String MngDepartments(Model model, HttpServletRequest request) {
-		
 		List<MDEP001> list = serv.getAll();
 		DepReportBean bean = new DepReportBean();
 		model.addAttribute("bean", bean);

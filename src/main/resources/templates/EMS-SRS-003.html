@@ -66,39 +66,13 @@
 
 					</thead>
 					<tbody>
-						<tr>
-
-							<td>Junior</td>
-							<td>HR</td>
-							<td>AYA3423424</td>
-							<td>300000 ks</td>
-							<td>26/1/2020</td>
+						<tr th:each="data: ${sallist}">
+							<td th:text="${data.sal_pos.posname}" />
+							<td th:text="${data.sal_dep.name}" />
+							<td th:text="${data.sal_empid.emp_bnkacc}" />
+							<td th:text="${data.sal_salary}" />
+							<td th:text="${data.sal_date}" />
 						</tr>
-						<tr>
-
-							<td>Junior</td>
-							<td>HR</td>
-							<td>AYA3423424</td>
-							<td>320000 ks</td>
-							<td>25/2/2020</td>
-						</tr>
-						<tr>
-
-							<td>Junior</td>
-							<td>HR</td>
-							<td>AYA3423424</td>
-							<td>340000 ks</td>
-							<td>25 /3/2020</td>
-						</tr>
-						<tr>
-
-							<td>Junior</td>
-							<td>HR</td>
-							<td>AYA4444342</td>
-							<td>360000 ks</td>
-							<td>26/4/2020</td>
-						</tr>
-					
 						
 					</tbody>
 

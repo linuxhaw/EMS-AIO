@@ -248,6 +248,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setId(dto1.getEmp_id());
 		staff.setName(dto1.getEmp_name());
 		staff.setPassword(dto1.getEmp_password());
+		System.out.println(dto1.getEmp_password());
 		staff.setNrc(dto1.getEmp_nrc());
 		staff.setEmail(dto1.getEmp_email());
 		staff.setPhone(dto1.getEmp_phone());
@@ -281,10 +282,9 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 	}
 	
 	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls) {
-		if (bs.hasErrors()) {
-			return "EMS-STI-002";
-		}
+	public String updaterole(@ModelAttribute("bean")  StaffBean bean, BindingResult bs, ModelMap model,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls) {
+
+		
 		boolean b = true;
 		Date date=new Date();
 		Timestamp now=new Timestamp(date.getTime());

@@ -55,45 +55,12 @@
 
 					</thead>
 					<tbody>
-						<tr>
-
-							<td>Junior</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>start level</td>
-							<td>1/1/2019</td>
-						</tr>
-						<tr>
-
-							<td>Senior</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He have enough exprience</td>
-							<td>1/6/2019</td>
-						</tr>
-						<tr>
-
-							<td>Team Leader</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He can lead a team now!</td>
-							<td>1/1/2020</td>
-						</tr>
-						<tr>
-
-							<td>Manager</td>
-							<td>HR</td>
-							<td>Promote</td>
-							<td>He can manage well</td>
-							<td>1/6/2020</td>
-						</tr>
-						<tr>
-
-							<td>Manager</td>
-							<td>HR</td>
-							<td>Resign</td>
-							<td>Health Problem</td>
-							<td>1/1/2021</td>
+						<tr th:each="data: ${movlist}">
+							<td th:text="${data.mov_pos.posname}" />
+							<td th:text="${data.mov_dep.name}" />
+							<td th:text="${data.mov_process}" />
+							<td th:text="${data.mov_remark}" />
+							<td th:text="${data.mov_create}" />
 						</tr>
 					</tbody>
 				</table>

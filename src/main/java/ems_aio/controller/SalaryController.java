@@ -64,7 +64,7 @@ public class SalaryController {
 //	}
 	@GetMapping("/displaysalary/page/{pageNo}")
 	public String displaySalaryList(@PathVariable("pageNo") int pageNo, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		SalaryBean bean = new SalaryBean();
 		Page<EmpSalDto> page = SalaryService.salarySearchPagi(pageNo, pageSize);
 		List<EmpSalDto> pagi = page.getContent();
@@ -79,7 +79,7 @@ public class SalaryController {
 
 	@GetMapping("/displaysalary/searchpage/{pageNo}")
 	public String displaySerachSalary(@PathVariable("pageNo") int pageNo, @Param("id") String id, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		SalaryBean bean = new SalaryBean();
 		model.addAttribute("id", id);
 		bean.setId(id);
@@ -198,12 +198,12 @@ public class SalaryController {
 
 	@RequestMapping(value = "/addsalary", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated SalaryBean bean, BindingResult bs, ModelMap model,
-			RedirectAttributes redirAttrs) {
+			RedirectAttributes redirAttrs, HttpSession session) {
 		if (bs.hasErrors()) {
-			return "EMS-MSR-002";
+			return "EMS-PYR-001";
 		}
-		boolean b = true;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+
 		Date date = new Date();
 		Timestamp now = new Timestamp(date.getTime());
 		EmpSalDto dto = new EmpSalDto();
@@ -213,7 +213,7 @@ public class SalaryController {
 		dto.setSal_dep(bean.getSaldep());
 		dto.setSal_pos(bean.getSalpos());
 		dto.setSal_salary(bean.getSalary());
-		dto.setSal_admin((StaffService.getByCode("STF0001")).get());
+		dto.setSal_admin(staff);
 		dto.setSal_date(java.sql.Date.valueOf(bean.getSaldate()));
 		dto.setSal_create(now);
 

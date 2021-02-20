@@ -52,7 +52,7 @@ public class PositionController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		PositionBean bean=new PositionBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -79,7 +79,7 @@ public class PositionController {
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		PositionBean bean=new PositionBean();
 		
 		Page<MPOS001>page=serv.posPagiQuery(pageNo, pageSize);

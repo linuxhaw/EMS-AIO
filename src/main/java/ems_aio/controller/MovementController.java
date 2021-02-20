@@ -69,7 +69,7 @@ public class MovementController {
 //	}
 	@GetMapping("/displaymovement/page/{pageNo}")
 	public String displayMovementList(@PathVariable("pageNo")int pageNo,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		MovementBean bean=new MovementBean();
 		Page<EmpMovDto> page=MovementService.movementPagi(pageNo, pageSize);
 		List<EmpMovDto> pagi=page.getContent();
@@ -83,7 +83,7 @@ public class MovementController {
 	}
 	@GetMapping("/displaymovement/searchpage/{pageNo}")
 	public String displaySerachMovement(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		MovementBean bean=new 	MovementBean();
 		model.addAttribute("id",id);
 		bean.setId(id);
@@ -145,7 +145,7 @@ public class MovementController {
 	}
 	
 	@RequestMapping(value = "/addmovement", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs) {
+	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs,HttpSession session) {
 		if (bs.hasErrors()) {
 			return "EMS-STM-002";
 		}
@@ -155,9 +155,10 @@ public class MovementController {
 		EmpMovDto dto = new EmpMovDto();		
 		String process=bean.getProcess();
 		if (process!=null) {
+			StaffDto st=(StaffDto)session.getAttribute("sesUser");
 			dto.setMov_id(bean.getId());
 			dto.setMov_empid(bean.getSid());
-			dto.setMov_admin((StaffService.getByCode("STF0001")).get());
+			dto.setMov_admin(st);
 			dto.setMov_remark(bean.getRemark());
 			dto.setMov_create(now);
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
@@ -197,7 +198,7 @@ public class MovementController {
 			try {
 				MovementService.save(dto);
 				redirAttrs.addFlashAttribute("msg", "Register successful");
-				return "redirect:/setupaddsalary";
+				return "redirect:/setupaddmovement";
 			} catch (Exception e) {
 				model.addAttribute("err", "Register fail");
 				return "EMS-STM-002";

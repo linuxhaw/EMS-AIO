@@ -73,7 +73,7 @@ public class StaffController {
 
 @GetMapping("/displaystaff/page/{pageNo}")
 public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
-	int pageSize=4;
+	int pageSize=6;
 	StaffBean bean=new StaffBean();
 	Page<StaffDto> page=StaffService.staffPagi(pageNo, pageSize);
 	List<StaffDto> pagi=page.getContent();
@@ -87,7 +87,7 @@ public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
 }
 @GetMapping("/displaystaff/searchpage/{pageNo}")
 public String displaySerachStaff(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
-	int pageSize=4;
+	int pageSize=6;
 	StaffBean bean=new StaffBean();
 	model.addAttribute("id",id);
 	bean.setId(id);
@@ -155,7 +155,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setGender("Male");
 		staff.setMarrage("Single");
 		staff.setNation("Citizen");
-		staff.setReligion("Christians");
+		staff.setReligion("Buddhists");
 		model.addAttribute("bean",staff);
 		return "EMS-STI-001";
 	}

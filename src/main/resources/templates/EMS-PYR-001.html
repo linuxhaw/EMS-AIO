@@ -16,7 +16,6 @@
 			<script>
 				function demo(selectObject) {
 					var value = selectObject.value;
-					alert(value);
 					if (value == "") {
 						$("#inputBatchCourseFee").val(null);
 					} else {
@@ -40,6 +39,7 @@
 					}
 				}
 			</script>
+			<label style="color: blue;" th:text="${msg}"></label>
 			<form action="addsalary" method="post" th:object="${bean}">
 				<div class="row">
 					<div class="col-md-5 ml-5">

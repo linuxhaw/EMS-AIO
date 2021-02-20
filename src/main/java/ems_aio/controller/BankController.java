@@ -43,7 +43,7 @@ public class BankController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		BankBean bean=new BankBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -70,7 +70,7 @@ public class BankController {
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		BankBean bean=new BankBean();
 		
 		Page<MBNK001>page=serv.bankPagiQuery(pageNo, pageSize);

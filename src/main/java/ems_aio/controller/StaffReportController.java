@@ -43,7 +43,7 @@ public class StaffReportController {
 //	}
 	@GetMapping("/displayreportstaff/page/{pageNo}")
 	public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		StaffBean bean=new StaffBean();
 		Page<StaffDto> page=StaffService.staffPagi(pageNo, pageSize);
 		List<StaffDto> pagi=page.getContent();
@@ -57,7 +57,7 @@ public class StaffReportController {
 	}
 	@GetMapping("/displayreportstaff/searchpage/{pageNo}")
 	public String displaySerachStaff(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		StaffBean bean=new StaffBean();
 		model.addAttribute("id",id);
 		bean.setId(id);
@@ -92,6 +92,7 @@ public class StaffReportController {
 			return displayStaffList(1,model);
 		}
 	}
+	
 	@RequestMapping(value = "/setupstaffreport", method = RequestMethod.GET)
 	public ModelAndView setuproleupdate(@RequestParam("id")String id, ModelMap model,HttpServletRequest request) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

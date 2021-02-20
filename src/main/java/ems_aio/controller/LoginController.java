@@ -57,18 +57,6 @@ public class LoginController {
 		model.addAttribute("bean", new UserBean());
 		return "EMS-LGN-001";
 	}
-
-	@GetMapping("/layout")
-	public String layout(Model model) {
-		model.addAttribute("bean", new UserBean());
-		return "layout";
-	}
-	
-	@GetMapping("/DSHtest")
-	public String DSHtest(Model model) {
-		model.addAttribute("bean", new UserBean());
-		return "EMS-DSH-002";
-	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute("login") UserBean bean, HttpSession session, ModelMap model,RedirectAttributes redirAttrs) {
@@ -103,14 +91,7 @@ public class LoginController {
 		}
 		return link;
 	}
-	
-//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-//	public String logout(HttpServletRequest request,Model model) {
-//		model.addAttribute("user", new UserBean());
-//		HttpSession session = request.getSession(false);
-//		session.invalidate();
-//		return "redirect:/";
-//	}
+
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletRequest response) {
@@ -150,17 +131,7 @@ public class LoginController {
 		
 	}
 
-	/*@GetMapping("/displaybank")
-	public String displayBank(@ModelAttribute("bean")BankBean bean,Model model) {
-		String id=bean.getId();
-		if(id!=null) {
-		model.addAttribute("id",id);
-		return bankPagi(1,id, model);}
-		else {
-			return bankPagiQuery(1,model);
-		}
-	}*/
-	
+
 
 
 }

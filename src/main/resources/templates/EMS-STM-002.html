@@ -25,7 +25,7 @@
 		<div class="card-header">
 			<!--Header row-->
 			<div class="col-md-8">
-				<h5 class="card-title">Movement</h5>
+				<h5 class="card-title">Position Change</h5>
 
 
 			</div>
@@ -58,7 +58,7 @@
 		}
 	</script>
 		<form action="addmovement" method="post" th:object="${bean}">
-				<!--row :id name-->
+				<label style="color: blue;" th:text="${msg}"></label>
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
@@ -110,7 +110,6 @@
 								<option value="transfer">Transfer</option>
 								<option value="resignation">Resignation</option>
 								<option value="blackList">Blacklist</option>
-
 							</select>
 						</div>
 					</div>

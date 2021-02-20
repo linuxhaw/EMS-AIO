@@ -30,10 +30,10 @@
 
 							<label>Department Name</label>
 
-							<input type="text" class="form-control" th:field="*{name}">
+							<input type="text" class="form-control" th:field="*{name}" required>
 
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
@@ -42,10 +42,10 @@
 
 							<label>Department Head</label>
 
-							<input type="text" class="form-control" th:field="*{head}">
+							<input type="text" class="form-control" th:field="*{head}" required>
 
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">
@@ -54,10 +54,10 @@
 
 							<label>Department Location</label> 
 
-							<input type="text" class="form-control" th:field="*{loc}">
+							<input type="text" class="form-control" th:field="*{loc}" required>
 
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 					</div>
 				</div>
 				<div class="row">

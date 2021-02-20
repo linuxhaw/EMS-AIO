@@ -9,10 +9,18 @@
 <body>
 
 	<div layout:fragment="content">
-		<div class="card-header">
-			<div class="row">
-<div class="col-md-6"></div>
-<div class="col-md-4">
+	<div class="card-header">
+			<h4 class="card-title">Movement List</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-6"></div>
+			<label style="color: blue;" th:text="${msg}"></label>
+		</div>
+	<div class="row">
+    <div class="col-md-6">
+				
+			</div>
+				<div class="col-md-4">
 				<form th:action="@{/displaymovement}" method="get" th:object="${bean}">
 				
 					<div class="input-group no-border" style="padding-top: 10px;">
@@ -29,7 +37,7 @@
 				<input class="btn btn-round btn-primary" type="reset"></a>
 			</div>
 		</div>
-		</div>
+		
 
 		<div class="card-body">
 

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Staff Update Form</title>
+<title>Staff Register Form</title>
 <link th:href="@{/resources/css/now-ui-dashboard.css?v=1.5.0}"
 	rel="stylesheet" />
 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" 
@@ -71,9 +71,8 @@ th {
 				</div>
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label for="exampleInputUsername">Password</label> <input
-							type="password" class="form-control" th:field="*{password}"
-							required>
+						<label for="exampleInputUsername">Password</label>
+						<input type="text"  class="form-control" th:field="*{password}" value="*{password}"  required>
 					</div>
 				</div>
 			</div>
@@ -118,7 +117,7 @@ th {
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
 						<label>BANK</label> <br> <select name="bank"
-							class="form-control" th:field="*{bank}">
+							class="form-control" th:field="*{bank}" required>
 							<option value=""></option>
 							<option th:each="list:${session.banklist}"
 								th:value="${list.bnkid}" th:text="${list.bnkname}"
@@ -265,7 +264,7 @@ th {
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>ROLE</label> <br> <select name="role"
-							class="form-control" th:field="*{role}">
+							class="form-control" th:field="*{role}" required>
 							<option value=""></option>
 							<option th:each="list:${session.rolelist}"
 								th:value="${list.rolid}" th:text="${list.rolname}"
@@ -280,7 +279,7 @@ th {
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
 						<label>DEPARTMENT</label> <br> <select name="department"
-							class="form-control" th:field="*{department}">
+							class="form-control" th:field="*{department}" required>
 							<option value=""></option>
 							<option th:each="list:${session.deplist}" th:value="${list.id}"
 								th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
@@ -291,7 +290,7 @@ th {
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
 						<label>POSITION</label> <br> <select name="position"
-							class="form-control" th:field="*{position}">
+							class="form-control" th:field="*{position}" required>
 							<option value=""></option>
 							<option th:each="list:${session.poslist}"
 								th:value="${list.posid}" th:text="${list.posname}"

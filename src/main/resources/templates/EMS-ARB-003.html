@@ -57,7 +57,8 @@
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary"> 
-						<th>ID</th> 
+					<th>ID</th>
+						<th>Staff ID</th> 
 						<th>Name</th> 
 						<th>Department</th> 
 						<th>Position</th> 
@@ -67,6 +68,8 @@
 					</thead>
 					<tbody>
 						<tr th:each="data: ${blacklist}">
+													<td th:text="${data.mov_id}" />
+						
 							<td th:text="${data.mov_empid.emp_id}" />
 							<td th:text="${data.mov_empid.emp_name}" />
 							<td th:text="${data.mov_empid.emp_pos.posname}" />

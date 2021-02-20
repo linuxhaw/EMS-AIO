@@ -52,6 +52,11 @@ public class MovementService {
 		List<EmpMovDto> list = (List<EmpMovDto>) repo.blacklist("blacklist");
 		return list;
 	}
+	//zay
+	public List<EmpMovDto> getStaffMov(String id) {
+		List<EmpMovDto> list= (List<EmpMovDto>) repo.stffmov(id);
+		return list;
+	}
 //	Hlwann
 //	pagi_service with findAll method
 	public Page<EmpMovDto>movementSearchPagi(String cname,int PageNo,int PageSize){

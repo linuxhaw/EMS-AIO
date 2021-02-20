@@ -70,15 +70,7 @@ public class StaffController {
 	@Autowired
 	private QualifyService QualifyService;
 	
-//	@RequestMapping(value = "/displaystaff", method = RequestMethod.GET)
-//	public ModelAndView displayrole(Model model) {
-//		List<StaffDto> list;
-//		list = StaffService.getAll();
-//		StaffBean bean=new StaffBean();
-//		model.addAttribute("bean", bean);
-//		return new ModelAndView("EMS-STI-003", "stafflist", list);
-//	}
-//	
+
 @GetMapping("/displaystaff/page/{pageNo}")
 public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
 	int pageSize=4;
@@ -249,18 +241,14 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		List<MPOS001> posList=PositionService.getAll(); 
 		List<MCTF001> ctfList=CertifyService.getAll(); 
 		List<MQUL001> qulList=QualifyService.getAll(); 
-		request.getSession().setAttribute("banklist", bnkList);
-		request.getSession().setAttribute("rolelist", rolList);
-		request.getSession().setAttribute("deplist", depList);
-		request.getSession().setAttribute("poslist", posList);
-		request.getSession().setAttribute("ctflist", ctfList);
-		request.getSession().setAttribute("qullist", qulList);
+		
 		Optional<StaffDto> dtoget = StaffService.getByCode(id);
 		StaffDto dto1=dtoget.get();
 		StaffBean staff = new StaffBean();
 		staff.setId(dto1.getEmp_id());
 		staff.setName(dto1.getEmp_name());
 		staff.setPassword(dto1.getEmp_password());
+		System.out.println(dto1.getEmp_password());
 		staff.setNrc(dto1.getEmp_nrc());
 		staff.setEmail(dto1.getEmp_email());
 		staff.setPhone(dto1.getEmp_phone());
@@ -278,22 +266,25 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setRole(dto1.getEmp_rol());
 		staff.setPosition(dto1.getEmp_pos());
 		staff.setCertify(dto1.getCtf());
-		staff.setCreate(dto1.getEmp_create());
-		List<String> qul=new ArrayList<String>(); 
 		
-		for (MQUL001 qu : dto1.getQul()) {
-			qul.add(qu.getQulid());
-		}
-		System.out.println(qul.contains("CTF002"));
-		request.getSession().setAttribute("qulselect", qul);
+		ctfList.removeAll(dto1.getCtf());
+		qulList.removeAll(dto1.getQul());
+		
+		request.getSession().setAttribute("banklist", bnkList);
+		request.getSession().setAttribute("rolelist", rolList);
+		request.getSession().setAttribute("deplist", depList);
+		request.getSession().setAttribute("poslist", posList);
+		request.getSession().setAttribute("ctflist", ctfList);
+		request.getSession().setAttribute("selctflist", dto1.getCtf());
+		request.getSession().setAttribute("qullist", qulList);
+		request.getSession().setAttribute("selqullist", dto1.getQul());
 		return new ModelAndView("EMS-STI-002", "bean", staff);
 	}
 	
 	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean") @Validated StaffBean bean, BindingResult bs, ModelMap model) {
-		if (bs.hasErrors()) {
-			return "EMS-STI-002";
-		}
+	public String updaterole(@ModelAttribute("bean")  StaffBean bean, BindingResult bs, ModelMap model,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls) {
+
+		
 		boolean b = true;
 		Date date=new Date();
 		Timestamp now=new Timestamp(date.getTime());
@@ -320,6 +311,30 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		dto.setEmp_status(b);
 		dto.setEmp_update(now);
 		dto.setEmp_create(bean.getCreate());
+		if(cers != null) {
+			Set<MCTF001> certificate = new HashSet<MCTF001>();
+			for (int i = 0; i < cers.length; i++) {
+				Optional<MCTF001> addi=CertifyService.getByCode(cers[i]);
+				if (addi != null) {
+					MCTF001 i1=addi.get();
+					certificate.add(i1);
+				}
+			}
+			dto.setCtf(certificate);
+		}
+		
+		if(quls != null) {
+			Set<MQUL001> qualification = new HashSet<MQUL001>();
+			for (int i = 0; i < quls.length; i++) {
+				Optional<MQUL001> addi=QualifyService.getByCode(quls[i]);
+				if (addi != null) {
+					MQUL001 i1=addi.get();
+					qualification.add(i1);
+				}
+				
+			}
+			dto.setQul(qualification);
+		}
 		try {
 			StaffService.update(dto, bean.getId());
 			model.addAttribute("msg", "Update successful");

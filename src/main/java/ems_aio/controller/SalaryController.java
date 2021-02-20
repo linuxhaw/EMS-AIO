@@ -144,7 +144,7 @@ public class SalaryController {
 
 		if (id.equals("")) {
 			model.addAttribute("msg", "Please Enter data to search!");
-			return "redirect:/displaysalary";
+			return "redirect:/displaysalarylist";
 		}
 		if (list.size() == 0) {
 			model.addAttribute("msg", " DATA  NOT  FOUND!");

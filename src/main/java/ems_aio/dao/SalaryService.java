@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.EmpSalDto;
 import ems_aio.dto.MROL001;
 
@@ -62,4 +63,8 @@ public class SalaryService {
 		
 	}
 
+	public List<EmpSalDto> getStaffSal(String id) {
+		List<EmpSalDto> list= (List<EmpSalDto>) repo.stffsal(id);
+		return list;
+	}
 }

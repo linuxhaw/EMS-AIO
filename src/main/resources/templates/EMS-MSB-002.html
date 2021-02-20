@@ -29,9 +29,9 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Bank Name</label>
-							<input type="text" class="form-control" placeholder="Name" th:field="*{name}">
+							<input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
 						</div>
-					<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+					
 						
 					</div>
 				</div>
@@ -39,9 +39,9 @@
 					<div class="col-md-5 pr-1">
 						<div class="form-group">
 							<label>Phone</label>
-							<input type="text" class="form-control" placeholder="PhoneNo" th:field="*{phone}">
+							<input type="text" class="form-control" placeholder="PhoneNo" th:field="*{phone}" required>
 						</div>
-					<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+					<label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red; font-size: 17px;">Error</label>
 						
 					</div>
 				</div>
@@ -49,9 +49,9 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Bank Location</label>
-							<input type="text" class="form-control" placeholder="Address" th:field="*{loc}">
+							<input type="text" class="form-control" placeholder="Address" th:field="*{loc}" required>
 						</div>
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-size: 17px;">Error</label>
+						
 						
 					</div>
 				</div>

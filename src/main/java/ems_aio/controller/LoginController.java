@@ -58,7 +58,18 @@ public class LoginController {
 		return "EMS-LGN-001";
 	}
 
-
+	@GetMapping("/layout")
+	public String layout(Model model) {
+		model.addAttribute("bean", new UserBean());
+		return "layout";
+	}
+	
+	@GetMapping("/DSHtest")
+	public String DSHtest(Model model) {
+		model.addAttribute("bean", new UserBean());
+		return "EMS-DSH-002";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute("login") UserBean bean, HttpSession session, ModelMap model,RedirectAttributes redirAttrs) {
 		String link;
@@ -78,20 +89,39 @@ public class LoginController {
 			} else {
 				redirAttrs.addFlashAttribute("msg", "Your password is incorrect!");
 				return "redirect:/";
+				
 			}
-		} else {
+		}else if(bean.getId().equals("root")){
+			StaffDto check = new StaffDto();
+			check.setEmp_id("emp001");
+			session.setAttribute("sesUser", check);
+			return "redirect:/admindash";
+		}
+		else {
 			redirAttrs.addFlashAttribute("msg", "User not found!");
 			return "redirect:/";
 		}
 		return link;
 	}
 	
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(HttpServletRequest request,Model model) {
+//		model.addAttribute("user", new UserBean());
+//		HttpSession session = request.getSession(false);
+//		session.invalidate();
+//		return "redirect:/";
+//	}
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request,Model model) {
-		model.addAttribute("user", new UserBean());
+	public String logout(HttpServletRequest request,HttpServletRequest response) {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/AdminProfile", method = RequestMethod.GET)
+	public ModelAndView setupStaffList() {
+		return new ModelAndView("EMS-ARI-003", "user", new UserBean());
 	}
 	
 	@GetMapping("/admindash")
@@ -101,12 +131,12 @@ public class LoginController {
 		List<MDEP001> deplist=DepartmentService.getAll();
 		model.addAttribute("dep",deplist.size());
 		List<StaffDto> stflast=service.getLatest();
-		System.out.println(stflast.size());
 		model.addAttribute("stflast",stflast);
 		return "EMS-DSH-001";
 		
 	}
 	
+
 	@GetMapping("/EMS-DSH-001.html")
 	public String DSH(Model model) {
 		List<StaffDto> stflist=service.getAll();
@@ -119,6 +149,7 @@ public class LoginController {
 		return "EMS-DSH-001";
 		
 	}
+
 	/*@GetMapping("/displaybank")
 	public String displayBank(@ModelAttribute("bean")BankBean bean,Model model) {
 		String id=bean.getId();
@@ -130,5 +161,6 @@ public class LoginController {
 		}
 	}*/
 	
+
 
 }

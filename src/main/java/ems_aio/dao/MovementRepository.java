@@ -38,8 +38,13 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	@Query(value = "SELECT * FROM empmov  ", nativeQuery = true)
 	Page<EmpMovDto> findPagi(Pageable pageable);
 	
+
 	@Query(value = "SELECT * FROM empmov n WHERE n.mov_id=?1 AND n.mov_process=?1 ORDER BY mov_create", nativeQuery = true)
 	Page<EmpMovDto> findSearchBlacklist(String cname,Pageable pageable);
+	
 	@Query(value = "SELECT * FROM empmov WHERE mov_process=?1 ORDER BY mov_create", nativeQuery = true)
 	Page<EmpMovDto> findBlacklist(Pageable pageable);
+
+	@Query(value = "SELECT * FROM empmov n WHERE n.mov_empid_emp_id=?1 ORDER BY mov_create desc", nativeQuery = true)
+	List<EmpMovDto> stffmov(String cname);
 }

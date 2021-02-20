@@ -163,7 +163,7 @@ public class MovementController {
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
 			if (process.equals("promotion") || process.equals("demotion")) {
 				dto.setMov_pos(bean.getPos());
-				dto.setMov_dep(bean.getPredep());
+				dto.setMov_dep(staff.getEmp_dep());
 				dto.setMov_process(bean.getProcess());				
 				staff.setEmp_pos(bean.getPos());
 			}else if (process.equals("transfer")) {
@@ -233,7 +233,7 @@ public class MovementController {
 	public String displayBlackListReport(@PathVariable("pageNo")int pageNo,Model model) {
 		int pageSize=4;
 	StaffBean bean=new StaffBean();
-		Page<EmpMovDto> page=MovementService.movementPagi(pageNo, pageSize);
+		Page<EmpMovDto> page=MovementService.blacklist(pageNo, pageSize);
 		List<EmpMovDto> pagi=page.getContent();
 		model.addAttribute("bean",bean);
 		model.addAttribute("blacklist",pagi);
@@ -250,7 +250,7 @@ public class MovementController {
 		model.addAttribute("id",id);
 		bean.setId(id);
 		model.addAttribute("bean", bean);
-		Page<EmpMovDto> page=MovementService.movementSearchPagi(id,pageNo, pageSize);
+		Page<EmpMovDto> page=MovementService.blacklistSearch(id,pageNo, pageSize);
 		List<EmpMovDto> list=page.getContent();
 
 		if(id.equals("")) {

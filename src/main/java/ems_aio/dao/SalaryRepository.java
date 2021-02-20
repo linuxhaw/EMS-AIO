@@ -29,4 +29,7 @@ public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
 	//zay 19
 	@Query(value = "SELECT * FROM empsal n WHERE (n.sal_empid_emp_id =?1 )  ORDER BY  n.sal_date DESC", nativeQuery = true)
 	List<EmpSalDto> stffsal(String id);
+	
+	@Query(value = "SELECT * FROM empsal n WHERE (n.sal_empid_emp_id =?1 ) and (n.sal_date BETWEEN ?2 AND ?3) ORDER BY  n.sal_date DESC", nativeQuery = true)
+	List<EmpSalDto> stffsalsearch(String id,String fromdaet,String todate);
 }

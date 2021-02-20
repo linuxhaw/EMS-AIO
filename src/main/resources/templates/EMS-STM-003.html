@@ -44,7 +44,7 @@
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
-						<th>ID</th>
+						<!-- <th>ID</th> -->
 						<th>Name</th>
 						<th>Position</th>
 						<th>Department</th>
@@ -55,7 +55,7 @@
 					</thead>
 				<tbody>
 						<tr th:each="data: ${movementlist}">
-							<td th:text="${data.mov_id}" />
+							<!-- <td th:text="${data.mov_id}" /> -->
 							<td th:text="${data.mov_empid.emp_name}" />
 							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : '-'" />
 							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : '-'" />

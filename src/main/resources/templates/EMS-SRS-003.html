@@ -13,34 +13,23 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="card-title">Salary History</h4>
-					<form>
+					<form action="/salarysearch" method="get" th:object="${date}">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="font-weight-bolder">From</div>
 								<div class="input-group no-border">
-									<input type="date" value="" class="form-control"
-										placeholder="Year..">
-									<!-- <div class="input-group-append">
-                        <div class="input-group-text">
-                          <i class="now-ui-icons ui-1_zoom-bold"></i>
-                        </div>
-                      </div> -->
+									<input type="date" class="form-control" placeholder="Year.." th:field="*{saldate1}">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="font-weight-bolder">To</div>
 								<div class="input-group no-border">
-									<input type="date" value="" id="from" class="form-control"
-										placeholder="From This Month...">
-									<!-- <div class="input-group-append">
-                            <div class="input-group-text">
-                              <i class="now-ui-icons ui-1_zoom-bold"></i>
-                            </div>
-                          </div> -->
+									<input type="date"  id="from" class="form-control" placeholder="From This Month..." th:field="*{saldate2}">
+									
 								</div>
 							</div>
 							<div class="col-md-2 pt-3">
-								<div class="btn btn-round btn-primary">search</div>
+								<input type="submit" class="btn btn-round btn-primary" value="Search"></input>
 							</div>
 							<div class="col-md-1 pt-3">
 								<input type="reset" class="btn btn-round btn-primary"> </input>

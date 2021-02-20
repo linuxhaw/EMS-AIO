@@ -1,5 +1,9 @@
 package ems_aio.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +26,8 @@ import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.EmpSalDto;
 import ems_aio.dto.MPOS001;
 import ems_aio.dto.StaffDto;
+import ems_aio.model.CertifyBean;
+import ems_aio.model.DateBean;
 import ems_aio.model.UserBean;
 @Controller
 public class StaffViewController {
@@ -50,8 +58,33 @@ public class StaffViewController {
 		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
 		String id =staff.getEmp_id();
 		List<EmpSalDto> sallist=SalaryService.getStaffSal(id); 
-		System.out.println(sallist.size());
 		model.addAttribute("sallist",sallist);
-		return new ModelAndView("EMS-SRS-003","user",new UserBean());
+		return new ModelAndView("EMS-SRS-003","date",new DateBean());
+	}
+	
+	@RequestMapping(value="/salarysearch" ,method=RequestMethod.GET)
+	public ModelAndView salarysearch(HttpSession session,Model model,@ModelAttribute("date")DateBean date) {
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		String id =staff.getEmp_id();
+		String date1;
+		System.out.println("hello");
+		if (date.getSaldate1().equals(null)) {
+			date1 = "1990-01-01";
+		}else {
+			date1 = date.getSaldate1();
+		}
+		System.out.println(date1);
+		String date2;
+		if (date.getSaldate2().equals(null)) {
+			Date today = Calendar.getInstance().getTime();  
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd"); 
+			date2 = dateFormat.format(today); 
+		}else {
+			date2 = date.getSaldate2();
+		}
+		System.out.println(date2);
+		List<EmpSalDto> sallist=SalaryService.getStaffSalSearch(id,date1,date2); 
+		model.addAttribute("sallist",sallist);
+		return new ModelAndView("EMS-SRS-003","date",new DateBean());
 	}
 }

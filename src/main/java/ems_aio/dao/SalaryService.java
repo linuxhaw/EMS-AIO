@@ -67,4 +67,9 @@ public class SalaryService {
 		List<EmpSalDto> list= (List<EmpSalDto>) repo.stffsal(id);
 		return list;
 	}
+	
+	public List<EmpSalDto> getStaffSalSearch(String id,String fromdate,String todate) {
+		List<EmpSalDto> list= (List<EmpSalDto>) repo.stffsalsearch(id,fromdate,todate);
+		return list;
+	}
 }

@@ -49,7 +49,7 @@ public class RoleController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		RoleBean bean=new RoleBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -77,7 +77,7 @@ public class RoleController {
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		RoleBean bean=new RoleBean();
 		
 		Page<MROL001>page=RoleService.rolePagiQuery(pageNo, pageSize);

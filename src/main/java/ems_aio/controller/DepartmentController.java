@@ -54,7 +54,7 @@ public class DepartmentController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		DepartmentBean bean=new DepartmentBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -76,12 +76,13 @@ public class DepartmentController {
 		return "EMS-MSD-003";
 		
 	}
+	
 	@GetMapping("/displaydepartment/page/{pageNo}")
 	public String certifyPagiQuery(@PathVariable(value="pageNo")int pageNo,
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		DepartmentBean bean=new DepartmentBean();
 		
 		Page<MDEP001>page=serv.depPagiQuery(pageNo, pageSize);

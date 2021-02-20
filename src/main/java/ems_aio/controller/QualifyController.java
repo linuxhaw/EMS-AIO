@@ -51,7 +51,7 @@ public class QualifyController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		QualifyBean bean=new QualifyBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -78,7 +78,7 @@ public class QualifyController {
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		QualifyBean bean=new QualifyBean();
 		
 		Page<MQUL001>page=serv.qulPagiQuery(pageNo, pageSize);

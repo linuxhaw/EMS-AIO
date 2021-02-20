@@ -64,7 +64,7 @@ public class SalaryController {
 //	}
 	@GetMapping("/displaysalary/page/{pageNo}")
 	public String displaySalaryList(@PathVariable("pageNo") int pageNo, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		SalaryBean bean = new SalaryBean();
 		Page<EmpSalDto> page = SalaryService.salarySearchPagi(pageNo, pageSize);
 		List<EmpSalDto> pagi = page.getContent();
@@ -79,7 +79,7 @@ public class SalaryController {
 
 	@GetMapping("/displaysalary/searchpage/{pageNo}")
 	public String displaySerachSalary(@PathVariable("pageNo") int pageNo, @Param("id") String id, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		SalaryBean bean = new SalaryBean();
 		model.addAttribute("id", id);
 		bean.setId(id);

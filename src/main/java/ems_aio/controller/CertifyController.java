@@ -51,7 +51,7 @@ public class CertifyController {
 			@Param("id")String id,
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		CertifyBean bean=new CertifyBean();
 		model.addAttribute("id",id);
 		model.addAttribute("bean", bean);
@@ -78,7 +78,7 @@ public class CertifyController {
 			
 			Model model) {
 		
-		int pageSize=3;
+		int pageSize=6;
 		CertifyBean bean=new CertifyBean();
 		
 		Page<MCTF001>page=serv.certifyPagiQuery(pageNo, pageSize);

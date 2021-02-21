@@ -61,8 +61,8 @@
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="exampleInputUsername">ID</label> <input type="text"
-								class="form-control" th:field="${bean.id}" readonly>
+							<!-- <label for="exampleInputUsername">ID</label> -->
+							<input type="hidden" class="form-control" th:field="${bean.id}" readonly>
 						</div>
 					</div>
 				</div>
@@ -108,7 +108,7 @@
 								<option value="demotion">Demotion</option>
 								<option value="transfer">Transfer</option>
 								<option value="resignation">Resignation</option>
-								<option value="blackList">Black List</option>
+								<option value="BlackList">Black List</option>
 
 							</select>
 						</div>

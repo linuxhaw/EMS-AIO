@@ -49,8 +49,10 @@
 						<th>Position</th>
 						<th>Department</th>
 						<th>Transaction</th>
+						<th>Start</th>
+						<th>End</th>
 						<th>Remark</th>
-						<th>Recorded Time</th>
+						
 
 					</thead>
 				<tbody>
@@ -60,8 +62,21 @@
 							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : '-'" />
 							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : '-'" />
 							<td th:text="${data.mov_process}" />
+							<td th:text="${data.mov_start}" />
+							<!-- <td th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' " /> -->
+							<!-- <td>
+							    <span th:if="${data.mov_end !=null}" th:text='${data.mov_end}'></span>
+							    <span th:if="${data.mov_process =='resignation'}"></span>
+							    <span th:if="${data.mov_process =='BlackList'}"></span>
+							    <span th:unless="${data.mov_end ==null}">Present</span>
+							</td> -->
+							<td th:switch="${data.mov_process}">
+							    <span th:case="'BlackList'"></span>
+							    <span th:case="'resignation'"></span>
+								<span th:case="*" th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' "></span>
+							</td>
 							<td th:text="${data.mov_remark}" />
-							<td th:text="${data.mov_create}" />
+							
 						</tr>
 					</tbody>
 				</table>

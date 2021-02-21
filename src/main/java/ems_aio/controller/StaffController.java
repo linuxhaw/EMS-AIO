@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -49,6 +50,7 @@ import ems_aio.dto.MROL001;
 import ems_aio.dto.StaffDto;
 import ems_aio.model.BankBean;
 import ems_aio.model.DepartmentBean;
+import ems_aio.model.MovementBean;
 import ems_aio.model.PositionBean;
 import ems_aio.model.StaffBean;
 import ems_aio.model.UserBean;
@@ -69,6 +71,8 @@ public class StaffController {
 	private CertifyService CertifyService;
 	@Autowired
 	private QualifyService QualifyService;
+	@Autowired
+	private ems_aio.dao.MovementService MovementService;
 	
 
 @GetMapping("/displaystaff/page/{pageNo}")
@@ -192,6 +196,9 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		dto.setEmp_create(now);
 		dto.setEmp_update(now);
 		
+		
+		
+		
 		if(cers != null) {
 			Set<MCTF001> certificate = new HashSet<MCTF001>();
 			for (int i = 0; i < cers.length; i++) {
@@ -203,7 +210,6 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 			}
 			dto.setCtf(certificate);
 		}
-		
 		if(quls != null) {
 			Set<MQUL001> qualification = new HashSet<MQUL001>();
 			for (int i = 0; i < quls.length; i++) {
@@ -225,11 +231,43 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		try {
 			StaffService.save(dto);
 			redirAttrs.addFlashAttribute("msg", "Register successful");
+			
+
+			//movement add
+			EmpMovDto mov=new EmpMovDto();
+			EmpMovDto chkmov = MovementService.findLastID();
+			int Intlast = 0;
+			String sf2;
+			if (chkmov == null) {
+				Intlast = 1;
+				sf2 = String.format("MOV%03d", Intlast);
+			} else {
+				String StrID = chkmov.getMov_id();
+				Intlast = Integer.parseInt(StrID.substring(3, 6)) + 1;
+				sf2 = String.format("MOV%03d", Intlast);
+			} 
+			mov.setMov_id(sf2);
+			mov.setMov_empid(dto);
+			mov.setMov_dep(dto.getEmp_dep());
+			mov.setMov_pos(dto.getEmp_pos());
+			mov.setMov_process("NewEntery");
+			mov.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
+			mov.setMov_create(now);
+			//mov.setMov_update(now);
+			try {
+				MovementService.save(mov);
+			} catch (Exception e) {
+				model.addAttribute("err", "Register fail");
+				return "EMS-STI-001";
+			}
+			//movement end
+			
 			return "redirect:/setupaddstaff";
 		} catch (Exception e) {
 			model.addAttribute("err", "Register fail");
 			return "EMS-STI-001";
 		}
+				
 	}
 	
 	@RequestMapping(value = "/setupstaffupdate", method = RequestMethod.GET)

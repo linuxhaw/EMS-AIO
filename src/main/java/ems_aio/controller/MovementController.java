@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ems_aio.dao.DepartmentService;
+import ems_aio.dao.MovementService;
 import ems_aio.dao.PositionService;
 import ems_aio.dao.StaffService;
 import ems_aio.dto.EmpMovDto;
@@ -55,7 +56,7 @@ public class MovementController {
 	@Autowired
 	private PositionService PositionService;
 	@Autowired
-	private ems_aio.dao.MovementService MovementService;
+	private MovementService MovementService;
 	@Autowired
 	private StaffService StaffService;
 //	
@@ -120,8 +121,7 @@ public class MovementController {
 	}
 
 	@RequestMapping(value = "/setupaddmovement", method = RequestMethod.GET)
-	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model,
-			HttpServletRequest request) {
+	public ModelAndView setupsalary(@ModelAttribute("bean") StaffBean bean, ModelMap model,	HttpServletRequest request) {
 		EmpMovDto chk = MovementService.findLastID();
 		int Intlast = 0;
 		String sf2;
@@ -149,18 +149,19 @@ public class MovementController {
 		if (bs.hasErrors()) {
 			return "EMS-STM-002";
 		}
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		Timestamp now = new Timestamp(date.getTime());
+		EmpMovDto mov=MovementService.getMovLast(bean.getSid().getEmp_id()).get();
+		
+		Timestamp now = new Timestamp(new Date().getTime());
 		EmpMovDto dto = new EmpMovDto();		
 		String process=bean.getProcess();
 		if (process!=null) {
-			StaffDto st=(StaffDto)session.getAttribute("sesUser");
+			//StaffDto st=(StaffDto)session.getAttribute("sesUser");
 			dto.setMov_id(bean.getId());
 			dto.setMov_empid(bean.getSid());
-			dto.setMov_admin(st);
+			//dto.setMov_admin(st);
 			dto.setMov_remark(bean.getRemark());
 			dto.setMov_create(now);
+			dto.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
 			if (process.equals("promotion") || process.equals("demotion")) {
 				dto.setMov_pos(bean.getPos());
@@ -184,7 +185,9 @@ public class MovementController {
 			}
 			try {
 				staff.setEmp_update(now);
+				mov.setMov_end(java.sql.Date.valueOf(java.time.LocalDate.now()));
 				StaffService.update(staff, staff.getEmp_id());
+				MovementService.update(mov);
 
 			} catch (Exception e) {
 				System.out.println(e.toString());

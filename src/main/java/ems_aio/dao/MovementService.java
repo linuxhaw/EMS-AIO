@@ -33,6 +33,11 @@ public class MovementService {
 		EmpMovDto list = repo.findLastID();
 		return list;
 	}
+	
+	//Update
+	public void update(EmpMovDto data) {
+		repo.save(data);
+	}
 
 //getting a specific record by using the method findById() of	CrudRepository
 
@@ -78,5 +83,9 @@ public class MovementService {
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
 		return this.repo.findBlacklist(pageable);
 		
+	}
+	//get employee current movement
+	public Optional<EmpMovDto> getMovLast(String id) {
+		return repo.findLastmov(id);
 	}
 }

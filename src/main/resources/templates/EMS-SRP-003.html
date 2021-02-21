@@ -15,57 +15,71 @@
 			<form>
 
 				<div class="row">
-					<div class="col-md-4 pl-8">
+				<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUserId">UserId</label>
 							<p id="exampleInputUserId" class="form-control" th:text="${session.sesUser.emp_id}"></p>
 						</div>
 					</div>
-					<div class="col-md-4 pl-8">
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUsername">Username</label>
 							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_name}"></p>
 						</div>
 					</div>
-					<div class="col-md-4 pl-8">
-						<div class="form-group">
-							<label for="exampleInputNRC">NRC</label>
-							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_nrc}"></p>
-						</div>
-					</div>
-
+					
 				</div>
 				<div class="row">
-					<div class="col-md-4 pl-8">
+				<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label>
 							<p id="exampleInputEmail1" class="form-control" th:text="${session.sesUser.emp_email}"></p>
 						</div>
 						&emsp;&emsp;&emsp;&emsp;&emsp;
 					</div>
-					<div class="col-md-4 pl-8">
+					
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label for="exampleInputNRC">NRC</label>
+							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_nrc}"></p>
+						</div>
+					</div>
+					
+					
+
+				</div>
+				
+				
+				<div class="row"> 
+				<div class="col-md-1 "></div>
+				
+				<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUserPhone">Phone</label>
 							<p id="exampleInputUserPhone" class="form-control" th:text="${session.sesUser.emp_phone}"></p>
 						</div>
 
 					</div>
-					<div class="col-md-4 pl-8">
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputNRC">Religion</label>
 							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_religion}"></p>
 						</div>
 					</div>
-
+				
 				</div>
+				
 				<div class="row">
-					<div class="col-md-4 pl-8">
+				<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputNRC">Race</label>
 							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_nationality}"></p>
 						</div>
 					</div>
-					<div class="col-md-4 pl-8">
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label>Gender</label>
 							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_gender}"></p>
@@ -73,22 +87,24 @@
 						</div>
 					</div>
 
-					<div class="col-md-4 pl-8">
-						<div class="form-group">
-							<label>MARRAGE STATUS</label>
-							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_marrage}"></p>
-
-						</div>
-					</div>
+					
 
 				</div>
 
 				<div class="row">
-					<div class="col-md-8">
+				<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label>Address</label>
 							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_address}"></p>
 
+
+						</div>
+					</div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>Marrage Status</label>
+							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_marrage}"></p>
 
 						</div>
 					</div>

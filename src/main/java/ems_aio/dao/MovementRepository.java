@@ -1,6 +1,7 @@
 package ems_aio.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,34 +17,38 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	
 	
 
-	@Query(value = "SELECT * FROM EMPMOV WHERE mov_process=?1 ORDER BY mov_create", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV WHERE mov_process=?1 ORDER BY mov_create desc", nativeQuery = true)
 	List<EmpMovDto> blacklist(String process);
 
 	@Query(value = "SELECT * FROM EMPMOV ORDER BY mov_create DESC LIMIT 1;", nativeQuery = true)
 	EmpMovDto findLastID();
 
 
-	@Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov_id =?1 OR n.mov_empid = ?1) ", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov_id =?1 OR n.mov_empid = ?1)  ORDER BY mov_create desc", nativeQuery = true)
 	List<EmpMovDto> find(String cname);
 
-	@Query(value = "SELECT * FROM EMPMOV ORDER BY mov_create", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV ORDER BY mov_create ORDER BY mov_create desc", nativeQuery = true)
 	List<EmpMovDto> gethistory();
 	
 	/*
 	 * @Query(value = "SELECT * FROM EMPMOV n WHERE (n.mov =?1 ) ", nativeQuery =
 	 * true) List<EmpMovDto> blacklist = null;
 	 */
-	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_id=?1 ", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV  n inner join memp001 m on n.mov_empid_emp_id=m.emp_id WHERE m.emp_name=?1 or n.mov_process=?1  ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findSearchPagi(String cname,Pageable pageable);
-	@Query(value = "SELECT * FROM EMPMOV  ", nativeQuery = true)
+	
+	@Query(value = "SELECT * FROM EMPMOV   ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findPagi(Pageable pageable);
 	
-	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_id=?1  AND n.mov_process='blackList' ORDER BY mov_create", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_id=?1  AND n.mov_process='BlackList' ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findSearchBlacklist(String cname,Pageable pageable);
 	
-	@Query(value = "SELECT * FROM EMPMOV WHERE mov_process='blackList' ORDER BY mov_create", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV WHERE mov_process='BlackList' ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findBlacklist(Pageable pageable);
 
 	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_empid_emp_id=?1 ORDER BY mov_create desc", nativeQuery = true)
 	List<EmpMovDto> stffmov(String cname);
+	
+	@Query(value = "SELECT * FROM EMPMOV n WHERE n.mov_empid_emp_id=?1 ORDER BY mov_create desc limit 1", nativeQuery = true)
+	Optional<EmpMovDto> findLastmov(String id);
 }

@@ -50,7 +50,10 @@
 						<th>Position</th>
 						<th>Department</th>
 						<th>Bank Account</th>
-						<th>Salary Amount</th>
+						<th>Basic Salary </th>
+						<th>Bonus</th>
+						<th>Deduction</th>
+						<th>Total </th>
 						<th>Date</th>
 
 					</thead>
@@ -59,6 +62,9 @@
 							<td th:text="${data.sal_pos.posname}" />
 							<td th:text="${data.sal_dep.name}" />
 							<td th:text="${data.sal_empid.emp_bnkacc}" />
+							<td th:text="${data.sal_salary}" />
+							<td th:text="${data.sal_salary}" />
+							<td th:text="${data.sal_salary}" />
 							<td th:text="${data.sal_salary}" />
 							<td th:text="${data.sal_date}" />
 						</tr>

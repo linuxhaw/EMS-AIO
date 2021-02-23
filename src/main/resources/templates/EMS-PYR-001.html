@@ -4,7 +4,46 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
+<script type="text/javascript">
+	// $(document).ready(function(e){
+
+	// 	$("input").change(function(){
+	// 		var total=0;
+	// 		$("input[name=sal]").each(function(){
+	// 			total=total+parseInt($(this).val());
+
+	// 		});
+	// 		$("input[name=sal_total]").val(sum);
+	// 	});
+	// });
+	// var first = document.getElementById('allowance');
+	// var second = document.getElementById('deduction');
+	// var result = document.getElementById('result');
+
+	// first.addEventListener("input", sum);
+	// second.addEventListener("input", sum);
+
+	// function sum() {
+
+	//  var one = parseFloat(first.value) || 0;
+	// var two = parseFloat(second.value) || 0;
+
+	// var add = one+two;
+
+	// result.innerHTML =  add;
+
+	document.addEventListener("input", function() {
+
+		var b = parseFloat(document.getElementById("allowance").value) || 0;
+		var c = parseFloat(document.getElementById("deduction").value) || 0;
+		var d = parseFloat(document.getElementById("salary").value) || 0;
+
+		document.getElementById("total").innerHTML = b + c - d;
+	});
+</script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="resources/js/allowance.js"></script>
+
 </head>
 <body>
 
@@ -13,7 +52,7 @@
 			<h5 class="card-title">Payroll Registration</h5>
 		</div>
 		<div class="card-body">
-			<script>
+			<script type="text/javascript">
 				function demo(selectObject) {
 					var value = selectObject.value;
 					if (value == "") {
@@ -24,12 +63,15 @@
 									console.log(data)
 								}).done(function(data) {
 							$("#name").val(data.emp_name);
+
 							$("#salpos").val(data.emp_pos.posid);
 							$("#salposname").val(data.emp_pos.posname);
 							$("#saldep").val(data.emp_dep.id);
 							$("#saldepname").val(data.emp_dep.name);
 							$("#salary").val(data.emp_payroll);
-							
+							$("#total").val(data.emp_payroll);
+							$("#allowance").val(0);
+							$("#deduction").val(0);
 
 						}).fail(function(data) {
 							console.log(data)
@@ -38,30 +80,42 @@
 						});
 					}
 				}
+
+				function cal() {
+					var alow = parseFloat(document.getElementById("allowance").value) || 0;//parseFloat(val.value)||0;
+					var ded = parseFloat(document.getElementById("deduction").value) || 0;
+					var sal = parseFloat(document.getElementById("salary").value) || 0;
+					//var c=parseFloat(document.getElementById("deduction").value)||0;
+					var result = alow + sal - ded;
+					$("#total").val(result);
+				}
 			</script>
 			<label style="color: blue;" th:text="${msg}"></label>
-			<form action="addsalary" method="post" th:object="${bean}">
+			<form action="/addsalary" method="post" th:object="${bean}">
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="exampleInputUsername">ID</label>
-							<input type="text" class="form-control" th:field="${bean.id}" readonly>
+							<label for="exampleInputUsername">ID</label> <input type="text"
+								class="form-control" th:field="${bean.id}" readonly>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 
 					<div class="col-md-5 ml-5">
-						<label for="staffId">Staff ID</label> <br>
-						<select class="form-control" th:onchange="demo(this)" th:field="*{sid}">
+						<label for="staffId">Staff ID</label> <br> <select
+							class="form-control" th:onchange="demo(this)" th:field="*{sid}">
 							<option value="">Select ID</option>
-							<option th:each="list:${session.stafflist}" th:value="${list.emp_id}" th:text="${list.emp_id}">
+							<option th:each="list:${session.stafflist}"
+								th:value="${list.emp_id}" th:text="${list.emp_id}">
 						</select>
 					</div>
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="Name">Staff Name</label>
-							<input type="text" class="form-control" th:field="*{name}" disabled>
+							<label for="Name">Staff Name</label> <input type="text"
+								class="form-control" th:field="*{name}" disabled>
+
+
 						</div>
 					</div>
 
@@ -71,56 +125,81 @@
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="Name">Position</label>
-							<input type="text" class="form-control" th:field="*{salposname}" readonly>
-							<input type="hidden" class="form-control" th:field="*{salpos}" >
+							<label for="Name">Position</label> <input type="text"
+								class="form-control" th:field="*{salposname}" readonly>
+							<input type="hidden" class="form-control" th:field="*{salpos}">
 						</div>
 					</div>
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="Name">Department</label>
-							<input type="text" class="form-control" th:field="*{saldepname}" readonly>
-							<input type="hidden" class="form-control" th:field="*{saldep}" >
+							<label for="Name">Department</label> <input type="text"
+								class="form-control" th:field="*{saldepname}" readonly>
+							<input type="hidden" class="form-control" th:field="*{saldep}">
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="row">
+
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="payment">Basic Salary </label> <input readonly
+								type="text" style="text-align: right;" class="form-control"
+								th:field="*{salary}">
+
 						</div>
 					</div>
 
 				</div>
 
 				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="allowance">Allowance</label> <input name="sal"
+								id="allowance" type="number" th:onchange="cal()"
+								style="text-align: right;" class="form-control"
+								th:field="*{allowance}">
+						</div>
+					</div>
 
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label for="currentDepartment">Salary </label>
-							<input  type="text" class="form-control" th:field="*{salary}">
+							<label for="deduction">Deduction</label> <input name="sal"
+								id="deduction" style="text-align: right;" type="number"
+								th:onchange="cal()" class="form-control" th:field="*{deduction}">
 						</div>
 					</div>
-					
 				</div>
 
+				<div class="row">
+					<div class="col-md-5 ml-5">
+						<div class="form-group">
+							<label for="deduction">Total</label> <input readonly id="total"
+								type="text" style="text-align: right;" class="form-control"
+								th:field="*{total}">
+						</div>
+					</div>
+				</div>
 
 
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group">
-							<label>Date</label>
-							<input type="date" class="form-control" th:field="*{saldate}" required>
+							<label>Date</label> <input type="date" class="form-control"
+								th:field="*{saldate}" required>
 						</div>
 					</div>
 
 				</div>
 
 				<div class="row">
-					<!-- <div class="col-md-6 text-center">
-						<div class="form-group">
-							<label></label>
-							<input class="btn btn-secondary" placeholder="Here can be your description" type="button" value="Back">
-						</div>
-					</div> -->
 
 					<div class=" col-md-6 text-center">
 						<div class="form-group">
-							<label></label>
-							<input class="btn btn-primary " type="submit" value="Register">
+							<label></label> <input class="btn btn-primary " type="submit"
+								value="Register">
 						</div>
 					</div>
 

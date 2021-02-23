@@ -44,7 +44,7 @@
 			<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
-						<!-- <th>ID</th> -->
+						<th>Staff ID</th>
 						<th>Name</th>
 						<th>Position</th>
 						<th>Department</th>
@@ -58,18 +58,13 @@
 				<tbody>
 						<tr th:each="data: ${movementlist}">
 							<!-- <td th:text="${data.mov_id}" /> -->
+							<td th:text="${data.mov_empid.emp_id}" />
 							<td th:text="${data.mov_empid.emp_name}" />
 							<td th:text="${data.mov_pos !=null } ? ${data.mov_pos.posname} : '-'" />
 							<td th:text="${data.mov_dep !=null } ? ${data.mov_dep.name} : '-'" />
 							<td th:text="${data.mov_process}" />
 							<td th:text="${data.mov_start}" />
-							<!-- <td th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' " /> -->
-							<!-- <td>
-							    <span th:if="${data.mov_end !=null}" th:text='${data.mov_end}'></span>
-							    <span th:if="${data.mov_process =='resignation'}"></span>
-							    <span th:if="${data.mov_process =='BlackList'}"></span>
-							    <span th:unless="${data.mov_end ==null}">Present</span>
-							</td> -->
+							
 							<td th:switch="${data.mov_process}">
 							    <span th:case="'BlackList'"></span>
 							    <span th:case="'resignation'"></span>

@@ -23,7 +23,7 @@ public interface StaffRepository extends CrudRepository<StaffDto, String> {
 	@Query(value = "SELECT * FROM memp001 n WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	List<StaffDto> find(String cname);
 
-	@Query(value = "SELECT * FROM memp001 n WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
+	@Query(value = "SELECT * FROM memp001 n inner join mrol001 r on n.emp_rol_rol_id=r.rol_id inner join mdep001 d on n.emp_dep_dep_id=d.dep_id inner join mpos001 m on n.emp_pos_pos_id=m.pos_id WHERE (n.EMP_ID =?1 OR n.EMP_NAME = ?1 OR m.pos_name=?1 OR d.dep_name=?1 OR r.rol_name=?1) AND EMP_status=1 AND emp_blacklist=0", nativeQuery = true)
 	Page<StaffDto> findSearchPagi(String cname,Pageable pageable);
 	
 	@Query(value="SELECT * FROM memp001 n WHERE EMP_status=1 AND emp_blacklist=0 ",nativeQuery=true)

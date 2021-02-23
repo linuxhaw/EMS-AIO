@@ -18,6 +18,9 @@ public class SalaryBean {
 	private String saldepname;
 	private Double salary;
 	private String saldate;
+	private Double allowance;
+	private Double deduction;
+	private Double total;
 	private Timestamp create;
 	public String getId() {
 		return id;
@@ -78,6 +81,24 @@ public class SalaryBean {
 	}
 	public void setCreate(Timestamp create) {
 		this.create = create;
+	}
+	public Double getAllowance() {
+		return allowance;
+	}
+	public void setAllowance(Double allowance) {
+		this.allowance = allowance;
+	}
+	public Double getDeduction() {
+		return deduction;
+	}
+	public void setDeduction(Double deduction) {
+		this.deduction = deduction;
+	}
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 	
 	

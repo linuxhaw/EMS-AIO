@@ -52,24 +52,26 @@ public class SalaryService {
 	}
 //	Hlwann
 //	pagi_service with findAll method
-	public Page<EmpSalDto>salaryPagi(String cname,	int PageNo,int PageSize){
+	public Page<EmpSalDto>salarySearchPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		return this.repo.findSearchPagi(cname, pageable);
-		
+		return this.repo.findSearchPagi(cname, pageable); 
 	}
-	public Page<EmpSalDto>salarySearchPagi(int PageNo,int PageSize){
+	
+	public Page<EmpSalDto>salaryPagi(int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
 		return this.repo.findPagi(pageable);
 		
 	}
 
-	public List<EmpSalDto> getStaffSal(String id) {
-		List<EmpSalDto> list= (List<EmpSalDto>) repo.stffsal(id);
-		return list;
+
+	public Page<EmpSalDto>salaryStaffPagi(String cname,	int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.findStaffPagi(cname, pageable); 
 	}
+	//zay
 	
-	public List<EmpSalDto> getStaffSalSearch(String id,String fromdate,String todate) {
+	/*public List<EmpSalDto> getStaffSalSearch(String id,String fromdate,String todate) {
 		List<EmpSalDto> list= (List<EmpSalDto>) repo.stffsalsearch(id,fromdate,todate);
 		return list;
-	}
+	}*/
 }

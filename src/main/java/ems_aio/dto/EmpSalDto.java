@@ -29,6 +29,12 @@ public class EmpSalDto {
 	@Column
 	private Date sal_date;
 	@Column
+	private Double sal_allowance;
+	@Column
+	private Double sal_deduction;
+	@Column
+	private Double sal_total;
+	@Column
 	private Timestamp sal_create;
 	public String getSal_id() {
 		return sal_id;
@@ -78,8 +84,32 @@ public class EmpSalDto {
 	public void setSal_create(Timestamp sal_create) {
 		this.sal_create = sal_create;
 	}
+
+	public Double getSal_allowance() {
+		return sal_allowance;
+	}
+	public void setSal_allowance(Double sal_allowance) {
+		this.sal_allowance = sal_allowance;
+	}
+	public Double getSal_deduction() {
+		return sal_deduction;
+	}
+	public void setSal_deduction(Double sal_deduction) {
+		this.sal_deduction = sal_deduction;
+	}
+	public Double getSal_total() {
+		return sal_total;
+	}
+	public void setSal_total(Double sal_total) {
+		this.sal_total = sal_total;
+	}
+	public EmpSalDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public EmpSalDto(String sal_id, StaffDto sal_empid, MPOS001 sal_pos, MDEP001 sal_dep, Double sal_salary,
-			StaffDto sal_admin, Date sal_date, Timestamp sal_create) {
+			StaffDto sal_admin, Date sal_date, Double sal_allowance, Double sal_deduction, Double sal_total,
+			Timestamp sal_create) {
 		super();
 		this.sal_id = sal_id;
 		this.sal_empid = sal_empid;
@@ -88,11 +118,10 @@ public class EmpSalDto {
 		this.sal_salary = sal_salary;
 		this.sal_admin = sal_admin;
 		this.sal_date = sal_date;
+		this.sal_allowance = sal_allowance;
+		this.sal_deduction = sal_deduction;
+		this.sal_total = sal_total;
 		this.sal_create = sal_create;
-	}
-	public EmpSalDto() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

@@ -9,18 +9,23 @@
 
 	<div layout:fragment="content">
 		<div class="card-header">
+		<div class="row">
+			<div class="col-md-7"></div>
+			<label style="color: red;font-weight:bolder;" th:text="${msg}"></label>
+		</div>
 			<div class="row">
+			
 				<div class="col-md-6">
 					<h4 class="card-title">Staff Report</h4>
 				</div>
 				<div class="row">
 <div class="col-md-6"></div>
-<div class="col-md-4">
+<div class="col-md-8">
 				<form th:action="@{/MngStaffInformation}" method="get" th:object="${bean}">
 				
 					<div class="input-group no-border" style="padding-top: 10px;">
-						<input type="text" class="form-control" placeholder="Search..." th:value="*{id}" 	th:field="*{id}">
-						<input type="text" class="form-control" th:field="*{id}"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+						<input type="text" class="form-control" placeholder="Search..."
+						th:value="*{id}" 	th:field="*{id}">
 						<div class="input-group-append">
     <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2"></button>
   </div>
@@ -122,7 +127,7 @@
 <div th:if="${id}==null">
 <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/MngStaffInformation/page/'+${totalPages}}">Last</a>
  </div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/MngStaffInformation/searchpage/'+${totalPages}+'?id='+${id}}">Last</a> 
-</div>
+</div><span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
 </li>
 </ul>
 </nav>

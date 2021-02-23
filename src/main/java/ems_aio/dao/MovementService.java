@@ -18,23 +18,14 @@ public class MovementService {
 	@Autowired
 	MovementRepository repo;
 
-	public List<EmpMovDto> getsearch(String id) {
-		List<EmpMovDto> list = (List<EmpMovDto>) repo.find(id);
-		return list;
-	}
-
-	public List<EmpMovDto> getAll() {
-		List<EmpMovDto> list = (List<EmpMovDto>) repo.gethistory();
-		return list;
-	}
 
 	// aung
 	public EmpMovDto findLastID() {
 		EmpMovDto list = repo.findLastID();
 		return list;
 	}
-	
-	//Update
+
+	// Update
 	public void update(EmpMovDto data) {
 		repo.save(data);
 	}
@@ -57,34 +48,51 @@ public class MovementService {
 		List<EmpMovDto> list = (List<EmpMovDto>) repo.blacklist("blacklist");
 		return list;
 	}
-	//zay
+
+	// zay
 	public List<EmpMovDto> getStaffMov(String id) {
-		List<EmpMovDto> list= (List<EmpMovDto>) repo.stffmov(id);
+		List<EmpMovDto> list = (List<EmpMovDto>) repo.stffmov(id);
 		return list;
 	}
+
+	public Page<EmpMovDto> movementStaffPagi(String id, int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
+		return this.repo.findStaffPagi(id, pageable);
+
+	}
+
+	public Page<EmpMovDto> movementStaffSearchPagi(String search, String id, int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
+		return this.repo.findStaffSearchPagi(search, id, pageable);
+	}
+
 //	Hlwann
 //	pagi_service with findAll method
-	public Page<EmpMovDto>movementSearchPagi(String cname,int PageNo,int PageSize){
-		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-	return this.repo.findSearchPagi(cname, pageable);
-		
+	public Page<EmpMovDto> movementSearchPagi(String cname, int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
+		return this.repo.findSearchPagi(cname, pageable);
+
 	}
-	public Page<EmpMovDto>movementPagi(int PageNo,int PageSize){
-		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+
+	public Page<EmpMovDto> movementPagi(int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
 		return this.repo.findPagi(pageable);
-		
+
 	}
-	public Page<EmpMovDto>blacklistSearch(String cname,int PageNo,int PageSize){
-		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-	return this.repo.findSearchBlacklist(cname, pageable);
-		
+
+	public Page<EmpMovDto> blacklistSearch(String cname, int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
+		return this.repo.findSearchBlacklist(cname, pageable);
+
 	}
-	public Page<EmpMovDto>blacklist(int PageNo,int PageSize){
-		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+
+	public Page<EmpMovDto> blacklist(int PageNo, int PageSize) {
+		Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
 		return this.repo.findBlacklist(pageable);
-		
+
 	}
-	//get employee current movement
+
+	// get employee current movement
 	public Optional<EmpMovDto> getMovLast(String id) {
 		return repo.findLastmov(id);
 	}

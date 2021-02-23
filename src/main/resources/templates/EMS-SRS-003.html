@@ -13,23 +13,35 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="card-title">Salary History</h4>
-					<form action="/salarysearch" method="get" th:object="${date}">
+					<form th:action="@{/StaffSalary}" th:object="${bean}">
 						<div class="row">
+							<input th:field="*{id}" th:value="*{id}" type="hidden">
 							<div class="col-md-4">
 								<div class="font-weight-bolder">From</div>
 								<div class="input-group no-border">
-									<input type="date" class="form-control" placeholder="Year.." th:field="*{saldate1}">
+									<input type="date" value="" class="form-control"
+										placeholder="Year..">
+									<!-- <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i class="now-ui-icons ui-1_zoom-bold"></i>
+                        </div>
+                      </div> -->
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="font-weight-bolder">To</div>
 								<div class="input-group no-border">
-									<input type="date"  id="from" class="form-control" placeholder="From This Month..." th:field="*{saldate2}">
-									
+									<input type="date" value="" id="from" class="form-control"
+										placeholder="From This Month...">
+									<!-- <div class="input-group-append">
+                            <div class="input-group-text">
+                              <i class="now-ui-icons ui-1_zoom-bold"></i>
+                            </div>
+                          </div> -->
 								</div>
 							</div>
 							<div class="col-md-2 pt-3">
-								<input type="submit" class="btn btn-round btn-primary" value="Search"></input>
+								<div class="btn btn-round btn-primary">search</div>
 							</div>
 							<div class="col-md-1 pt-3">
 								<input type="reset" class="btn btn-round btn-primary"> </input>
@@ -47,28 +59,32 @@
 				<table class="table">
 					<thead class=" text-primary">
 
-						<th>Position</th>
-						<th>Department</th>
-						<th>Bank Account</th>
-						<th>Basic Salary </th>
-						<th>Bonus</th>
-						<th>Deduction</th>
-						<th>Total </th>
-						<th>Date</th>
+						<th class="text-center">Position</th>
+						<th class="text-center">Department</th>
+						<th class="text-center">Bank Account</th>
+						<th class="text-center">Salary</th>
+						<th class="text-center">Allowance</th>
+						<th class="text-center">Deduction</th>
+						<th class="text-center">Total</th>
+						<th class="text-center">Date</th>
 
 					</thead>
 					<tbody>
 						<tr th:each="data: ${sallist}">
-							<td th:text="${data.sal_pos.posname}" />
-							<td th:text="${data.sal_dep.name}" />
-							<td th:text="${data.sal_empid.emp_bnkacc}" />
-							<td th:text="${data.sal_salary}" />
-							<td th:text="${data.sal_salary}" />
-							<td th:text="${data.sal_salary}" />
-							<td th:text="${data.sal_salary}" />
-							<td th:text="${data.sal_date}" />
+							<td class="text-center" th:text="${data.sal_pos.posname}" />
+							<td class="text-center" th:text="${data.sal_dep.name}" />
+							<td class="text-center" th:text="${data.sal_empid.emp_bnkacc}" />
+							<td class="text-right" th:text="${data.sal_salary}+'ks'" />
+							<td class="text-right"
+								th:text="${data.sal_allowance}!=null?${data.sal_allowance}+'ks':0.0" />
+							<td class="text-right"
+								th:text="${data.sal_deduction}!=null?${data.sal_deduction}+'ks':0.0" />
+							<td class="text-right"
+								th:text="(${data.sal_allowance}!=null?${data.sal_allowance}:0.0)+(${data.sal_deduction}!=null?${data.sal_deduction}:0.0)+${data.sal_salary}+'ks'" />
+
+							<td class="text-center" th:text="${data.sal_date}" />
 						</tr>
-						
+
 					</tbody>
 
 				</table>
@@ -84,30 +100,72 @@
                 
                   <a href="#">&raquo;</a>
                 </div></div>-->
-		<nav aria-label="pagination">
-			<ul class="pagination pagination-md justify-content-center">
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">Previous</span>
-                        <span class="sr-only">Previous</span>
-                      </a> --> <a class="page-link" href="#"
-					tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item active"><a
-					style="border-color: orangered; background-color: orangered;"
-					class="page-link" href="#">1</a></li>
+		<div th:if="${totalPages>1}">
 
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">Next</span>
-                        <span class="sr-only">Next</span>
-                      </a> --> <a class="page-link" href="#"
-					tabindex="+1">Next</a>
 
-				</li>
-			</ul>
-		</nav>
+			<nav>
+				<ul class="pagination pagination-md justify-content-center">
+					<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+					<li class="page-item">
+						<div th:if="${id}==null">
+							<a class="page-link active" th:if="${currentPage>1}"
+								aria-label="Previous" th:href="@{'/StaffSalary/page/1' }">First</a>
+						</div>
+						<div th:if="${id}!=null">
+							<a class="page-link active" th:if="${currentPage>1}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/searchpage/1' +'?id='+${id}}">First</a>
+						</div> <span class="page-link" th:unless="${currentPage>1}">First</span>
+					</li>
+					<li class="page-item">
+						<div th:if="${id}==null">
+							<a class="page-link active" th:if="${currentPage>1}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/page/'+${currentPage-1}}">Previous</a>
+						</div>
+						<div th:if="${id}!=null">
+							<a class="page-link active" th:if="${currentPage>1}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/searchpage/'+${currentPage-1}+'?id='+${id}}">Previous</a>
+						</div> <span class="page-link" th:unless="${currentPage>1}">Previous</span>
+
+					</li>
+					<li class="page-item">
+						<div class="page-link active"
+							style="border-color: orangered; color: white; background-color: orangered;">[[${currentPage}]]</div>
+					</li>
+
+					<li class="page-item">
+						<!-- <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/displayrole/page/'+${currentPage+1}}">Next</a> -->
+						<div th:if="${id}!=null">
+							<a class="page-link active" th:if="${currentPage<totalPages}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/searchpage/'+${currentPage+1}+'?id='+${id}}">Next</a>
+						</div>
+						<div th:if="${id}==null">
+							<a class="page-link active" th:if="${currentPage<totalPages}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/page/'+${currentPage+1}}">Next</a>
+						</div> <span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+					</li>
+					<li class="page-item">
+						<div th:if="${id}==null">
+							<a class="page-link active" th:if="${currentPage<totalPages}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/page/'+${totalPages}}">Last</a>
+						</div>
+						<div th:if="${id}!=null">
+							<a class="page-link active" th:if="${currentPage<totalPages}"
+								aria-label="Previous"
+								th:href="@{'/StaffSalary/searchpage/'+${totalPages}+'?id='+${id}}">Last</a>
+						</div> <span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
-	
+
 </body>
 </html>

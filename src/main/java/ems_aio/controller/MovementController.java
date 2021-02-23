@@ -224,18 +224,10 @@ public class MovementController {
 	}
 
 	
-//	@RequestMapping(value="/setupRepoetBlackList" ,method=RequestMethod.GET)
-//	public ModelAndView setupRepoetBlackList(Model model) {
-//		List<EmpMovDto> list;
-//		list = MovementService.getBlackList();
-//		StaffBean bean=new StaffBean();
-//		model.addAttribute("bean", bean);
-//		//return new ModelAndView("EMS-STI-003", "blacklist", list);
-//		return new ModelAndView("EMS-ARB-003","blacklist",list);
-//	}
+
 	@GetMapping("/setupReportBlackList/page/{pageNo}")
 	public String displayBlackListReport(@PathVariable("pageNo")int pageNo,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 	StaffBean bean=new StaffBean();
 		Page<EmpMovDto> page=MovementService.blacklist(pageNo, pageSize);
 		List<EmpMovDto> pagi=page.getContent();

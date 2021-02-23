@@ -66,7 +66,7 @@ public class SalaryController {
 	public String displaySalaryList(@PathVariable("pageNo") int pageNo, Model model) {
 		int pageSize = 6;
 		SalaryBean bean = new SalaryBean();
-		Page<EmpSalDto> page = SalaryService.salarySearchPagi(pageNo, pageSize);
+		Page<EmpSalDto> page = SalaryService.salaryPagi(pageNo, pageSize);
 		List<EmpSalDto> pagi = page.getContent();
 		model.addAttribute("bean", bean);
 		model.addAttribute("salarylist", pagi);
@@ -84,7 +84,7 @@ public class SalaryController {
 		model.addAttribute("id", id);
 		bean.setId(id);
 		model.addAttribute("bean", bean);
-		Page<EmpSalDto> page = SalaryService.salaryPagi(id, pageNo, pageSize);
+		Page<EmpSalDto> page = SalaryService.salarySearchPagi(id, pageNo, pageSize);
 		List<EmpSalDto> list = page.getContent();
 		if (id.equals("")) {
 			model.addAttribute("msg", "Please Enter data to search!");
@@ -117,7 +117,7 @@ public class SalaryController {
 	// SalaryList
 	@GetMapping("/displaysalarylist/page/{pageNo}")
 	public String displaySalary(@PathVariable("pageNo") int pageNo, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		StaffBean bean = new StaffBean();
 		Page<StaffDto> page = StaffService.staffPagi(pageNo, pageSize);
 		List<StaffDto> pagi = page.getContent();
@@ -134,7 +134,7 @@ public class SalaryController {
 
 	@GetMapping("/displaysalarylist/searchpage/{pageNo}")
 	public String displaySerachPay(@PathVariable("pageNo") int pageNo, @Param("id") String id, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		StaffBean bean = new StaffBean();
 		model.addAttribute("id", id);
 		bean.setId(id);
@@ -148,7 +148,7 @@ public class SalaryController {
 		}
 		if (list.size() == 0) {
 			model.addAttribute("msg", " DATA  NOT  FOUND!");
-			return "EMS-PYR-003";
+			return "EMS-PYL-003";
 		} else {
 			model.addAttribute("paylist", list);
 			model.addAttribute("totalPages", page.getTotalPages());
@@ -157,7 +157,7 @@ public class SalaryController {
 			model.addAttribute("totalElements", page.getTotalElements());
 			model.addAttribute("currentPage", pageNo);
 		}
-		return "EMS-PYR-003";
+		return "EMS-PYL-003";
 
 	}
 
@@ -189,7 +189,6 @@ public class SalaryController {
 		}
 
 		data.setId(sf2);
-		model.addAttribute("bean", data);
 
 		List<StaffDto> stflist = StaffService.getAll();
 		request.getSession().setAttribute("stafflist", stflist);
@@ -200,7 +199,7 @@ public class SalaryController {
 	public String updaterole(@ModelAttribute("bean") @Validated SalaryBean bean, BindingResult bs, ModelMap model,
 			RedirectAttributes redirAttrs, HttpSession session) {
 		if (bs.hasErrors()) {
-			return "EMS-PYR-001";
+			return "EMS-MSR-002";
 		}
 		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
 
@@ -212,7 +211,10 @@ public class SalaryController {
 		dto.setSal_empid(bean.getSid());
 		dto.setSal_dep(bean.getSaldep());
 		dto.setSal_pos(bean.getSalpos());
+		dto.setSal_allowance(bean.getAllowance());
+		dto.setSal_deduction(bean.getDeduction());;
 		dto.setSal_salary(bean.getSalary());
+		dto.setSal_total(bean.getTotal());
 		dto.setSal_admin(staff);
 		dto.setSal_date(java.sql.Date.valueOf(bean.getSaldate()));
 		dto.setSal_create(now);

@@ -52,6 +52,7 @@ public class ManagerViewController {
 
 	@RequestMapping(value = "/ManagerProfile", method = RequestMethod.GET)
 	public ModelAndView setupStaffList() {
+		
 		return new ModelAndView("EMS-MRI-003", "user", new UserBean());
 	}
 	/*
@@ -78,7 +79,7 @@ public class ManagerViewController {
 //	}
 	@GetMapping("/MngStaffInformation/page/{pageNo}")
 	public String displayStaffList(@PathVariable("pageNo")int pageNo,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		StaffBean bean=new StaffBean();
 		Page<StaffDto> page=StaffService.staffPagi(pageNo, pageSize);
 		List<StaffDto> pagi=page.getContent();
@@ -92,7 +93,7 @@ public class ManagerViewController {
 	}
 	@GetMapping("/MngStaffInformation/searchpage/{pageNo}")
 	public String displaySerachStaff(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		StaffBean bean=new StaffBean();
 		model.addAttribute("id",id);
 		bean.setId(id);

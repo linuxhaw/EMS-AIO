@@ -162,6 +162,7 @@ public class MovementController {
 			dto.setMov_remark(bean.getRemark());
 			dto.setMov_create(now);
 			dto.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
+			dto.setMov_salary(bean.getSalary());
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
 			if (process.equals("promotion") || process.equals("demotion")) {
 				dto.setMov_pos(bean.getPos());
@@ -241,7 +242,7 @@ public class MovementController {
 	}
 	@GetMapping("/setupReportBlackList/searchpage/{pageNo}")
 	public String displaySearchBlackList(@PathVariable("pageNo")int pageNo,@Param("id")String id,Model model) {
-		int pageSize=4;
+		int pageSize=6;
 		StaffBean bean=new StaffBean();
 		model.addAttribute("id",id);
 		bean.setId(id);

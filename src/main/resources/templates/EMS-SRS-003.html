@@ -12,42 +12,29 @@
 		<div class="card-header">
 			<div class="row">
 				<div class="col-md-8">
-					<h4 class="card-title">Salary History</h4>
-					<form th:action="@{/StaffSalary}" th:object="${bean}">
+					<h4 class="card-title">Salary History</h4><!-- 
+					<form th:action="@{/StaffSalary}" th:object="${date}" method="get">
 						<div class="row">
-							<input th:field="*{id}" th:value="*{id}" type="hidden">
 							<div class="col-md-4">
 								<div class="font-weight-bolder">From</div>
 								<div class="input-group no-border">
-									<input type="date" value="" class="form-control"
-										placeholder="Year..">
-									<!-- <div class="input-group-append">
-                        <div class="input-group-text">
-                          <i class="now-ui-icons ui-1_zoom-bold"></i>
-                        </div>
-                      </div> -->
+									<input type="date" th:field="*{saldate1}" class="form-control" >
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="font-weight-bolder">To</div>
 								<div class="input-group no-border">
-									<input type="date" value="" id="from" class="form-control"
-										placeholder="From This Month...">
-									<!-- <div class="input-group-append">
-                            <div class="input-group-text">
-                              <i class="now-ui-icons ui-1_zoom-bold"></i>
-                            </div>
-                          </div> -->
+									<input type="date" th:field="*{saldate2}" class="form-control" >
 								</div>
 							</div>
 							<div class="col-md-2 pt-3">
-								<div class="btn btn-round btn-primary">search</div>
+								<input type="submit" class="btn btn-round btn-primary"> </input>
 							</div>
 							<div class="col-md-1 pt-3">
 								<input type="reset" class="btn btn-round btn-primary"> </input>
 							</div>
 						</div>
-					</form>
+					</form> -->
 				</div>
 			</div>
 
@@ -71,7 +58,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="data: ${sallist}">
-							<td class="text-center" th:text="${data.sal_pos.posname}" />
+							<td  th:text="${data.sal_pos.posname}" />
 							<td class="text-center" th:text="${data.sal_dep.name}" />
 							<td class="text-center" th:text="${data.sal_empid.emp_bnkacc}" />
 							<td class="text-right" th:text="${data.sal_salary}+'ks'" />

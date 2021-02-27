@@ -18,9 +18,13 @@ public class MovementBean {
 	private MDEP001 predep;
 	private MDEP001 dep;
 	private String depname;
+	private Double presalary;
+	private Double salary;
 	private String remark;
 	private String process;
 	private Timestamp create;
+	private String search;
+	
 	public String getId() {
 		return id;
 	}
@@ -92,6 +96,24 @@ public class MovementBean {
 	}
 	public void setCreate(Timestamp create) {
 		this.create = create;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public Double getSalary() {
+		return salary;
+	}
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+	public Double getPresalary() {
+		return presalary;
+	}
+	public void setPresalary(Double presalary) {
+		this.presalary = presalary;
 	}
 	
 }

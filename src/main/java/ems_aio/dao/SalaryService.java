@@ -66,7 +66,12 @@ public class SalaryService {
 
 	public Page<EmpSalDto>salaryStaffPagi(String cname,	int PageNo,int PageSize){
 		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
-		return this.repo.findStaffPagi(cname, pageable); 
+		return this.repo.salaryStaffPagi(cname, pageable); 
+	}
+	
+	public Page<EmpSalDto>salaryStaffSearchPagi(String cname,String date1,String date2,int PageNo,int PageSize){
+		Pageable pageable=PageRequest.of(PageNo-1, PageSize);
+		return this.repo.salaryStaffSearchPagi(cname,date1,date2, pageable); 
 	}
 	//zay
 	

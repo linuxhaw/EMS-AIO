@@ -19,6 +19,7 @@
 									<th>Department Name</th>
 									<th>Phone No</th>
 									<th>Gender</th>
+									<th>Action</th>
 								</thead>
 								</table>`;
 				if (value == "") {
@@ -36,12 +37,8 @@
 						$("#list").val(data.list);
 						var data= data.list;
 						
-						data.forEach(item => { table.innerHTML += "<tr><td>" + item.emp_id + "</td><td>"+ item.emp_name +"</td><td>"+ item.emp_dep.name +"</td><td>"+ item.emp_phone +"</td><td>" + item.emp_gender + "</td></tr>"; });
-						/* for(var i=1;i<table.rows.length;i++){
-							for(var j=0;j<table.rows[i].cells.length;j++){
-								table.rows[i].cells[j].innerHTML=array[i-1][j];
-							}
-						} */
+						data.forEach(item => { table.innerHTML += "<tr><td>" + item.emp_id + "</td><td>"+ item.emp_name +"</td><td>"+ item.emp_dep.name +"</td><td>"+ item.emp_phone +"</td><td>" + item.emp_gender + "</td><td>"+"<a href=MngStaffInformationDetail?id="+item.emp_id+"><input type='button' value='Detail' class='btn btn-round btn-primary'/></a>" + "</td></tr>"; });
+						
 					}).fail(function(data) {
 						console.log(data)
 						alert("error");
@@ -91,6 +88,7 @@
 							<th>Department Name</th>
 							<th>Phone No</th>
 							<th>Gender</th>
+							<th>Action</th>
 						</thead>
 						
 					</table>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{manager-layout}">
+<head>
+<title>Welcome to Our Site</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-md-6">
+					<h4 class="card-title">Movement History</h4>
+				</div>
+			
+			</div>
+		</div>
+
+		<div class="card-body">
+
+			<div class="table-responsive">
+				<table class="table">
+					<thead class=" text-primary">
+
+						<th>Position</th>
+						<th>Department</th>
+						<th>Transaction</th>
+						<th>Start</th>
+						<th>End</th>
+						<th>Salary</th>
+						<th>Remark</th>
+
+					</thead>
+					<tbody>
+						<tr th:each="data: ${movlist}">
+							<td th:text="${data.mov_pos.posname}" />
+							<td th:text="${data.mov_dep.name}" />
+							<td th:text="${data.mov_process}" />
+							<td th:text="${data.mov_start}" />
+							<td th:switch="${data.mov_process}">
+							    <span th:case="'BlackList'"></span>
+							    <span th:case="'resignation'"></span>
+								<span th:case="*" th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' "></span>
+							</td>
+							<td th:text="${data.mov_salary !=null } ? ${data.mov_salary} : '-'" />
+							<td th:text="${data.mov_remark}" />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div th:if="${totalPages>1}">
+
+
+ <nav>
+<ul class="pagination pagination-md justify-content-center">
+<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/ManagerMovement/page/1' }">First</a>
+  </div><div th:if="${id}!=null"> 
+ <a class="page-link active" th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/ManagerMovement/searchpage/1' +'?id='+${id}}">First</a> 
+ </div>
+<span class="page-link" th:unless="${currentPage>1}">First</span>
+</li>
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/ManagerMovement/page/'+${currentPage-1}}">Previous</a>
+</div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage>1}" aria-label="Previous" th:href="@{'/displaymovement/searchpage/'+${currentPage-1}+'?id='+${id}}">Previous</a> 
+</div> 
+<span class="page-link" th:unless="${currentPage>1}">Previous</span>
+
+</li>
+<li class="page-item">
+<div class="page-link active" style="border-color: orangered;color:white; background-color: orangered;" >[[${currentPage}]]</div>
+</li>
+
+<li class="page-item">
+
+ <div th:if="${id}!=null">
+ <a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/ManagerMovement/searchpage/'+${currentPage+1}+'?id='+${id}}">Next</a>
+</div>
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/ManagerMovement/page/'+${currentPage+1}}">Next</a>
+</div>
+
+
+<span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+</li>
+<li class="page-item">
+<div th:if="${id}==null">
+<a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/ManagerMovement/page/'+${totalPages}}">Last</a>
+ </div><div th:if="${id}!=null"><a class="page-link active"  th:if="${currentPage<totalPages}" aria-label="Previous" th:href="@{'/ManagerMovement/searchpage/'+${totalPages}+'?id='+${id}}">Last</a> 
+</div><span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+</li>
+</ul>
+</nav>
+</div>
+	</div>
+	
+</body>
+</html>

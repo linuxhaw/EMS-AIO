@@ -251,6 +251,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 			mov.setMov_dep(dto.getEmp_dep());
 			mov.setMov_pos(dto.getEmp_pos());
 			mov.setMov_process("NewEntery");
+			mov.setMov_salary(dto.getEmp_payroll());
 			mov.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
 			mov.setMov_create(now);
 			//mov.setMov_update(now);

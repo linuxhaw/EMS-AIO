@@ -75,8 +75,7 @@
 								th:text="${data.sal_allowance}!=null?${data.sal_allowance}+'ks':0.0" />
 							<td class="text-right"
 								th:text="${data.sal_deduction}!=null?${data.sal_deduction}+'ks':0.0" />
-							<td class="text-right"
-								th:text="(${data.sal_allowance}!=null?${data.sal_allowance}:0.0)+(${data.sal_deduction}!=null?${data.sal_deduction}:0.0)+${data.sal_salary}+'ks'" />
+							<td class="text-right" th:text="${data.sal_total}+'ks'" />
 
 							<td class="text-center" th:text="${data.sal_date}" />
 						</tr>

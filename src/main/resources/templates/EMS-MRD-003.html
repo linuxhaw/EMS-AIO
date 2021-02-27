@@ -19,7 +19,7 @@
 									<th>Position</th>
 									<th>Phone No</th>
 									<th>Gender</th>
-									<th>Status</th>
+									<th>Action</th>
 								</thead>
 								</table>`;
 				if (value == "") {
@@ -40,12 +40,10 @@
 						$("#location").val(data.location);
 						var data= data.list;
 						
-						data.forEach(item => { table.innerHTML += "<tr><td>" + item.emp_id + "</td><td>"+ item.emp_name +"</td><td>"+ item.emp_pos.posname +"</td><td>"+ item.emp_phone +"</td><td>" + item.emp_gender + "</td></tr>"+"Detail"; });
-						/* for(var i=1;i<table.rows.length;i++){
-							for(var j=0;j<table.rows[i].cells.length;j++){
-								table.rows[i].cells[j].innerHTML=array[i-1][j];
-							}
-						} */
+						data.forEach(item => { table.innerHTML += "<tr><td>" + item.emp_id + "</td><td>"+ 
+							item.emp_name +"</td><td>"+ item.emp_pos.posname +"</td><td>"+ item.emp_phone +"</td><td>" + item.emp_gender+ "</td><td>"+
+							"<a href=MngStaffInformationDetail?id="+item.emp_id+"><input type='button' value='Detail' class='btn btn-round btn-primary'/></a>" + "</td></tr>"; });
+					
 					}).fail(function(data) {
 						console.log(data)
 						alert("error");
@@ -58,36 +56,37 @@
 			<div class="card-header">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="exampleInputNRC">Department Name</label> <br>
-						<select name="department" class="form-control" th:onchange="demo(this)">
+						<label for="exampleInputNRC">Department Name</label> <br> <select
+							name="department" class="form-control" th:onchange="demo(this)">
 							<option value=""></option>
-							<option th:each="list:${session.deplist}" th:value="${list.id}" th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
+							<option th:each="list:${session.deplist}" th:value="${list.id}"
+								th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-4 pl-1">
 					<div class="form-group">
-						<label for="exampleInputNRC">Departmet ID</label>
-						<input type="text" class="form-control" th:field="*{id}" disabled>
+						<label for="exampleInputNRC">Departmet ID</label> <input
+							type="text" class="form-control" th:field="*{id}" disabled>
 
 					</div>
 				</div>
 				<div class="col-md-4 pl-1">
 					<div class="form-group">
-						<label for="exampleInputNRC">Deparetment Head</label>
-						<input type="text" class="form-control" th:field="*{head}" disabled>
+						<label for="exampleInputNRC">Deparetment Head</label> <input
+							type="text" class="form-control" th:field="*{head}" disabled>
 					</div>
 				</div>
 				<div class="col-md-4 pl-1">
 					<div class="form-group">
-						<label for="exampleInputNRC">Department Location</label>
-						<input type="text" class="form-control" th:field="*{location}" disabled>
+						<label for="exampleInputNRC">Department Location</label> <input
+							type="text" class="form-control" th:field="*{location}" disabled>
 					</div>
 				</div>
 				<div class="col-md-4 pl-1">
 					<div class="form-group">
-						<label for="exampleInputNRC">Total Employees</label>
-						<input type="text" class="form-control" th:field="*{total}" disabled>
+						<label for="exampleInputNRC">Total Employees</label> <input
+							type="text" class="form-control" th:field="*{total}" disabled>
 					</div>
 				</div>
 			</div>
@@ -102,7 +101,7 @@
 						<th>Position</th>
 						<th>Phone No</th>
 						<th>Gender</th>
-						<th>Status</th>
+						<th>Action</th>
 					</thead>
 					<tbody>
 					</tbody>

@@ -1,5 +1,9 @@
 package ems_aio.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +29,7 @@ import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.EmpSalDto;
 import ems_aio.dto.MPOS001;
 import ems_aio.dto.StaffDto;
+import ems_aio.model.DateBean;
 import ems_aio.model.MovementBean;
 import ems_aio.model.PositionBean;
 import ems_aio.model.SalaryBean;
@@ -46,15 +51,17 @@ public class StaffViewController {
 	}
 
 	@GetMapping("/StaffMovement/searchpage/{pageNo}")
-	public String displaySerachMovement(@PathVariable("pageNo") int pageNo, @Param("id") String search, HttpSession session,
-			Model model) {
-		int pageSize = 4;
+	public String displaySerachMovement(@PathVariable("pageNo") int pageNo, @Param("id") String search,
+			HttpSession session, Model model) {
+		int pageSize = 6;
 		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
 		String id = staff.getEmp_id();
 		UserBean bean = new UserBean();
-		bean.setId(id);
+		bean.setId(search);
 		model.addAttribute("bean", bean);
-		Page<EmpMovDto> page = MovementService.movementStaffSearchPagi(search,id, pageNo, pageSize);
+		System.out.println(search);
+		System.out.println(id);
+		Page<EmpMovDto> page = MovementService.movementStaffSearchPagi(search, id, pageNo, pageSize);
 		List<EmpMovDto> list = page.getContent();
 
 		if (id.equals("")) {
@@ -76,13 +83,15 @@ public class StaffViewController {
 
 	@GetMapping("/StaffMovement/page/{pageNo}")
 	public String displayStaffMovement(@PathVariable("pageNo") int pageNo, HttpSession session, Model model) {
-		int pageSize = 4;
+		int pageSize = 6;
 		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
 		String id = staff.getEmp_id();
 
-		UserBean bean = new UserBean();
-		bean.setId(id);
-		model.addAttribute("bean", bean);
+		/*
+		 * UserBean bean = new UserBean(); bean.setId(id); model.addAttribute("bean",
+		 * bean);
+		 */
+
 		Page<EmpMovDto> page = MovementService.movementStaffPagi(id, pageNo, pageSize);
 		List<EmpMovDto> list = page.getContent();
 		model.addAttribute("movlist", list);
@@ -97,14 +106,13 @@ public class StaffViewController {
 	@GetMapping("/StaffMovement")
 	public String displayMovement(@ModelAttribute("bean") MovementBean bean, HttpSession session, Model model) {
 		String id = bean.getId();
-		if(id!=null) {
-			model.addAttribute("id",id);
-			return displaySerachMovement(1,id,  session, model);
-		}else {
-			return displayStaffMovement(1,  session, model);
+		if (id != null) {
+			return displaySerachMovement(1, id, session, model);
+		} else {
+
+			return displayStaffMovement(1, session, model);
 		}
 	}
-
 
 //	@RequestMapping(value="/StaffSalary" ,method=RequestMethod.GET)
 //	public ModelAndView StaffSalary(HttpSession session,Model model) {
@@ -131,16 +139,16 @@ public class StaffViewController {
 //	}
 
 	@GetMapping("/StaffSalary/searchpage/{pageNo}")
-	public String displaySerachSalary(@PathVariable("pageNo") int pageNo, @Param("id") String id, HttpSession session,
-			Model model) {
-		int pageSize = 4;
+	public String displaySerachSalary(@PathVariable("pageNo") int pageNo, String date1, String date2,
+			HttpSession session, Model model) {
+		int pageSize = 6;
 		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
-		id = staff.getEmp_id();
+		String id = staff.getEmp_id();
 
 		UserBean bean = new UserBean();
 		bean.setId(id);
 		model.addAttribute("bean", bean);
-		Page<EmpSalDto> page = SalaryService.salaryPagi(pageNo, pageSize);
+		Page<EmpSalDto> page = SalaryService.salaryStaffSearchPagi(id, date1, date2, pageNo, pageSize);
 		List<EmpSalDto> list = page.getContent();
 
 		if (id.equals("")) {
@@ -160,12 +168,37 @@ public class StaffViewController {
 
 	}
 
+	@GetMapping("/StaffSalary/page/{pageNo}")
+	public String displaySerachSalary(@PathVariable("pageNo") int pageNo, HttpSession session, Model model) {
+		int pageSize = 6;
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		String id = staff.getEmp_id();
+
+		/*
+		 * UserBean bean = new UserBean(); bean.setId(id); model.addAttribute("bean",
+		 * bean);
+		 */
+		Page<EmpSalDto> page = SalaryService.salaryStaffPagi(id, pageNo, pageSize);
+		List<EmpSalDto> list = page.getContent();
+
+		if (list.size() == 0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-SRS-003";
+		} else {
+			model.addAttribute("sallist", list);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalElements", page.getTotalElements());
+			model.addAttribute("currentPage", pageNo);
+		}
+		return "EMS-SRS-003";
+
+	}
+
 	@GetMapping("/StaffSalary")
-	public String displaySalary(@ModelAttribute("bean") SalaryBean bean, HttpSession session, Model model) {
+	public String displaySalary(@ModelAttribute("bean") UserBean bean, HttpSession session, Model model) {
 		String id = bean.getId();
+		model.addAttribute("name", id);
 
-		model.addAttribute("id", id);
-		return displaySerachSalary(1, id, session, model);
-
+		return displaySerachSalary(1, session, model);
 	}
 }

@@ -14,86 +14,138 @@
 				<div class="col-md-6">
 					<h4 class="card-title">Movement History</h4>
 				</div>
-				<form>
-					<div class="row">
+				<div class="row">
+					<div class="col-md-6"></div>
+					<label style="color: blue;" th:text="${msg}"></label>
+				</div>
+				<div class="row">
 
-						<div class="col-md-8 pt-2 ml-4">
-							<div class="input-group no-border">
-								<input type="text" value="" class="form-control"
-									placeholder="search...">
+					<div class="col-md-10">
+						<!-- <form th:action="@{/StaffMovement}" method="get"
+							th:object="${bean}">
 
+							<div class="input-group no-border" style="padding-top: 10px;">
+								<input type="text" class="form-control" placeholder="Search..."
+									th:value="*{id}" th:field="*{id}">
 								<div class="input-group-append">
-									<div class="input-group-text">
-										<i class="now-ui-icons ui-1_zoom-bold"></i>
-									</div>
+									<button type="submit" class="btn-primary fa fa-search"
+										style="border-color: lightgrey; width: 45px; border-bottom-right-radius: 20px; border-top-right-radius: 20px;"
+										id="basic-addon2"></button>
 								</div>
-
 							</div>
-
-
-
-						</div>
-						<div class="col-md-2 ml-4 ">
-							<input class="btn btn-round btn-primary" type="reset">
-						</div>
+						</form> -->
 					</div>
-				</form>
+
+					<!-- <div class="col-md-2 ">
+						<a th:href="@{/StaffMovement}"> <input
+							class="btn btn-round btn-primary" type="reset"></a>
+					</div> -->
+				</div>
+			</div>
+
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table">
+						<thead class=" text-primary">
+
+							<th>Position</th>
+							<th>Department</th>
+							<th>Transaction</th>
+							<th>Start</th>
+							<th>End</th>
+							<th>Salary</th>
+							<th>Remark</th>
+
+						</thead>
+						<tbody>
+							<tr th:each="data: ${movlist}">
+								<td th:text="${data.mov_pos.posname}" />
+								<td th:text="${data.mov_dep.name}" />
+								<td th:text="${data.mov_process}" />
+								<td th:text="${data.mov_start}" />
+								<td th:switch="${data.mov_process}"><span
+									th:case="'BlackList'"></span> <span th:case="'resignation'"></span>
+									<span th:case="*"
+									th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' "></span>
+								</td>
+								<td th:text="${data.mov_salary !=null } ? ${data.mov_salary} : '-'" />
+								<td th:text="${data.mov_remark}" />
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div th:if="${totalPages>1}">
+
+
+				<nav>
+					<ul class="pagination pagination-md justify-content-center">
+						<!--  <li class="page-item" style="font-weight:bold;color:orangered;padding-top:9px;padding-right:20px;"> Total Rows : [[${totalElements}]]</li> -->
+						<li class="page-item">
+							<div th:if="${id}==null">
+								<a class="page-link active" th:if="${currentPage>1}"
+									aria-label="Previous" th:href="@{'/StaffMovement/page/1' }">First</a>
+							</div>
+							<div th:if="${id}!=null">
+								<a class="page-link active" th:if="${currentPage>1}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/searchpage/1' +'?search='+${id}}">First</a>
+							</div>
+							<div th:if="${name}!=null">
+								<a class="page-link active" th:if="${currentPage>1}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/searchpage/1' +'?id='+${id}}">First</a>
+							</div> <span class="page-link" th:unless="${currentPage>1}">First</span>
+						</li>
+						<li class="page-item">
+							<div th:if="${id}==null">
+								<a class="page-link active" th:if="${currentPage>1}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/page/'+${currentPage-1}}">Previous</a>
+							</div>
+							<div th:if="${id}!=null">
+								<a class="page-link active" th:if="${currentPage>1}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/searchpage/'+${currentPage-1}+'?search='+${id}}">Previous</a>
+							</div> <span class="page-link" th:unless="${currentPage>1}">Previous</span>
+
+						</li>
+						<li class="page-item">
+							<div class="page-link active"
+								style="border-color: orangered; color: white; background-color: orangered;">[[${currentPage}]]</div>
+						</li>
+
+						<li class="page-item">
+
+							<div th:if="${id}!=null">
+								<a class="page-link active" th:if="${currentPage<totalPages}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/searchpage/'+${currentPage+1}+'?search='+${id}}">Next</a>
+							</div>
+							<div th:if="${id}==null">
+								<a class="page-link active" th:if="${currentPage<totalPages}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/page/'+${currentPage+1}}">Next</a>
+							</div> <span class="page-link" th:unless="${currentPage<totalPages}">Next</span>
+
+						</li>
+						<li class="page-item">
+							<div th:if="${id}==null">
+								<a class="page-link active" th:if="${currentPage<totalPages}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/page/'+${totalPages}}">Last</a>
+							</div>
+							<div th:if="${id}!=null">
+								<a class="page-link active" th:if="${currentPage<totalPages}"
+									aria-label="Previous"
+									th:href="@{'/StaffMovement/searchpage/'+${totalPages}+'?search='+${id}}">Last</a>
+							</div> <span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
-
-		<div class="card-body">
-
-			<div class="table-responsive">
-				<table class="table">
-					<thead class=" text-primary">
-
-						<th>Position</th>
-						<th>Department</th>
-						<th>Transaction</th>
-						<th>Start</th>
-						<th>End</th>
-						<th>Remark</th>
-
-					</thead>
-					<tbody>
-						<tr th:each="data: ${movlist}">
-							<td th:text="${data.mov_pos.posname}" />
-							<td th:text="${data.mov_dep.name}" />
-							<td th:text="${data.mov_process}" />
-							<td th:text="${data.mov_start}" />
-							<td th:switch="${data.mov_process}">
-							    <span th:case="'BlackList'"></span>
-							    <span th:case="'resignation'"></span>
-								<span th:case="*" th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' "></span>
-							</td>
-							<td th:text="${data.mov_remark}" />
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<nav aria-label="pagination">
-			<ul class="pagination pagination-md justify-content-center">
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">Previous</span>
-                      <span class="sr-only">Previous</span>
-                    </a> --> <a class="page-link" href="#" tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item active"><a
-					style="border-color: orangered; background-color: orangered;"
-					class="page-link" href="#">1</a></li>
-
-				<li class="page-item">
-					<!-- <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">Next</span>
-                      <span class="sr-only">Next</span>
-                    </a> --> <a class="page-link" href="#" tabindex="+1">Next</a>
-
-				</li>
-			</ul>
-		</nav>
-	</div>
-	
 </body>
 </html>

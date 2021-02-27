@@ -44,7 +44,7 @@
 				<table class="table">
 					<thead class=" text-primary">
 
-						<th>No</th>
+						
 						<th>Staff ID</th>
 						<th>Staff Name</th>
 						<th>Position</th>
@@ -56,7 +56,7 @@
 					<tbody>
 
 						<tr th:each="data,num:${paylist}">
-							<td th:text="${num.index+1}"></td>
+							
 							<td th:text="${data.emp_id}"></td>
 							<td th:text="${data.emp_name}"></td>
 							<td th:text="${data.emp_pos.posname}"></td>

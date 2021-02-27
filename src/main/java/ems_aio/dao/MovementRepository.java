@@ -24,7 +24,7 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	EmpMovDto findLastID();
 
 
-	@Query(value = "SELECT * FROM EMPMOV  n inner join memp001 m on n.mov_empid_emp_id=m.emp_id WHERE m.emp_name=?1 or n.mov_process=?1  ORDER BY mov_create desc", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPMOV  n inner join memp001 m on n.mov_empid_emp_id=m.emp_id WHERE m.emp_name=?1 or m.emp_id=?1 or n.mov_process=?1  ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findSearchPagi(String cname,Pageable pageable);
 	
 	
@@ -48,6 +48,9 @@ public interface MovementRepository extends CrudRepository<EmpMovDto,String>{
 	@Query(value = "SELECT * FROM EMPMOV  n  WHERE  n.mov_empid_emp_id=?1  ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findStaffPagi(String id,Pageable pageable);
 	//zaybohein staff movement search pagi
-	@Query(value = "SELECT * FROM EMPMOV  n inner join memp001 m on n.mov_empid_emp_id=m.emp_id WHERE (m.emp_name=?1 or n.mov_process=?1) and n.mov_empid_emp_id=?2 ORDER BY mov_create desc", nativeQuery = true)
+
+	@Query(value = "SELECT * FROM EMPMOV  n inner join memp001 m inner join mpos001 p on m.emp_pos_pos_id=p.pos_id  on n.mov_empid_emp_id=m.emp_id WHERE (m.emp_name=?1 or n.mov_process=?1 or p.pos_name=?1) and n.mov_empid_emp_id=?2 ORDER BY mov_create desc", nativeQuery = true)
 	Page<EmpMovDto> findStaffSearchPagi(String search,String id,Pageable pageable);
+
+	
 }

@@ -51,6 +51,7 @@
 						<th>Transaction</th>
 						<th>Start</th>
 						<th>End</th>
+						<th>Salary</th>
 						<th>Remark</th>
 						
 
@@ -70,6 +71,7 @@
 							    <span th:case="'resignation'"></span>
 								<span th:case="*" th:text="${data.mov_end !=null} ? ${data.mov_end}:'Present' "></span>
 							</td>
+							<td th:text="${data.mov_salary !=null } ? ${data.mov_salary} : '-'" />
 							<td th:text="${data.mov_remark}" />
 							
 						</tr>

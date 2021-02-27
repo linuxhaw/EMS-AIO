@@ -55,64 +55,54 @@
 			<div class="logo">
 				<a href="/ManagerProfile" class="simple-text logo-mini "> <img
 					th:src="@{/resources/img/allinone_white.png} ">
-				</a> <a href="/ManagerProfile" class="simple-text logo-normal ">
-					All 1n One | EMS </a>
+				</a> <a href="/ManagerProfile" class="simple-text logo-normal "> All
+					1n One | EMS </a>
 			</div>
-			 <div class="sidebar-wrapper" id="sidebar-wrapper">
-          <ul class="nav">
+			<div class="sidebar-wrapper" id="sidebar-wrapper">
+				<ul class="nav">
+
+					<li><a href="#" data-toggle="collapse"
+						data-target="#staffinfo" class="dropdown-toggle"> Manager
+							Information<i class="now-ui-icons location_map-big"></i>
+					</a>
+						<ul style="list-style: none;" class="collapse in" id="staffinfo">
+							<li><a href="/ManagerProfile"> <i
+									class="now-ui-icons users_single-02"></i>
+									<p>Profile</p>
+							</a></li>
+							<li><a href="/ManagerMovement"> <i
+									class="now-ui-icons business_briefcase-24"></i>
+									<p>Movement</p>
+							</a></li>
+							<li><a href="/ManagerSalary"> <i
+									class="now-ui-icons business_badge"></i>
+									<p>Salary</p>
+							</a></li>
+						</ul></li>
+					<li><a href="/MngStaffInformation"> <i
+							class="now-ui-icons users_single-02"></i>
+							<p>Staff Information</p>
+					</a></li>
 
 
-            <li><a href="/ManagerProfile">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Manager Profile </p>
-            </a>
-          </li>
-
-            <li><a href="/MngStaffInformation">
-                <i class="now-ui-icons users_single-02"></i>
-                <p>Staff Information </p>
-              </a>
-            </li>
-            <li>
-
-                <li><a href="/MngDepartments">
-                    <i class="now-ui-icons travel_istanbul"></i>
-                      <p>Department Reports</p>
-                    </a>
-                  </li>
-                  <li>
-
-                    <li><a href="/MngPositions">
-                        <i class="now-ui-icons ui-1_settings-gear-63"></i>
-                          <p>Position Reports</p>
-                        </a>
-                      </li>
-                      <li>
-
-                        <li><a href="/MngBlacklists">
-                            <i class="now-ui-icons business_badge"></i>
-                              <p>Blacklists Reports</p>
-                            </a>
-                          </li>
-                          <li>
-
-                           
-
-               
-                    <!-- <a href="#" data-toggle="collapse" data-target="#reports">
-                        Reports<i class="now-ui-icons design_bullet-list-67" class="icon-angle-down"></i>
-                         </a> 
-                             <ul style="list-style: none;" class="collapse in" id="reports">
-                             <li><a href="EMS-REP-STF.html"><i class="now-ui-icons users_single-02"></i>Staff </a></li>
-                             <li><a href="EMS-REP-DEP.html"><i class="now-ui-icons travel_istanbul"></i> Department </a></li>
-                             <li><a href="EMS-REP-POS.html"><i class="now-ui-icons ui-1_settings-gear-63"></i> Position</a></li>
-                             <li><a href="EMS-REP-BLK.html"><i class="now-ui-icons business_badge"></i> Blacklists</a></li>
-                              </ul> -->
-                
-
-                    
-          </ul>
-        </div>
+					<li>
+					<li><a href="/MngDepartments"> <i
+							class="now-ui-icons travel_istanbul"></i>
+							<p>Department Reports</p>
+					</a></li>
+					<li>
+					<li><a href="/MngPositions"> <i
+							class="now-ui-icons ui-1_settings-gear-63"></i>
+							<p>Position Reports</p>
+					</a></li>
+					<li>
+					<li><a href="/MngBlacklists"> <i
+							class="now-ui-icons business_badge"></i>
+							<p>Blacklists Reports</p>
+					</a></li>
+					<li>
+				</ul>
+			</div>
 		</div>
 
 		<script th:src="@{/resources/js/core/jquery.min.js}"></script>

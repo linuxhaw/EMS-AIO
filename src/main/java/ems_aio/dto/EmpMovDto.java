@@ -29,6 +29,8 @@ public class EmpMovDto {
 	@Column
 	private Date mov_end;
 	@Column
+	private Double mov_salary;
+	@Column
 	private String mov_remark;
 	@Column
 	private Timestamp mov_create;
@@ -89,12 +91,18 @@ public class EmpMovDto {
 	}
 
 	
+	public Double getMov_salary() {
+		return mov_salary;
+	}
+	public void setMov_salary(Double mov_salary) {
+		this.mov_salary = mov_salary;
+	}
 	public EmpMovDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public EmpMovDto(String mov_id, StaffDto mov_empid, MPOS001 mov_pos, MDEP001 mov_dep, String mov_process,
-			Date mov_start, Date mov_end, String mov_remark, Timestamp mov_create) {
+			Date mov_start, Date mov_end, Double mov_salary, String mov_remark, Timestamp mov_create) {
 		super();
 		this.mov_id = mov_id;
 		this.mov_empid = mov_empid;
@@ -103,9 +111,11 @@ public class EmpMovDto {
 		this.mov_process = mov_process;
 		this.mov_start = mov_start;
 		this.mov_end = mov_end;
+		this.mov_salary = mov_salary;
 		this.mov_remark = mov_remark;
 		this.mov_create = mov_create;
 	}
+
 
 
 	

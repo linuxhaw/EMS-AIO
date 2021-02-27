@@ -25,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ems_aio.dao.DepartmentService;
 import ems_aio.dao.PositionService;
+import ems_aio.dao.SalaryService;
 import ems_aio.dao.StaffService;
 import ems_aio.dto.EmpMovDto;
+import ems_aio.dto.EmpSalDto;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
 import ems_aio.dto.StaffDto;
@@ -36,6 +38,7 @@ import ems_aio.model.DepartmentBean;
 import ems_aio.model.MovementBean;
 import ems_aio.model.PosReportBean;
 import ems_aio.model.PositionBean;
+import ems_aio.model.SalaryBean;
 import ems_aio.model.StaffBean;
 import ems_aio.model.UserBean;
 
@@ -49,7 +52,8 @@ public class ManagerViewController {
 	private PositionService positionserv;
 	@Autowired
 	private ems_aio.dao.MovementService MovementService;
-
+	@Autowired
+	private SalaryService SalaryService;
 	@RequestMapping(value = "/ManagerProfile", method = RequestMethod.GET)
 	public ModelAndView setupStaffList() {
 		
@@ -229,10 +233,7 @@ public class ManagerViewController {
 //			return certifyPagiQuery(1,model);
 //		}
 	//}
-//	@RequestMapping(value="/MngPositions" ,method=RequestMethod.GET)
-//	public ModelAndView MngPositions() {
-//		return new ModelAndView("EMS-MRP-003","user",new UserBean());
-//	}
+
 
 	@RequestMapping(value = "/MngPositions", method = RequestMethod.GET)
 	public String MngPositions(Model model, HttpServletRequest request) {
@@ -361,4 +362,103 @@ public class ManagerViewController {
 			return displayBlackListReport(1,model);
 		}
 	}
+	
+	@GetMapping("/ManagerMovement/searchpage/{pageNo}")
+	public String displaySerachMovement(@PathVariable("pageNo") int pageNo, @Param("id") String search, HttpSession session,
+			Model model) {
+		int pageSize = 4;
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		String id = staff.getEmp_id();
+		UserBean bean = new UserBean();
+		bean.setId(id);
+		model.addAttribute("bean", bean);
+		Page<EmpMovDto> page = MovementService.movementStaffSearchPagi(search,id, pageNo, pageSize);
+		List<EmpMovDto> list = page.getContent();
+
+		if (id.equals("")) {
+			model.addAttribute("msg", "Please Enter data to search!");
+			return "redirect:/ManagerMovement";
+		}
+		if (list.size() == 0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MPM-003";
+		} else {
+			model.addAttribute("movlist", list);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalElements", page.getTotalElements());
+			model.addAttribute("currentPage", pageNo);
+		}
+		return "EMS-MPM-003";
+
+	}
+
+	@GetMapping("/ManagerMovement/page/{pageNo}")
+	public String displayManagerMovement(@PathVariable("pageNo") int pageNo, HttpSession session, Model model) {
+		int pageSize = 6;
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		String id = staff.getEmp_id();
+
+		UserBean bean = new UserBean();
+		bean.setId(id);
+		model.addAttribute("bean", bean);
+		Page<EmpMovDto> page = MovementService.movementStaffPagi(id, pageNo, pageSize);
+		List<EmpMovDto> list = page.getContent();
+		model.addAttribute("movlist", list);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements", page.getTotalElements());
+		model.addAttribute("currentPage", pageNo);
+
+		return "EMS-MPM-003";
+
+	}
+
+	@GetMapping("/ManagerMovement")
+	public String displayMovement(@ModelAttribute("bean") MovementBean bean, HttpSession session, Model model) {
+		String id = bean.getId();
+		if(id!=null) {
+			model.addAttribute("id",id);
+			return displaySerachMovement(1,id,  session, model);
+		}else {
+			return displayManagerMovement(1,  session, model);
+		}
+	}
+	
+	@GetMapping("/ManagerSalary/page/{pageNo}")
+	public String displaySerachSalary(@PathVariable("pageNo") int pageNo,  HttpSession session,
+			Model model) {
+		int pageSize = 6;
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		String id = staff.getEmp_id();
+
+		/*
+		 * UserBean bean = new UserBean(); bean.setId(id); model.addAttribute("bean",
+		 * bean);
+		 */
+		Page<EmpSalDto> page = SalaryService.salaryStaffPagi(id, pageNo, pageSize);
+		List<EmpSalDto> list = page.getContent();
+
+		if (list.size() == 0) {
+			model.addAttribute("msg", " DATA  NOT  FOUND!");
+			return "EMS-MPS-003";
+		} else {
+			model.addAttribute("sallist", list);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalElements", page.getTotalElements());
+			model.addAttribute("currentPage", pageNo);
+		}
+		
+		return "EMS-MPS-003";
+
+	}
+
+	@GetMapping("/ManagerSalary")
+	public String displaySalary(@ModelAttribute("bean") SalaryBean bean, HttpSession session, Model model) {
+		String id = bean.getId();
+
+		model.addAttribute("id", id);
+		return displaySerachSalary(1, session, model);
+
+	}
+	
+
 }

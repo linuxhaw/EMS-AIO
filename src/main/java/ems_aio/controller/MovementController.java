@@ -164,19 +164,19 @@ public class MovementController {
 			dto.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
 			dto.setMov_salary(bean.getSalary());
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
-			if (process.equals("promotion") || process.equals("demotion")) {
+			if (process.equals("Promotion") || process.equals("Demotion")) {
 				dto.setMov_pos(bean.getPos());
 				dto.setMov_dep(staff.getEmp_dep());
 				dto.setMov_process(bean.getProcess());				
 				staff.setEmp_pos(bean.getPos());
-			}else if (process.equals("transfer")) {
+			}else if (process.equals("Transfer")) {
 				dto.setMov_pos(bean.getPos());
 				dto.setMov_dep(bean.getDep());
 				dto.setMov_process(bean.getProcess());	
 				staff.setEmp_pos(bean.getPos());
 				staff.setEmp_dep(bean.getDep());
 				
-			}else if (process.equals("resignation")) {
+			}else if (process.equals("Resignation")) {
 				dto.setMov_process(bean.getProcess());	
 				staff.setEmp_status(false);
 			}else {

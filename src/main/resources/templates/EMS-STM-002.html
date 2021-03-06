@@ -9,15 +9,15 @@
 	function showTextBox() {
 		var designation = document.getElementById("designation");
 		var cPosition = document.getElementById("transferPosition");
-		cPosition.style.display = (designation.value == "transfer")
-				|| (designation.value == "promotion")
-				|| (designation.value == "demotion") ? "block" : "none";
+		cPosition.style.display = (designation.value == "Transfer")
+				|| (designation.value == "Promotion")
+				|| (designation.value == "Demotion") ? "block" : "none";
 		var cSalary = document.getElementById("transferSalary");
-		cSalary.style.display = (designation.value == "transfer")
-				|| (designation.value == "promotion")
-				|| (designation.value == "demotion") ? "block" : "none";
+		cSalary.style.display = (designation.value == "Transfer")
+				|| (designation.value == "Promotion")
+				|| (designation.value == "Demotion") ? "block" : "none";
 		var cDepartment = document.getElementById("transferDepartment");
-		cDepartment.style.display = designation.value == "transfer" ? "block"
+		cDepartment.style.display = designation.value == "Transfer" ? "block"
 				: "none";
 
 	}
@@ -121,10 +121,10 @@
 								th:field="*{process}">
 								<option value="">Choose One of Designation</option>
 								<!-- <option selected disabled>Choose One of Designation</option> -->
-								<option value="promotion">Promotion</option>
-								<option value="demotion">Demotion</option>
-								<option value="transfer">Transfer</option>
-								<option value="resignation">Resignation</option>
+								<option value="Promotion">Promotion</option>
+								<option value="Demotion">Demotion</option>
+								<option value="Transfer">Transfer</option>
+								<option value="Resignation">Resignation</option>
 								<option value="BlackList">Black List</option>
 
 							</select>

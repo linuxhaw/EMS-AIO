@@ -287,7 +287,6 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setId(dto1.getEmp_id());
 		staff.setName(dto1.getEmp_name());
 		staff.setPassword(dto1.getEmp_password());
-		System.out.println(dto1.getEmp_password());
 		staff.setNrc(dto1.getEmp_nrc());
 		staff.setEmail(dto1.getEmp_email());
 		staff.setPhone(dto1.getEmp_phone());
@@ -302,8 +301,10 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		staff.setReligion(dto1.getEmp_religion());
 		staff.setNation(dto1.getEmp_nationality());
 		staff.setDepartment(dto1.getEmp_dep());
+		staff.setDepartmentname(dto1.getEmp_dep().getName());
 		staff.setRole(dto1.getEmp_rol());
 		staff.setPosition(dto1.getEmp_pos());
+		staff.setPositionname(dto1.getEmp_pos().getPosname());
 		staff.setCertify(dto1.getCtf());
 		
 		ctfList.removeAll(dto1.getCtf());
@@ -321,7 +322,7 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 	}
 	
 	@RequestMapping(value = "/updatestaff", method = RequestMethod.POST)
-	public String updaterole(@ModelAttribute("bean")  StaffBean bean, BindingResult bs, ModelMap model,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls) {
+	public String updaterole(@ModelAttribute("bean")  StaffBean bean, BindingResult bs, ModelMap model,@RequestParam(value = "cers" , required = false) String[] cers,@RequestParam(value = "quls" , required = false) String[] quls,RedirectAttributes redirAttrs) {
 
 		
 		boolean b = true;
@@ -376,8 +377,10 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 		}
 		try {
 			StaffService.update(dto, bean.getId());
-			model.addAttribute("msg", "Update successful");
-			return "EMS-STI-002";
+			redirAttrs.addFlashAttribute("msg", "Update successful!");
+			//return "redirect:/displaystaff";
+			return "redirect:/setupstaffupdate?id="+bean.getId();
+			//return "EMS-STI-002";
 		} catch (Exception e) {
 			model.addAttribute("err", "Update fail");
 			return "EMS-STI-002";
@@ -387,3 +390,5 @@ public String displayStaff(@ModelAttribute("bean")StaffBean bean,Model model) {
 	
 	
 }
+
+//<a th:href="@{/setupstaffupdate(id=${data.emp_id})}"><input type="button" value="Update" class="btn btn-round btn-primary" id="roleUpdate" /></a>

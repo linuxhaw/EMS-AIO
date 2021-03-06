@@ -22,6 +22,8 @@ public class SalaryBean {
 	private Double deduction;
 	private Double total;
 	private Timestamp create;
+	private String fromDate;
+	private String toDate;
 	public String getId() {
 		return id;
 	}
@@ -99,6 +101,18 @@ public class SalaryBean {
 	}
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+	public String getToDate() {
+		return toDate;
+	}
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
 	}
 	
 	

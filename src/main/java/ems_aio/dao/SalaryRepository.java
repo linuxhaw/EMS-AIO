@@ -23,14 +23,14 @@ public interface SalaryRepository extends CrudRepository<EmpSalDto,String>{
 	@Query(value = "SELECT * FROM EMPSAL n inner join memp001 m inner join mdep001 d"
 			+ " on m.emp_dep_dep_id=d.dep_id inner join mpos001 p on m.emp_pos_pos_id=p.pos_id on n.sal_empid_emp_id=m.emp_id "
 			+ " WHERE (n.sal_id =?1 OR m.emp_id= ?1 OR m.emp_name=?1 "
-			+ " OR p.pos_name=?1 OR d.dep_name=?1 ) or n.sal_empid_emp_id=?1  ORDER BY  n.sal_date DESC", nativeQuery = true)
+			+ " OR p.pos_name=?1 OR d.dep_name=?1 ) or n.sal_empid_emp_id=?1  ORDER BY  n.sal_id DESC", nativeQuery = true)
 	  Page<EmpSalDto> findSearchPagi(String cname,Pageable pageable);
 	
-	@Query(value = "SELECT * FROM EMPSAL n ORDER BY  n.sal_date DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPSAL n ORDER BY  n.sal_id DESC", nativeQuery = true)
 	  Page<EmpSalDto> findPagi(Pageable pageable);
 	//zay 19
 	
-	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_empid_emp_id =?1 )  ORDER BY  n.sal_date DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_empid_emp_id =?1 )  ORDER BY  n.sal_id DESC", nativeQuery = true)
 	Page<EmpSalDto> salaryStaffPagi(String cname,Pageable pageable);
 	
 	@Query(value = "SELECT * FROM EMPSAL n WHERE (n.sal_empid_emp_id =?1 ) and n.sal_date between ?2 and ?3  ORDER BY  n.sal_date DESC", nativeQuery = true)

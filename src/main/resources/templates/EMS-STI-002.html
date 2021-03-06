@@ -69,10 +69,10 @@ th {
 							type="text" class="form-control" th:field="*{name}" required>
 					</div>
 				</div>
-				<div class="col-md-4 ml-5">
+				<div class="col-md-4 ml-5" hidden>
 					<div class="form-group">
 						<label for="exampleInputUsername">Password</label>
-						<input type="text"  class="form-control" th:field="*{password}" value="*{password}"  required>
+						<input type="text"  class="form-control" th:field="*{password}" value="*{password}" minlength="8" required>
 					</div>
 				</div>
 			</div>
@@ -97,12 +97,6 @@ th {
 					<div class="form-group">
 						<label>PHONE</label> <input type="text" class="form-control"
 							th:field="*{phone}" required>
-					</div>
-				</div>
-				<div class="col-md-4 ml-5">
-					<div class="form-group">
-						<label>SALARY</label> <input type="text" class="form-control"
-							th:field="*{salary}" required>
 					</div>
 				</div>
 			</div>
@@ -192,7 +186,7 @@ th {
 
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						nation <label>NATIONALITY</label> <br> <input type="radio"
+						<label>NATIONALITY</label> <br> <input type="radio"
 							name="nationality" value="Citizen" id="citizen"
 							th:field="*{nation}" checked="true"> <label>Citizen</label>
 						&nbsp; &nbsp; <input type="radio" name="nationality"
@@ -278,29 +272,43 @@ th {
 				<div class="col-md-1"></div>
 				<div class="col-md-4 mr-5">
 					<div class="form-group">
-						<label>DEPARTMENT</label> <br> <select name="department"
+						<label>DEPARTMENT</label> <br>
+						<input type="text"  class="form-control" th:field="*{department}" value="*{department}" readonly="readonly" hidden required>
+						<input type="text"  class="form-control" th:field="*{departmentname}"  readonly="readonly" required>
+						<!-- <select name="department"
 							class="form-control" th:field="*{department}" required>
 							<option value=""></option>
 							<option th:each="list:${session.deplist}" th:value="${list.id}"
 								th:text="${list.name}" th:selected="${list.name==bean.name}"></option>
-						</select>
+						</select> -->
 					</div>
 				</div>
 
 				<div class="col-md-4 ml-5">
 					<div class="form-group">
-						<label>POSITION</label> <br> <select name="position"
-							class="form-control" th:field="*{position}" required>
+						<label>POSITION</label> <br>
+						<input type="text"  class="form-control" th:field="*{position}" value="*{position.posname}" readonly="readonly" hidden required>
+						<input type="text"  class="form-control" th:field="*{positionname}"  readonly="readonly" required>
+						<!-- <select name="position"
+							class="form-control" th:field="*{position}" readonly required>
 							<option value=""></option>
 							<option th:each="list:${session.poslist}"
 								th:value="${list.posid}" th:text="${list.posname}"
 								th:selected="${list.posname==bean.name}"></option>
 
-						</select>
+						</select> -->
 					</div>
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col-md-1 "></div>
+				<div class="col-md-4 mr-5">
+					<div class="form-group">
+						<label>SALARY</label> <input type="text" class="form-control"
+							th:field="*{salary}" style="text-align: right;" readonly="readonly" required>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4 mr-5">

@@ -15,88 +15,97 @@
 			<form>
 
 				<div class="row">
-				<div class="col-md-1 "></div>
+					<div class="col-md-1 "></div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUserId">UserId</label>
-							<p id="exampleInputUserId" class="form-control" th:text="${session.sesUser.emp_id}"></p>
+							<p id="exampleInputUserId" class="form-control"
+								th:text="${session.sesUser.emp_id}"></p>
 						</div>
 					</div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUsername">Username</label>
-							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_name}"></p>
+							<p id="exampleInputUsername" class="form-control"
+								th:text="${session.sesUser.emp_name}"></p>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="row">
-				<div class="col-md-1 "></div>
+					<div class="col-md-1 "></div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label>
-							<p id="exampleInputEmail1" class="form-control" th:text="${session.sesUser.emp_email}"></p>
+							<p id="exampleInputEmail1" class="form-control"
+								th:text="${session.sesUser.emp_email}"></p>
 						</div>
 						&emsp;&emsp;&emsp;&emsp;&emsp;
 					</div>
-					
+
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputNRC">NRC</label>
-							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_nrc}"></p>
+							<p id="exampleInputNRC" class="form-control"
+								th:text="${session.sesUser.emp_nrc}"></p>
 						</div>
 					</div>
-					
-					
+
+
 
 				</div>
-				
-				
-				<div class="row"> 
-				<div class="col-md-1 "></div>
-				
-				<div class="col-md-4 mr-5">
+
+
+				<div class="row">
+					<div class="col-md-1 "></div>
+
+					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputUserPhone">Phone</label>
-							<p id="exampleInputUserPhone" class="form-control" th:text="${session.sesUser.emp_phone}"></p>
+							<p id="exampleInputUserPhone" class="form-control"
+								th:text="${session.sesUser.emp_phone}"></p>
 						</div>
 
 					</div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputNRC">Religion</label>
-							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_religion}"></p>
+							<p id="exampleInputNRC" class="form-control"
+								th:text="${session.sesUser.emp_religion}"></p>
 						</div>
 					</div>
-				
+
 				</div>
-				
+
 				<div class="row">
-				<div class="col-md-1 "></div>
+					<div class="col-md-1 "></div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label for="exampleInputNRC">Race</label>
-							<p id="exampleInputNRC" class="form-control" th:text="${session.sesUser.emp_nationality}"></p>
+							<p id="exampleInputNRC" class="form-control"
+								th:text="${session.sesUser.emp_nationality}"></p>
 						</div>
 					</div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label>Gender</label>
-							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_gender}"></p>
+							<p id="exampleInputUsername" class="form-control"
+								th:text="${session.sesUser.emp_gender}"></p>
 
 						</div>
 					</div>
 
-					
+
 
 				</div>
 
 				<div class="row">
-				<div class="col-md-1 "></div>
+					<div class="col-md-1 "></div>
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label>Address</label>
-							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_address}"></p>
+							<p id="exampleInputUsername" class="form-control"
+								th:text="${session.sesUser.emp_address}"></p>
 
 
 						</div>
@@ -104,7 +113,8 @@
 					<div class="col-md-4 mr-5">
 						<div class="form-group">
 							<label>Marrage Status</label>
-							<p id="exampleInputUsername" class="form-control" th:text="${session.sesUser.emp_marrage}"></p>
+							<p id="exampleInputUsername" class="form-control"
+								th:text="${session.sesUser.emp_marrage}"></p>
 
 						</div>
 					</div>
@@ -118,16 +128,30 @@
 						</div>
 					</div> -->
 				</div>
+				<div class="row">
+					<div class="col-md-1 "></div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>Certificate</label>
+							<table class="form-control">
+								<tr th:each="data: ${ctf}">
+									<td th:text="${data.name}" />
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="col-md-4 mr-5">
+						<div class="form-group">
+							<label>Qualification</label>
+							<table class="form-control">
+								<tr th:each="data: ${qul}">
+									<td th:text="${data.qulname}" />
+								</tr>
+							</table>
+						</div>
+					</div>
 
-
-						<!-- <tr th:each="data: ${sallist}">
-							<td th:text="${data.sal_pos.posname}" />
-							<td th:text="${data.sal_dep.name}" />
-							<td th:text="${data.sal_empid.emp_bnkacc}" />
-							<td th:text="${data.sal_salary}" />
-							<td th:text="${data.sal_date}" />
-						</tr> -->
-
+				</div>
 
 			</form>
 		</div>

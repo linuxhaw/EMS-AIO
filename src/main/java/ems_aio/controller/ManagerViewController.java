@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,8 +30,10 @@ import ems_aio.dao.SalaryService;
 import ems_aio.dao.StaffService;
 import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.EmpSalDto;
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.MQUL001;
 import ems_aio.dto.StaffDto;
 import ems_aio.model.CertifyBean;
 import ems_aio.model.DepReportBean;
@@ -55,8 +58,13 @@ public class ManagerViewController {
 	@Autowired
 	private SalaryService SalaryService;
 	@RequestMapping(value = "/ManagerProfile", method = RequestMethod.GET)
-	public ModelAndView setupStaffList() {
-		
+	public ModelAndView setupStaffList(HttpSession session,Model model) {
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		StaffDto info = StaffService.getByCode(staff.getEmp_id()).get();
+		Set<MCTF001> ctf=info.getCtf();
+		model.addAttribute("ctf",ctf);
+		Set<MQUL001> qul=info.getQul();
+		model.addAttribute("qul",qul);
 		return new ModelAndView("EMS-MRI-003", "user", new UserBean());
 	}
 	/*

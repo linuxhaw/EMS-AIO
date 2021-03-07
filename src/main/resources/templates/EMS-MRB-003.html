@@ -22,37 +22,46 @@
 		</div>
 		<div class="row">
 			<div class="col-md-7"></div>
-			<label style="color: red;font-weight:bolder;" th:text="${msg}"></label>
+			<label style="color: red; font-weight: bolder;" th:text="${msg}"></label>
 		</div>
 		<div class="row">
-<div class="col-md-6"></div>
-<div class="col-md-4">
-				<!-- <form th:action="@{/MngBlacklists}" method="get" th:object="${bean}">
+			<div class="col-md-4">
+				<form th:action="@{/MngBlacklists}" method="get" th:object="${bean}">
 				
 					<div class="input-group no-border" style="padding-top: 10px;">
 						<input type="text" class="form-control" placeholder="Search..."
 						th:value="*{id}" 	th:field="*{id}">
 						<div class="input-group-append">
-    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:45px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2"></button>
-  </div>
+						    <button type="submit" class="btn-primary fa fa-search" style="border-color:lightgrey;width:48px;border-bottom-right-radius: 20px; border-top-right-radius: 20px;" id="basic-addon2"></button>
+						  </div>
 					</div>
-				</form> -->
+				</form>
 			</div>
-			<!-- <div class="col-md-2 ">
-			<a th:href="@{/MngBlacklists}">
+			<div class="col-md-2 ">
+			<a th:href="@{/setupReportBlackList}">
 				<input class="btn btn-round btn-primary" type="reset"></a>
-			</div> -->
+			</div>
+			
+			
+			<div class="col-md-6">
+			
+				<div class="form-group">
+					<!-- <a href="about::printview" style="margin-left: 340px;"
+
+						class="btn btn-round btn-primary">Print</a> -->
+				</div>
+			</div>
 		</div>
 
 
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table">
-					<thead class=" text-primary"> 
-						<th>ID</th> 
-						<th>Name</th> 
-						<th>Department</th> 
-						<th>Position</th> 
+					<thead class=" text-primary">
+						<th>ID</th>
+						<th>Name</th>
+						<th>Department</th>
+						<th>Position</th>
 						<th>Date</th>
 						<th class="text-center">Remarks</th>
 
@@ -130,8 +139,7 @@
 							<a class="page-link active" th:if="${currentPage<totalPages}"
 								aria-label="Previous"
 								th:href="@{'/MngBlacklists/searchpage/'+${totalPages}+'?id='+${id}}">Last</a>
-						</div>
-						<span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
+						</div> <span class="page-link" th:unless="${currentPage<totalPages}">Last</span>
 
 					</li>
 				</ul>

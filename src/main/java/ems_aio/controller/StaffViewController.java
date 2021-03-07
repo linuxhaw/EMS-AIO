@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,9 @@ import ems_aio.dao.SalaryService;
 import ems_aio.dao.StaffService;
 import ems_aio.dto.EmpMovDto;
 import ems_aio.dto.EmpSalDto;
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.MQUL001;
 import ems_aio.dto.StaffDto;
 import ems_aio.model.DateBean;
 import ems_aio.model.MovementBean;
@@ -45,8 +48,13 @@ public class StaffViewController {
 	private SalaryService SalaryService;
 
 	@RequestMapping(value = "/StaffProfile", method = RequestMethod.GET)
-	public ModelAndView StaffProfile() {
-
+	public ModelAndView StaffProfile(HttpSession session,Model model) {
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		StaffDto info = StaffService.getByCode(staff.getEmp_id()).get();
+		Set<MCTF001> ctf=info.getCtf();
+		model.addAttribute("ctf",ctf);
+		Set<MQUL001> qul=info.getQul();
+		model.addAttribute("qul",qul);
 		return new ModelAndView("EMS-SRP-003", "user", new UserBean());
 	}
 
@@ -59,8 +67,6 @@ public class StaffViewController {
 		UserBean bean = new UserBean();
 		bean.setId(search);
 		model.addAttribute("bean", bean);
-		System.out.println(search);
-		System.out.println(id);
 		Page<EmpMovDto> page = MovementService.movementStaffSearchPagi(search, id, pageNo, pageSize);
 		List<EmpMovDto> list = page.getContent();
 

@@ -147,6 +147,7 @@ public class MovementController {
 	@RequestMapping(value = "/addmovement", method = RequestMethod.POST)
 	public String updaterole(@ModelAttribute("bean") @Validated MovementBean bean, BindingResult bs, ModelMap model,RedirectAttributes redirAttrs,HttpSession session) {
 		if (bs.hasErrors()) {
+			System.out.println("hello");
 			return "EMS-STM-002";
 		}
 		EmpMovDto mov=MovementService.getMovLast(bean.getSid().getEmp_id()).get();
@@ -162,18 +163,20 @@ public class MovementController {
 			dto.setMov_remark(bean.getRemark());
 			dto.setMov_create(now);
 			dto.setMov_start(java.sql.Date.valueOf(java.time.LocalDate.now()));
-			dto.setMov_salary(bean.getSalary());
+			
 			StaffDto staff = StaffService.getByCode(bean.getSid().getEmp_id()).get();
 			if (process.equals("Promotion") || process.equals("Demotion")) {
 				dto.setMov_pos(bean.getPos());
 				dto.setMov_dep(staff.getEmp_dep());
-				dto.setMov_process(bean.getProcess());				
+				dto.setMov_process(bean.getProcess());	
+				dto.setMov_salary(bean.getSalary());
 				staff.setEmp_pos(bean.getPos());
 				staff.setEmp_payroll(bean.getSalary());
 			}else if (process.equals("Transfer")) {
 				dto.setMov_pos(bean.getPos());
 				dto.setMov_dep(bean.getDep());
 				dto.setMov_process(bean.getProcess());	
+				dto.setMov_salary(bean.getSalary());
 				staff.setEmp_pos(bean.getPos());
 				staff.setEmp_dep(bean.getDep());
 				staff.setEmp_payroll(bean.getSalary());

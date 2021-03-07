@@ -4,6 +4,7 @@
 	layout:decorate="~{layout}">
 <head>
 <title>Welcome to Our Site</title>
+
 <script type="text/javascript">
 	//Promotion demotion transfer .js
 	function showTextBox() {
@@ -52,6 +53,7 @@
 							$("#prepos").val(data.emp_pos.posname);
 							$("#predep").val(data.emp_dep.name);
 							$("#presalary").val(data.emp_payroll);
+							$("#salary").val(data.emp_payroll);
 
 						}).fail(function(data) {
 							console.log(data)
@@ -168,8 +170,10 @@
 				<div class="row">
 					<div class="col-md-5 ml-5">
 						<div class="form-group" id="transferSalary" style="display: none;">
-							<label for="transferSalary">New Salary</label>
-							<input type="number" class="form-control" th:field="*{salary}" style="text-align: right;" required>
+							<label for="transferSalary">New Salary</label> <input
+								type="number" class="form-control" th:field="*{salary}"
+								style="text-align: right;">
+
 						</div>
 					</div>
 				</div>

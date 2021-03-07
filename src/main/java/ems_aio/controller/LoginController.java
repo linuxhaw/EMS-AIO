@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,8 +27,10 @@ import ems_aio.dao.BankService;
 import ems_aio.dao.DepartmentService;
 import ems_aio.dao.StaffService;
 import ems_aio.dto.MBNK001;
+import ems_aio.dto.MCTF001;
 import ems_aio.dto.MDEP001;
 import ems_aio.dto.MPOS001;
+import ems_aio.dto.MQUL001;
 import ems_aio.dto.StaffDto;
 import ems_aio.model.BankBean;
 import ems_aio.model.CertifyBean;
@@ -98,10 +101,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/AdminProfile", method = RequestMethod.GET)
-	public ModelAndView setupStaffList(HttpSession session) {
-		StaffDto staffget = (StaffDto) session.getAttribute("sesUser");
-		StaffBean staff = new StaffBean();
-		staff.setCertify(staffget.getCtf());
+	public ModelAndView setupStaffList(HttpSession session,Model model) {
+		StaffDto staff = (StaffDto) session.getAttribute("sesUser");
+		StaffDto info = service.getByCode(staff.getEmp_id()).get();
+		Set<MCTF001> ctf=info.getCtf();
+		model.addAttribute("ctf",ctf);
+		Set<MQUL001> qul=info.getQul();
+		model.addAttribute("qul",qul);
 		return new ModelAndView("EMS-ARI-003", "bean", new UserBean());
 	}
 	/*@GetMapping("/displaybank")

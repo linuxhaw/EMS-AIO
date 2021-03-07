@@ -169,13 +169,14 @@ public class MovementController {
 				dto.setMov_dep(staff.getEmp_dep());
 				dto.setMov_process(bean.getProcess());				
 				staff.setEmp_pos(bean.getPos());
+				staff.setEmp_payroll(bean.getSalary());
 			}else if (process.equals("Transfer")) {
 				dto.setMov_pos(bean.getPos());
 				dto.setMov_dep(bean.getDep());
 				dto.setMov_process(bean.getProcess());	
 				staff.setEmp_pos(bean.getPos());
 				staff.setEmp_dep(bean.getDep());
-				
+				staff.setEmp_payroll(bean.getSalary());
 			}else if (process.equals("Resignation")) {
 				dto.setMov_process(bean.getProcess());	
 				staff.setEmp_status(false);

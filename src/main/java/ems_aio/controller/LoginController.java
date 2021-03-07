@@ -32,6 +32,7 @@ import ems_aio.dto.StaffDto;
 import ems_aio.model.BankBean;
 import ems_aio.model.CertifyBean;
 import ems_aio.model.PositionBean;
+import ems_aio.model.StaffBean;
 import ems_aio.model.UserBean;
 
 @Controller
@@ -54,6 +55,7 @@ public class LoginController {
 		Optional<StaffDto> login = service.getByCode(bean.getId());
 		if (login.isPresent()) {
 			StaffDto check = login.get();
+			//System.out.println(check.getCtf().size());
 			if (bean.getPassword().equals(check.getEmp_password())) {
 				if (check.getEmp_rol().getRolid().equals("ROL001")) {
 					link = "redirect:/admindash";
@@ -96,8 +98,11 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/AdminProfile", method = RequestMethod.GET)
-	public ModelAndView setupStaffList() {
-		return new ModelAndView("EMS-ARI-003", "user", new UserBean());
+	public ModelAndView setupStaffList(HttpSession session) {
+		StaffDto staffget = (StaffDto) session.getAttribute("sesUser");
+		StaffBean staff = new StaffBean();
+		staff.setCertify(staffget.getCtf());
+		return new ModelAndView("EMS-ARI-003", "bean", new UserBean());
 	}
 	/*@GetMapping("/displaybank")
 	public String displayBank(@ModelAttribute("bean")BankBean bean,Model model) {
